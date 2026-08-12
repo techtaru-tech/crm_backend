@@ -1,0 +1,52 @@
+/*
+ |----------------------------------------------------------------
+ | report-date-range.css — static styles for the report date-range
+ | filter component used across every report page.
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/components/report-date-range.blade.php
+ | via <link rel="stylesheet" href="{{ asset('css/views/components/report-date-range.css') }}">.
+ |
+ | All STATIC styles for the component live here. The view contains
+ | no dynamic style values.
+ */
+
+.rdr-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-end;
+}
+
+.rdr-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.25rem;
+}
+
+.rdr-select,
+.rdr-input {
+    display: block;
+    border-radius: 0.5rem;
+    border: 1px solid #d1d5db;
+    background: #fff;
+    font-size: 0.875rem;
+    padding: 0.375rem 0.625rem;
+    color: #374151;
+}
+
+.rdr-select {
+    width: 11rem;
+}
+
+.rdr-input {
+    width: 9rem;
+}
+
+.rdr-custom {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-end;
+}

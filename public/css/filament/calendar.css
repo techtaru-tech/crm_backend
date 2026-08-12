@@ -1,0 +1,134 @@
+        .cal-filters {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        .cal-filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        .cal-filter-group label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .dark .cal-filter-group label {
+            color: #9ca3af;
+        }
+        .cal-filter-group select {
+            padding: 0.5rem 2rem 0.5rem 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            background: #fff;
+            color: #111827;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.25rem;
+            min-width: 10rem;
+        }
+        .cal-filter-group select:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+        }
+        .dark .cal-filter-group select {
+            background-color: #1f2937;
+            border-color: #374151;
+            color: #f3f4f6;
+        }
+        .cal-legend {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-left: auto;
+            font-size: 0.8125rem;
+            color: #6b7280;
+        }
+        .dark .cal-legend {
+            color: #9ca3af;
+        }
+        .cal-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+        .cal-legend-dot {
+            width: 0.625rem;
+            height: 0.625rem;
+            border-radius: 9999px;
+            flex-shrink: 0;
+        }
+        .cal-legend-dot--upcoming { background: #4f46e5; }
+        .cal-legend-dot--overdue { background: #dc2626; }
+        .cal-legend-dot--completed { background: #059669; }
+        #task-calendar {
+            background: #fff;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            border: 1px solid #e5e7eb;
+        }
+        .dark #task-calendar {
+            background: #1f2937;
+            border-color: #374151;
+        }
+        /* FullCalendar overrides for indigo theme */
+        #task-calendar .fc-button-primary {
+            background-color: #4f46e5 !important;
+            border-color: #4338ca !important;
+            font-weight: 500;
+        }
+        #task-calendar .fc-button-primary:hover {
+            background-color: #4338ca !important;
+        }
+        #task-calendar .fc-button-primary:not(:disabled).fc-button-active {
+            background-color: #3730a3 !important;
+            border-color: #312e81 !important;
+        }
+        #task-calendar .fc-today-button:disabled {
+            opacity: 0.5;
+        }
+        #task-calendar .fc-day-today {
+            background-color: rgba(79, 70, 229, 0.05) !important;
+        }
+        .dark #task-calendar .fc-day-today {
+            background-color: rgba(79, 70, 229, 0.15) !important;
+        }
+        #task-calendar .fc-event {
+            border: none;
+            padding: 2px 4px;
+            font-size: 0.8125rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #task-calendar .fc-event:hover {
+            opacity: 0.85;
+        }
+        #task-calendar .fc-col-header-cell-cushion,
+        #task-calendar .fc-daygrid-day-number {
+            color: #374151;
+            text-decoration: none;
+        }
+        .dark #task-calendar .fc-col-header-cell-cushion,
+        .dark #task-calendar .fc-daygrid-day-number {
+            color: #d1d5db;
+        }
+        .dark #task-calendar .fc-scrollgrid,
+        .dark #task-calendar .fc-scrollgrid td,
+        .dark #task-calendar .fc-scrollgrid th {
+            border-color: #374151;
+        }
+        .dark #task-calendar .fc-theme-standard td,
+        .dark #task-calendar .fc-theme-standard th {
+            border-color: #374151;
+        }
+        .dark #task-calendar .fc-toolbar-title {
+            color: #f3f4f6;
+        }

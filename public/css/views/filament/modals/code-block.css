@@ -1,0 +1,25 @@
+/*
+ |----------------------------------------------------------------
+ | code-block.css — modal that displays raw payload / code samples
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/modals/code-block.blade.php
+ */
+
+.cb-modal-scroll {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.cb-modal-pre {
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    font-family: 'Fira Code', 'Cascadia Code', monospace;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-all;
+    margin: 0;
+}

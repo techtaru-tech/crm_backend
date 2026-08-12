@@ -1,0 +1,23 @@
+/*
+ |------------------------------------------------------------------
+ | live-preview.css — FormResource live-preview placeholder
+ |------------------------------------------------------------------
+ |
+ | Static styles for the "Live Preview" Section's iframe wrapper on
+ | the FormResource edit page.  Extracted from inline style=""
+ | attributes that were previously concatenated into the HtmlString
+ | returned by the Placeholder content callback, per CodeCanyon's
+ | "no inline styles unless dynamic" rule.
+ |
+ | The 600px height is static (no per-record variation), so it can
+ | live as a class instead of an inline rule.
+ */
+
+.lh-form-live-preview {
+    height: 600px;
+}
+
+.lh-form-live-preview__iframe {
+    height: calc(600px - 40px);
+    border: none;
+}

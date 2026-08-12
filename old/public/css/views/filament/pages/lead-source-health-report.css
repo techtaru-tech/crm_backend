@@ -1,0 +1,47 @@
+/*
+ |----------------------------------------------------------------
+ | lead-source-health-report.css — static styles for Lead Source Health
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/pages/lead-source-health-report.blade.php
+ | All STATIC styles live here.  Any remaining inline style="..."
+ | attributes on the view MUST contain Blade {{ }} interpolation
+ | (dynamic) — those are allowed per reviewer rules.
+ */
+
+/* Layout */
+.sh-section-overflow{overflow:hidden}
+.sh-section-header{padding:1rem 1.25rem;border-bottom:1px solid #f3f4f6}
+.sh-section-title{font-size:1rem;font-weight:600;color:#111827}
+.sh-section-sub{font-size:.8125rem;color:#6b7280;margin-top:.25rem}
+.sh-empty{padding:3rem;text-align:center;color:#9ca3af}
+.sh-th-right{text-align:right}
+
+/* Table */
+.sh-table{width:100%;font-size:.875rem;border-collapse:collapse;background:#fff}
+.sh-table th{padding:.75rem 1rem;text-align:left;font-weight:500;color:#6b7280;background:#f9fafb;border-bottom:1px solid #e5e7eb}
+.sh-table td{padding:.75rem 1rem;border-bottom:1px solid #f3f4f6;vertical-align:middle}
+
+/* Cells */
+.sh-cell-name{font-weight:500;color:#111827}
+.sh-cell-time{color:#4b5563}
+.sh-cell-num{text-align:right;color:#374151}
+.sh-cell-nodata{color:#9ca3af;font-size:.75rem}
+.sh-cell-wrap{display:flex;gap:.5rem;align-items:center}
+.sh-bar-fixed{width:80px}
+.sh-rate-text{font-size:.75rem;color:#4b5563}
+
+/* Badges */
+.sh-badge{display:inline-block;padding:.125rem .5rem;border-radius:9999px;font-size:.75rem;font-weight:600}
+.sh-green{background:#d1fae5;color:#065f46}
+.sh-red{background:#fee2e2;color:#991b1b}
+.sh-yellow{background:#fef3c7;color:#92400e}
+.sh-gray{background:#f3f4f6;color:#4b5563}
+
+/* Bar */
+.sh-bar-wrap{width:100%;background:#f3f4f6;border-radius:.25rem;height:.5rem;overflow:hidden}
+.sh-bar{height:100%;background:#4f46e5}
+
+/* Error / actions */
+.sh-error{color:#b91c1c;font-size:.75rem;max-width:180px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.sh-actions a{display:inline-block;margin-right:.375rem;font-size:.75rem;color:#4f46e5;text-decoration:underline}

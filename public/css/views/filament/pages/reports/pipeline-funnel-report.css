@@ -1,0 +1,43 @@
+/*
+ |----------------------------------------------------------------
+ | pipeline-funnel-report.css — static styles for Pipeline Funnel report
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/pages/reports/pipeline-funnel-report.blade.php
+ | All STATIC styles live here.  Any remaining inline style="..."
+ | attributes on the view MUST contain Blade {{ }} interpolation
+ | (dynamic) — those are allowed per reviewer rules.
+ */
+
+/* Layout */
+.pf-page{display:flex;flex-direction:column;gap:1.5rem}
+.pf-section-pad{padding:1.5rem}
+.pf-section-overflow{overflow:hidden}
+.pf-section-header{padding:1rem 1.5rem;border-bottom:1px solid #f3f4f6}
+.pf-section-title{font-size:1rem;font-weight:600;color:#111827}
+.pf-section-title-mb{font-size:1rem;font-weight:600;color:#111827;margin-bottom:1.5rem}
+.pf-filter-row{display:flex;gap:1rem;align-items:flex-end}
+.pf-label{display:block;font-size:.875rem;font-weight:500;color:#374151;margin-bottom:.25rem}
+.pf-select{display:block;width:14rem;border-radius:.5rem;border:1px solid #d1d5db;background:#fff;font-size:.875rem;padding:.375rem .625rem;color:#374151}
+.pf-empty{padding:3rem;text-align:center;color:#9ca3af}
+.pf-drop-down{color:#ef4444}
+.pf-drop-top{color:#9ca3af}
+
+/* Funnel rows */
+.pf-funnel-row{display:flex;align-items:center;gap:1rem;margin-bottom:.75rem}
+.pf-stage-label{width:8rem;text-align:right;font-size:.875rem;font-weight:500;color:#4b5563;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex-shrink:0}
+.pf-bar-wrap{flex:1}
+.pf-bar{display:flex;align-items:center;justify-content:center;color:#fff;font-size:.875rem;font-weight:600;border-radius:.375rem;padding:.5rem 0;transition:width .5s;min-width:80px}
+.pf-dropoff{width:7rem;font-size:.875rem;flex-shrink:0}
+
+/* Table */
+.pf-table{width:100%;font-size:.875rem;border-collapse:collapse}
+.pf-table th{padding:.75rem 1.5rem;text-align:left;font-weight:500;color:#6b7280;background:#f9fafb}
+.pf-table th:not(:first-child){text-align:right}
+.pf-table td{padding:.75rem 1.5rem;border-bottom:1px solid #f3f4f6}
+.pf-table td:not(:first-child){text-align:right}
+.pf-table tr:hover td{background:#f9fafb}
+.pf-cell-stage{font-weight:500;color:#374151}
+.pf-cell-count{font-weight:600;color:#111827}
+.pf-cell-dropoff{color:#ef4444}
+.pf-cell-days{color:#374151}

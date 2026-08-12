@@ -1,0 +1,86 @@
+/*
+ |----------------------------------------------------------------
+ | team-settings.css — static styles for the tenant Team Settings page
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/pages/settings/team-settings-page.blade.php
+ | via <link rel="stylesheet" href="{{ asset('css/filament/team-settings.css') }}">.
+ |
+ | All STATIC styles for the page live here.  The view keeps a small
+ | number of inline style attributes for genuinely DYNAMIC values:
+ |   - Seat-usage progress bar width:  style="width: {{ $usedPct }}%"
+ |
+ | Buyers can override any class by adding a higher-specificity rule
+ | in a custom stylesheet — the panel-provider render hook loads
+ | tenant stylesheets after this file.
+ */
+
+/* ─── Existing utility classes (referenced by view markup) ─── */
+.ts-section{padding:1.5rem}
+.ts-table{width:100%;font-size:14px;border-collapse:collapse}
+.ts-table th{padding:10px 16px;text-align:left;font-weight:600;color:#6b7280;background:#f9fafb;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.ts-table th:last-child{text-align:right}
+.ts-table td{padding:14px 16px;border-bottom:1px solid #f1f5f9;font-size:14px;vertical-align:middle}
+.ts-table td:last-child{text-align:right}
+.ts-table tr:hover td{background:#fafbff}
+.ts-badge{display:inline-block;padding:3px 10px;font-size:12px;font-weight:600;border-radius:999px;letter-spacing:-.005em}
+.ts-badge-manager{background:#eef2ff;color:#4338ca}
+.ts-badge-member{background:#ecfeff;color:#0e7490}
+.ts-badge-admin{background:#fef3c7;color:#92400e}
+.ts-badge-active{background:#dcfce7;color:#166534}
+.ts-badge-suspended{background:#fee2e2;color:#991b1b}
+.ts-progress-bg{width:100%;height:8px;background:#e5e7eb;border-radius:9999px;overflow:hidden}
+.ts-progress-bar{height:100%;border-radius:9999px;background:#4f46e5;transition:width .3s}
+.ts-avatar{width:30px;height:30px;border-radius:50%;background:#e0e7ff;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#4338ca;flex-shrink:0;margin-right:10px}
+.ts-btn{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;font-size:12px;font-weight:500;border-radius:6px;border:1px solid transparent;cursor:pointer;transition:background .15s,border-color .15s;background:transparent}
+.ts-btn-gray{color:#4b5563;border-color:#e5e7eb}
+.ts-btn-gray:hover{background:#f3f4f6;border-color:#d1d5db}
+.ts-btn-warn{color:#b45309;border-color:#fde68a}
+.ts-btn-warn:hover{background:#fffbeb}
+.ts-btn-success{color:#15803d;border-color:#bbf7d0}
+.ts-btn-success:hover{background:#f0fdf4}
+.ts-btn-danger{color:#b91c1c;border-color:#fecaca}
+.ts-btn-danger:hover{background:#fef2f2}
+.ts-actions{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+
+/* ─── Role permissions banner ─── */
+.ts-role-banner{background:linear-gradient(135deg,#eef2ff 0%,#ede9fe 100%);border:1px solid #c7d2fe;border-radius:12px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start;margin-bottom:20px}
+.ts-role-icon{background:#4f46e5;border-radius:8px;padding:8px;color:#fff;flex-shrink:0}
+.ts-role-body{flex:1;min-width:0}
+.ts-role-title{margin:0 0 4px;font-weight:600;color:#1e1b4b;font-size:14px}
+.ts-role-lede{margin:0 0 8px;color:#4c4a7c;font-size:13px;line-height:1.55}
+.ts-role-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-top:6px}
+.ts-role-card{background:#fff;border:1px solid #e0e7ff;border-radius:8px;padding:10px 12px}
+.ts-role-card-h-manager{margin:0 0 3px;font-weight:600;color:#4338ca;font-size:13px}
+.ts-role-card-h-member{margin:0 0 3px;font-weight:600;color:#0f766e;font-size:13px}
+.ts-role-card-desc{margin:0;color:#4b5563;font-size:12px;line-height:1.5}
+
+/* ─── Seat-usage section ─── */
+.ts-seat-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:12px}
+.ts-seat-title{margin:0 0 2px;font-size:15px;font-weight:600;color:#111827}
+.ts-seat-sub{margin:0;font-size:13px;color:#6b7280}
+.ts-seat-right{text-align:right}
+.ts-seat-count{font-size:22px;font-weight:700;color:#4f46e5}
+.ts-seat-count-suffix{font-size:13px;font-weight:400;color:#9ca3af}
+.ts-seat-plan{font-size:12px;color:#9ca3af;margin-top:.125rem}
+.ts-seat-plan-name{font-weight:500;color:#4b5563}
+.ts-progress-wrap{margin-bottom:10px}
+.ts-seat-limit-msg{margin-top:10px;border-radius:8px;background:#fef2f2;padding:8px 14px;font-size:13px;color:#b91c1c;font-weight:500}
+
+/* ─── Team-members section ─── */
+.ts-members-section{overflow:hidden;margin-top:1.25rem;padding:0}
+.ts-members-header{padding:14px 20px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.ts-members-h{margin:0;font-size:15px;font-weight:600;color:#111827}
+.ts-th-right{text-align:right}
+
+/* ─── Member row internals ─── */
+.ts-row-name{color:#111827;font-weight:500}
+.ts-row-user{display:flex;align-items:center;gap:10px}
+.ts-row-self{color:#9ca3af;font-weight:400;font-size:12px;margin-left:4px}
+.ts-row-email{color:#6b7280}
+.ts-empty-cell{text-align:center;padding:32px 20px;color:#9ca3af}
+
+/* ─── Editable member-role <select> (manager/member) ─── */
+.ts-role-select{padding:4px 26px 4px 10px;font-size:13px;font-weight:500;color:#374151;background-color:#fff;border:1px solid #e5e7eb;border-radius:8px;cursor:pointer;outline:none;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 5l3 3 3-3' fill='none' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center}
+.ts-role-select:hover{border-color:#a5b4fc}
+.ts-role-select:focus{border-color:#6366f1;box-shadow:0 0 0 2px rgba(99,102,241,.15)}

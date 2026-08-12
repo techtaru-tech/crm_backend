@@ -1,0 +1,66 @@
+/*
+ |----------------------------------------------------------------
+ | billing-settings.css — super-admin payment-gateway editor hero
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/super-admin/pages/billing-settings.blade.php
+ */
+
+.bse-hero {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: #fff;
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 30px rgba(79, 70, 229, .25);
+}
+
+.bse-eyebrow {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    opacity: .85;
+    margin: 0 0 6px;
+}
+
+.bse-title {
+    font-size: 22px;
+    font-weight: 800;
+    margin: 0 0 6px;
+}
+
+.bse-body {
+    font-size: 14px;
+    opacity: .9;
+    margin: 0;
+    max-width: 760px;
+}
+
+/*
+ | One-time cron-setup snippet (BillingSettingsPage form section).
+ | Extracted from inline style="" attributes on the <pre> + two
+ | helper <p> tags inside Placeholder::content(HtmlString) so the
+ | page Blade and Placeholder content carry no inline styles.
+ */
+.bse-cron-line {
+    margin: 0;
+    padding: 12px 16px;
+    background: #1f2937;
+    color: #f3f4f6;
+    border-radius: 6px;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 13px;
+    overflow-x: auto;
+    line-height: 1.6;
+}
+
+.bse-cron-help {
+    margin: 10px 0 0;
+    color: #6b7280;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.bse-cron-help--tight {
+    margin-top: 6px;
+}

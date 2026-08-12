@@ -1,0 +1,13 @@
+{
+    "name": "HelloWorld",
+    "alias": "helloworld",
+    "description": "Example LeadHub module. Demonstrates routes, views, a service provider and the module.json manifest layout used by every module.",
+    "version": "1.0.0",
+    "keywords": ["example", "starter"],
+    "active": 0,
+    "order": 0,
+    "providers": [
+        "Modules\\HelloWorld\\Providers\\HelloWorldServiceProvider"
+    ],
+    "files": []
+}

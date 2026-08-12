@@ -1,0 +1,25 @@
+        .llf-section{padding:0}
+        .llf-header{display:flex;align-items:center;gap:.5rem;padding:1rem 1.5rem;border-bottom:1px solid #f3f4f6}
+        .llf-ping{position:relative;display:inline-flex;width:.625rem;height:.625rem}
+        .llf-ping-dot{position:relative;display:inline-flex;width:.625rem;height:.625rem;border-radius:9999px;background:#22c55e}
+        .llf-ping-ring{position:absolute;display:inline-flex;width:100%;height:100%;border-radius:9999px;background:#86efac;opacity:.75;animation:llf-ping 1s cubic-bezier(0,0,.2,1) infinite}
+        @keyframes llf-ping{75%,100%{transform:scale(2);opacity:0}}
+        .llf-title{font-size:1rem;font-weight:600;color:#111827}
+        .llf-table{width:100%;font-size:.875rem;border-collapse:collapse}
+        .llf-table thead th{padding:.625rem 1.5rem;text-align:left;font-weight:500;font-size:.75rem;color:#6b7280;text-transform:uppercase;letter-spacing:.05em;background:#f9fafb;border-bottom:1px solid #f3f4f6}
+        .llf-table thead th:last-child{text-align:right}
+        .llf-table tbody td{padding:.625rem 1.5rem;border-bottom:1px solid #f9fafb;vertical-align:middle}
+        .llf-table tbody tr:hover td{background:#f9fafb}
+        .llf-name{font-weight:500;color:#111827;text-decoration:none}
+        .llf-name:hover{color:var(--primary-600, #4f46e5)}
+        .llf-email{color:#6b7280;font-size:.8125rem;max-width:18rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+        .llf-badge{display:inline-flex;align-items:center;padding:.125rem .5rem;font-size:.75rem;border-radius:9999px;font-weight:500;white-space:nowrap}
+        .llf-badge-source{background:rgba(79,70,229,.08);color:#4338ca}
+        .llf-badge-status-new{background:#dcfce7;color:#15803d}
+        .llf-badge-status-contacted{background:#dbeafe;color:#1d4ed8}
+        .llf-badge-status-qualified{background:#fef3c7;color:#92400e}
+        .llf-badge-status-lost{background:#fee2e2;color:#b91c1c}
+        .llf-badge-status-default{background:#f3f4f6;color:#374151}
+        .llf-new-tag{margin-left:.375rem;display:inline-flex;align-items:center;padding:.0625rem .375rem;font-size:.6875rem;font-weight:600;background:#dcfce7;color:#15803d;border-radius:9999px}
+        .llf-time{color:#9ca3af;font-size:.75rem;text-align:right;white-space:nowrap}
+        .llf-empty{text-align:center;padding:2.5rem 1.5rem;color:#9ca3af;font-size:.875rem}

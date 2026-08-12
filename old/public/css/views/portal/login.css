@@ -1,0 +1,40 @@
+/*
+ |----------------------------------------------------------------
+ | login.css — static styles for the lead-portal sign-in page
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/portal/login.blade.php
+ | via <link rel="stylesheet" href="{{ asset('css/views/portal/login.css') }}">.
+ |
+ | All STATIC styles for the page live here.  The view contains no
+ | dynamic Blade-interpolated inline styles.
+ |
+ | Class prefix: pl- (portal-login).
+ */
+
+.pl-wrap {
+    max-width: 440px;
+    margin: 80px auto;
+}
+
+.pl-lead {
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+.pl-error {
+    color: #dc2626;
+    font-size: 13px;
+    margin-top: -10px;
+    margin-bottom: 14px;
+}
+
+.pl-submit { width: 100%; }
+
+.pl-foot {
+    margin-top: 24px;
+    color: #9ca3af;
+    font-size: 12px;
+    text-align: center;
+}

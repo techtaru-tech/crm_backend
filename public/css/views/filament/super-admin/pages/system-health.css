@@ -1,0 +1,114 @@
+/*
+ |------------------------------------------------------------------
+ | super-admin/pages/system-health.css — static styles for SA system health
+ |------------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/super-admin/pages/system-health.blade.php
+ | via <link rel="stylesheet" href="{{ asset('css/views/filament/super-admin/pages/system-health.css') }}">.
+ |
+ | Inline style="" attributes in the view are reserved for genuinely
+ | DYNAMIC values: the disk-usage progress bar combines `width: {{ $disk['pct'] }}%`
+ | with a `background` color flipped by the threshold — those stay inline.
+ */
+
+/* ─── Page grid ─── */
+.sh-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+/* ─── Cards ─── */
+.sh-card {
+    background: #fff;
+    border-radius: .75rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .06);
+    border: 1px solid #e5e7eb;
+}
+.sh-card-head {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+.sh-card-title {
+    font-size: .9375rem;
+    font-weight: 600;
+    color: #111827;
+    margin: 0;
+}
+
+/* ─── System info list ─── */
+.sh-info-body {
+    padding: .5rem 1.5rem;
+}
+.sh-info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: .625rem 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+.sh-info-label {
+    font-size: .8125rem;
+    color: #6b7280;
+}
+.sh-info-value {
+    font-size: .8125rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+/* ─── Disk usage card body ─── */
+.sh-disk-body {
+    padding: 1.5rem;
+}
+.sh-disk-summary {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .75rem;
+}
+.sh-disk-summary-text {
+    font-size: .8125rem;
+    color: #6b7280;
+}
+.sh-disk-summary-pct {
+    font-size: .8125rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+/* ─── Disk usage progress bar (track only; fill keeps dynamic inline style) ─── */
+.sh-disk-track {
+    width: 100%;
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+/* ─── Three-up stat row ─── */
+.sh-stat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+.sh-stat {
+    text-align: center;
+}
+.sh-stat-label {
+    font-size: .75rem;
+    color: #6b7280;
+    margin: 0;
+}
+.sh-stat-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111827;
+    margin: .25rem 0 0;
+}
+.sh-stat-value-free {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #10b981;
+    margin: .25rem 0 0;
+}

@@ -1,0 +1,42 @@
+/*
+ |----------------------------------------------------------------
+ | revenue-by-rep-report.css — static styles for Revenue by Rep report
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/pages/revenue-by-rep-report.blade.php
+ | All STATIC styles live here.  Any remaining inline style="..."
+ | attributes on the view MUST contain Blade {{ }} interpolation
+ | (dynamic) — those are allowed per reviewer rules.
+ */
+
+/* Layout */
+.rr-page{display:flex;flex-direction:column;gap:1.5rem}
+.rr-section-pad{padding:1.5rem}
+.rr-section-pad-sm{padding:1.25rem}
+.rr-section-overflow{overflow:hidden}
+.rr-section-header{padding:1rem 1.25rem;border-bottom:1px solid #f3f4f6}
+.rr-section-title{font-size:1rem;font-weight:600;color:#111827}
+.rr-section-title-mb{font-size:1rem;font-weight:600;color:#111827;margin-bottom:1rem}
+.rr-empty{padding:3rem;text-align:center;color:#9ca3af}
+.rr-date-label{display:block;font-size:.75rem;font-weight:500;color:#4b5563;margin-bottom:.25rem}
+
+/* Cells */
+.rr-cell-name{font-weight:500;color:#111827}
+.rr-cell-won{color:#4f46e5;font-weight:600}
+
+/* Table */
+.rr-table{width:100%;font-size:.875rem;border-collapse:collapse;background:#fff}
+.rr-table th{padding:.75rem 1rem;text-align:left;font-weight:500;color:#6b7280;background:#f9fafb;border-bottom:1px solid #e5e7eb}
+.rr-table td{padding:.75rem 1rem;border-bottom:1px solid #f3f4f6}
+.rr-table th:not(:first-child),.rr-table td:not(:first-child){text-align:right}
+
+/* Bar */
+.rr-bar-row{display:flex;align-items:center;gap:1rem;margin-bottom:.625rem}
+.rr-bar-label{width:10rem;text-align:right;font-size:.8125rem;color:#374151;font-weight:500;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rr-bar-wrap{flex:1;background:#f3f4f6;border-radius:.25rem;overflow:hidden;height:1.25rem}
+.rr-bar{height:100%;background:#4f46e5;transition:width .4s;color:#fff;font-size:.75rem;font-weight:600;display:flex;align-items:center;padding-left:.5rem}
+.rr-bar-value{width:7rem;font-size:.8125rem;color:#111827;font-weight:600;flex-shrink:0;text-align:right}
+
+/* Date form */
+.rr-date-form{display:flex;gap:.75rem;align-items:flex-end}
+.rr-date-form select,.rr-date-form input{padding:.375rem .625rem;border:1px solid #d1d5db;border-radius:.5rem;background:#fff;font-size:.875rem;color:#374151}

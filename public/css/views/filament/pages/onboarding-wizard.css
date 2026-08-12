@@ -1,0 +1,58 @@
+/*
+ |----------------------------------------------------------------
+ | onboarding-wizard.css — hero block for the tenant onboarding wizard
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/pages/onboarding-wizard.blade.php
+ */
+
+.ow-hero {
+    background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+    color: #fff;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 10px 25px -10px rgba(79, 70, 229, .4);
+}
+
+.ow-hero-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.ow-hero-icon-wrap {
+    background: rgba(255, 255, 255, .15);
+    border-radius: .75rem;
+    padding: .75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ow-hero-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 .25rem 0;
+}
+
+.ow-hero-sub {
+    margin: 0;
+    opacity: .9;
+    font-size: .9375rem;
+}
+
+/*
+ * .ow-finish-btn — wizard "Finish setup" submit button.
+ * Extracted from inline style on the HtmlString that
+ * OnboardingWizard::form() builds for ->submitAction().
+ */
+.ow-finish-btn {
+    background: #4f46e5;
+    color: #fff;
+    font-weight: 600;
+    padding: .625rem 1.25rem;
+    border-radius: .5rem;
+    border: none;
+    cursor: pointer;
+}

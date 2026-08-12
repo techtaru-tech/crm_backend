@@ -1,0 +1,20 @@
+/*
+ |----------------------------------------------------------------
+ | _form-actions.css — shared submit-row styles for tenant settings
+ |----------------------------------------------------------------
+ |
+ | This shared partial provides the same right-aligned submit-button
+ | row that every minimal tenant settings page (branding, general,
+ | messaging, security, storage) uses.  Each of those views links
+ | this file via:
+ |   <link rel="stylesheet" href="{{ asset('css/views/filament/pages/settings/_form-actions.css') }}">
+ |
+ | The leading underscore mirrors Sass partial convention — it's
+ | shared between siblings, not a stand-alone per-view file.
+ */
+
+/* ─── Standard save-action row ─── */
+.fs-form-actions{display:flex;justify-content:flex-end;padding-top:1.25rem}
+
+/* ─── Multi-button save-action row (used by storage settings) ─── */
+.fs-form-actions-multi{display:flex;justify-content:flex-end;gap:.75rem;padding-top:1.25rem}

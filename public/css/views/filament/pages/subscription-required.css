@@ -1,0 +1,163 @@
+/*
+ |------------------------------------------------------------------
+ | subscription-required.css — static styles for the upgrade gate
+ |------------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/pages/subscription-required.blade.php.
+ |
+ | DYNAMIC values kept inline in the view:
+ |   - Plan grid column count varies with count($plans)
+ |   - Plan card border highlights the recommended plan
+ |   - Feature-check icon color flips based on feature availability
+ |   - Payment-button background/color varies by gateway position
+ */
+
+/* ─── Layout container ─── */
+.sr-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* ─── Status banner ─── */
+.sr-status-banner {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.sr-status-icon-wrap {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background: #fee2e2;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.sr-status-body {
+    flex: 1;
+}
+.sr-status-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #991b1b;
+    margin: 0 0 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.sr-status-text {
+    font-size: 15px;
+    color: #7f1d1d;
+    margin: 0;
+}
+
+/* ─── Plan card (column count + border are dynamic) ─── */
+.sr-plan-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 28px 24px;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+.sr-plan-popular-tag {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #4f46e5;
+    color: #fff;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.sr-plan-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 8px;
+}
+.sr-plan-description {
+    font-size: 13px;
+    color: #6b7280;
+    margin: 0 0 20px;
+    min-height: 36px;
+}
+.sr-plan-price-row {
+    margin-bottom: 20px;
+}
+.sr-plan-price {
+    font-size: 36px;
+    font-weight: 800;
+    color: #111827;
+}
+.sr-plan-interval {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+/* ─── Feature list ─── */
+.sr-feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+    font-size: 13px;
+    color: #374151;
+}
+.sr-feature-item {
+    padding: 6px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ─── Payment buttons (gateway-specific colors are dynamic) ─── */
+.sr-gateway-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.sr-gateway-btn {
+    display: block;
+    padding: 11px 18px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+}
+.sr-sales-cta {
+    display: block;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* ─── Logout option ─── */
+.sr-logout-row {
+    text-align: center;
+    color: #6b7280;
+    font-size: 14px;
+}
+.sr-logout-form {
+    display: inline;
+}
+.sr-logout-btn {
+    background: none;
+    border: none;
+    color: #4f46e5;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+}

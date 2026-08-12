@@ -1,0 +1,141 @@
+/*
+ |------------------------------------------------------------------
+ | email-sequence-preview.css — preview pane for email sequences
+ |------------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/pages/email-sequence-preview.blade.php.
+ | Extracted from a previously-inline <style> block; no dynamic
+ | interpolations.  Includes both light and dark theme variants.
+ */
+
+.lh-seq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.lh-seq-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(17, 24, 39, 0.04);
+}
+
+.lh-seq-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 10px 16px;
+    background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.lh-seq-head .left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.lh-seq-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: #fff;
+    font-size: .72rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.lh-seq-label {
+    font-size: .68rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+}
+
+.lh-seq-delay {
+    font-size: .8rem;
+    color: #374151;
+    font-weight: 500;
+}
+
+.lh-seq-meta {
+    font-size: .72rem;
+    color: #9ca3af;
+    flex-shrink: 0;
+}
+
+.lh-seq-body {
+    padding: 14px 16px;
+}
+
+.lh-seq-subj {
+    font-size: .95rem;
+    font-weight: 600;
+    color: #111827;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.01em;
+}
+
+.lh-seq-html {
+    font-size: .9rem;
+    color: #374151;
+    line-height: 1.6;
+}
+
+.lh-seq-html p {
+    margin: 0 0 10px;
+}
+
+.lh-seq-html a {
+    color: #4f46e5;
+}
+
+.lh-seq-html code {
+    background: #f3f4f6;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: .88em;
+}
+
+.lh-seq-empty {
+    font-size: .875rem;
+    color: #9ca3af;
+    padding: 24px 0;
+    text-align: center;
+}
+
+/* ─── Dark mode ─── */
+.dark .lh-seq-card {
+    background: #0f172a;
+    border-color: #1f2937;
+}
+
+.dark .lh-seq-head {
+    background: linear-gradient(180deg, #0b1220 0%, #0f172a 100%);
+    border-color: #1f2937;
+}
+
+.dark .lh-seq-delay {
+    color: #e5e7eb;
+}
+
+.dark .lh-seq-subj {
+    color: #f3f4f6;
+}
+
+.dark .lh-seq-html {
+    color: #d1d5db;
+}
+
+.dark .lh-seq-html code {
+    background: #1f2937;
+}

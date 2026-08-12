@@ -1,0 +1,69 @@
+    /* Fixed min-height so notification offset calculations are stable. */
+    #impersonation-bar {
+        position: sticky;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 40;
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        color: #fff;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font-size: 13px;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, .18);
+        flex-wrap: wrap;
+        min-height: 52px;
+        box-sizing: border-box;
+    }
+
+    #impersonation-bar .imp-icon { flex-shrink: 0; }
+
+    #impersonation-bar .imp-message {
+        flex: 1 1 auto;
+        min-width: 0;
+        line-height: 1.45;
+    }
+
+    #impersonation-bar .imp-label { letter-spacing: .3px; }
+
+    #impersonation-bar .imp-muted { opacity: .92; }
+
+    #impersonation-bar .imp-faint { opacity: .85; }
+
+    #impersonation-bar .imp-form {
+        margin: 0;
+        flex-shrink: 0;
+    }
+
+    #impersonation-bar .imp-stop-btn {
+        background: #fff;
+        color: #92400e;
+        padding: 7px 16px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 700;
+        border: none;
+        cursor: pointer;
+        white-space: nowrap;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    /* Modern browsers with :has() — shift Filament's notification
+       container down by the bar's height so toasts aren't hidden. */
+    body:has(#impersonation-bar) .fi-no,
+    body.has-impersonation-bar .fi-no {
+        margin-top: 52px !important;
+    }
+
+    /* The notification container can also render with inline
+       position:fixed — bump its `top` too. */
+    body:has(#impersonation-bar) .fi-no[style*="position"],
+    body.has-impersonation-bar .fi-no[style*="position"] {
+        top: 52px !important;
+    }

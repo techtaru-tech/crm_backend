@@ -1,0 +1,43 @@
+/*
+ |----------------------------------------------------------------
+ | setup-checklist.css — super-admin "finish setup" widget
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/super-admin/widgets/setup-checklist.blade.php
+ */
+
+.scl-list {
+    display: grid;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.scl-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.scl-tick {
+    color: #10b981;
+    font-size: 18px;
+    line-height: 1;
+}
+
+.scl-pending {
+    color: #9ca3af;
+    font-size: 18px;
+    line-height: 1;
+}
+
+.scl-done {
+    color: #6b7280;
+    text-decoration: line-through;
+}
+
+.scl-link {
+    color: #4f46e5;
+    text-decoration: none;
+}

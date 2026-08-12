@@ -1,0 +1,100 @@
+# ─── PHP Handler Compatibility (shared hosting) ─────────────────────────────
+# Some cPanel/Plesk servers use suPHP, FastCGI, or mod_php. These lines
+# ensure PHP files are processed regardless of the handler in use.
+# <IfModule mod_suphp.c>
+#     suPHP_Engine on
+# </IfModule>
+
+# ─── Security: block direct access to private Laravel directories ─────────────
+# Applies when everything is uploaded to the web root (flat install).
+# In a standard install (public/ is the web root) these folders don't exist
+# here, so the rules are harmless.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Allow legitimate browser-asset subdirectories under public/vendor/
+    # (chartjs, flatpickr, fullcalendar, etc.).  Without this allowlist,
+    # the framework-vendor block below would 403 every third-party JS/CSS
+    # we ship to the browser, breaking the reports chart, the date
+    # pickers, the calendar, kanban drag-drop, the API docs, and the
+    # vendored Inter web font.  The [L] flag short-circuits before the
+    # block rule fires, so Apache serves the file directly when it
+    # exists and 404s normally when it doesn't.
+    RewriteRule ^vendor/(alpinejs|chartjs|flatpickr|fonts|fullcalendar|sortablejs|swagger-ui)(/|$) - [L]
+
+    # Block access to sensitive app directories (framework-internal —
+    # the Composer "vendor" entry blocks vendor/composer/, vendor/laravel/
+    # etc., which are still reachable in a flat install because the
+    # allowlist above only matches our known browser-asset subdirs).
+    RewriteRule ^(app|bootstrap|config|database|resources|routes|storage|vendor)(/|$) - [F,L]
+
+    # Block access to cron.php, artisan, and composer files (flat-install safety)
+    RewriteRule ^(cron|artisan|composer\.(json|lock))$ - [F,L]
+
+    # Block access to hidden/dot files (.env, .git, etc.)
+    RewriteCond %{REQUEST_URI} !/\.well-known
+    RewriteRule (^\.|/\.) - [F,L]
+
+    # Block access to PHP files inside sensitive dirs (extra safety)
+    RewriteRule ^(app|bootstrap|config|database|resources|routes|storage|vendor).*\.php$ - [F,L]
+</IfModule>
+
+# ─── URL Rewriting ────────────────────────────────────────────────────────────
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    # Handle Authorization Header (required for API token auth on some hosts)
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Handle X-XSRF-Token Header
+    RewriteCond %{HTTP:x-xsrf-token} .
+    RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Send Requests To Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+# ─── Security Headers ─────────────────────────────────────────────────────────
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    # X-XSS-Protection removed (pass 44): the header is deprecated and
+    # modern browsers (Chrome 78+, Edge 17+, Safari, Firefox) ignore it.
+    # On older browsers, "1; mode=block" can introduce vulnerabilities
+    # via the auditor false-positive disclosure pattern.  Best practice
+    # per OWASP is to omit it entirely (or set to "0").  XSS defense
+    # now flows through Content-Security-Policy + per-context output
+    # escaping (passes 41-43).
+    Header always set X-XSS-Protection "0"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# ─── Compression (speeds up page loads on shared hosting) ────────────────────
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css
+    AddOutputFilterByType DEFLATE application/javascript application/json
+    AddOutputFilterByType DEFLATE image/svg+xml application/xml
+</IfModule>
+
+# ─── Browser Caching for static assets ───────────────────────────────────────
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png  "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType text/css   "access plus 6 months"
+    ExpiresByType application/javascript "access plus 6 months"
+</IfModule>

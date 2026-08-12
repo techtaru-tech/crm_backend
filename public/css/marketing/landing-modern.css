@@ -1,0 +1,260 @@
+    :root { --accent:#8b5cf6; --accent2:#22d3ee; --bg:#0b0b12; --panel:#11111c; --text:#e5e7eb; --muted:#9ca3af; --line:rgba(255,255,255,.08); }
+    html, body { background: var(--bg); color: var(--text); }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+    ::selection { background: var(--accent); color: #fff; }
+
+    /* Kill EVERY atmospheric pseudo-element that could paint colour
+       outside the pill nav — both the layout.css body blobs (900px
+       indigo + 780px pink at the top corners) AND the .hero-m blobs
+       (620px violet + cyan at hero corners).  Overrides are belt-and-
+       braces: content:none stops generation, display:none hides what
+       browsers already generated, the rest defangs anything the
+       browser kept paint-state for. */
+    body::before, body::after,
+    .hero-m::before, .hero-m::after {
+        content: none !important;
+        display: none !important;
+        background: none !important;
+        opacity: 0 !important;
+        width: 0 !important;
+        height: 0 !important;
+        filter: none !important;
+    }
+
+    /* ─── Pill nav — dark-glass reskin ────────────────────────────
+       Inherit STRUCTURE from layout.css (fixed-position floating
+       pill, 999px radius, 42px-tall CTA, lang switcher, hamburger,
+       mobile panel — all defined once over there).  This block
+       only swaps COLOURS for the dark theme.
+
+       Hard rule: do not add `border-bottom` or reset `padding` on
+       header.nav — both fight the pill shape inherited from layout.
+       The earlier override had a half-bar / half-pill artifact for
+       that exact reason. */
+    header.nav {
+        background: rgba(11,11,18,.78) !important;
+        /* Whitish border — bumped from rgba(255,255,255,.08) which
+           was nearly invisible against the dark body.  At .22 it
+           reads as a clear hairline pill outline, matching the
+           light variant's #e4e4e7 visibility against white. */
+        border: 1px solid rgba(255,255,255,.22) !important;
+        box-shadow:
+            0 1px 2px rgba(0,0,0,.4),
+            0 14px 40px -20px rgba(0,0,0,.55),
+            inset 0 1px 0 rgba(255,255,255,.10) !important;
+    }
+    header.nav.scrolled {
+        border-color: rgba(255,255,255,.28) !important;
+        box-shadow:
+            0 1px 2px rgba(0,0,0,.5),
+            0 18px 50px -18px rgba(0,0,0,.7),
+            inset 0 1px 0 rgba(255,255,255,.14) !important;
+    }
+    .nav .brand { color: var(--text) !important; }
+    .nav .brand img { filter: brightness(1.1); }
+    .nav .nav-links a.link { color: #cbd5e1 !important; }
+    .nav .nav-links a.link:hover { color: var(--accent) !important; }
+
+    /* CTA — gradient pill that matches layout's 42px height +
+       999px radius (specificity 0,3,0 to win over layout.css). */
+    .nav .btn.btn-primary {
+        background: linear-gradient(135deg, var(--accent), #6366f1) !important;
+        color: #fff !important;
+        border: 0 !important;
+        box-shadow: 0 6px 20px -8px rgba(139,92,246,.6) !important;
+    }
+    .nav .btn.btn-primary:hover {
+        background: linear-gradient(135deg, #7c3aed, #4f46e5) !important;
+        box-shadow: 0 8px 26px -8px rgba(139,92,246,.78) !important;
+    }
+
+    /* Language switcher pill — dark-glass reskin matching the nav.
+       Same 42px height and 999px radius from layout.css. */
+    .lang-switch > button {
+        background: rgba(255,255,255,.04) !important;
+        border-color: rgba(255,255,255,.22) !important;
+        color: #cbd5e1 !important;
+    }
+    .lang-switch > button:hover {
+        border-color: var(--accent) !important;
+        color: var(--accent) !important;
+    }
+    .lang-switch .menu {
+        background: rgba(17,17,28,.96) !important;
+        border-color: rgba(255,255,255,.1) !important;
+        box-shadow: 0 16px 40px -16px rgba(0,0,0,.65) !important;
+    }
+    .lang-switch .menu a { color: #cbd5e1 !important; }
+    .lang-switch .menu a:hover {
+        background: rgba(255,255,255,.05) !important;
+        color: var(--text) !important;
+    }
+    .lang-switch .menu a.active {
+        background: rgba(139,92,246,.18) !important;
+        color: var(--accent) !important;
+    }
+
+    /* Hamburger (mobile) — dark mode */
+    .nav-toggle {
+        border-color: rgba(255,255,255,.12) !important;
+    }
+    .nav-toggle:hover {
+        border-color: var(--accent) !important;
+        background: rgba(139,92,246,.08) !important;
+    }
+    .nav-toggle span { background: var(--text) !important; }
+
+    /* Mobile panel — matches the dark nav */
+    .nav-mobile-panel {
+        background: rgba(11,11,18,.95) !important;
+        border-color: rgba(255,255,255,.08) !important;
+        box-shadow:
+            0 20px 50px -18px rgba(0,0,0,.7),
+            0 1px 0 rgba(255,255,255,.06) inset !important;
+    }
+    .nav-mobile-panel a { color: #e5e7eb !important; }
+    .nav-mobile-panel a:hover,
+    .nav-mobile-panel a:focus {
+        background: rgba(255,255,255,.06) !important;
+        color: var(--accent) !important;
+    }
+    .nav-mobile-langs { border-top-color: rgba(255,255,255,.06) !important; }
+    .nav-mobile-langs-label { color: var(--muted) !important; }
+    .nav-mobile-langs-grid a.active {
+        background: rgba(139,92,246,.18) !important;
+        color: var(--accent) !important;
+    }
+
+    /* Layout's built-in footer: re-theme dark so there's a single
+       consistent footer (was a second custom footer appended below). */
+    .foot {
+        background: var(--bg) !important;
+        color: var(--muted) !important;
+        border-top: 1px solid var(--line) !important;
+        padding: 32px 0 !important;
+    }
+    .foot .wrap { text-align: center; font-size: 13px; }
+    .foot a { color: var(--muted) !important; }
+    .foot a:hover { color: var(--text) !important; }
+
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+    /* ─── Hero ─────────────────────────────────────────────────────
+       Clean dark hero: no atmospheric blobs.  Mirrors the light
+       variant's "transparent bg, nav is the only coloured element"
+       feel — just translated to dark.  The earlier ::before / ::after
+       indigo + cyan radials at 620px @ 35% opacity were the last
+       remaining colour bleed outside the pill nav. */
+    .hero-m {
+        position: relative; padding: 80px 0 96px; text-align: center;
+    }
+    .hero-m::before, .hero-m::after { content: none; display: none; }
+    .hero-m > * { position: relative; z-index: 1; }
+
+    .pill-m {
+        display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px;
+        border: 1px solid var(--line); border-radius: 999px; font-size: 12px; color: var(--muted);
+        background: rgba(255,255,255,.03); margin-bottom: 28px;
+    }
+    .pill-m .dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 10px #22c55e; }
+
+    .hero-m h1 {
+        font-size: clamp(2.5rem, 5.5vw, 4.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em;
+        max-width: 920px; margin: 0 auto 20px;
+    }
+    .hero-m h1 .grad {
+        background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 50%, #ec4899 100%);
+        -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-m p.sub { font-size: 1.15rem; color: var(--muted); max-width: 640px; margin: 0 auto 40px; line-height: 1.6; }
+
+    .cta-row { display: inline-flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+    .btn-m {
+        display: inline-flex; align-items: center; gap: 8px; padding: 14px 26px; border-radius: 12px;
+        font-size: 15px; font-weight: 600; text-decoration: none; transition: transform .15s, box-shadow .2s;
+    }
+    .btn-m-primary {
+        background: linear-gradient(135deg, var(--accent), #6366f1); color: #fff;
+        box-shadow: 0 10px 40px -10px rgba(139, 92, 246, .6);
+    }
+    .btn-m-primary:hover { transform: translateY(-1px); box-shadow: 0 15px 50px -10px rgba(139, 92, 246, .8); }
+    .btn-m-ghost {
+        background: rgba(255,255,255,.06);
+        color: var(--text); border: 1px solid rgba(255,255,255,.14);
+    }
+    .btn-m-ghost:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.22); }
+
+    .trust { margin-top: 56px; display: flex; flex-direction: column; align-items: center; gap: 16px; color: var(--muted); font-size: 12px; letter-spacing: .05em; text-transform: uppercase; }
+
+    /* ─── Feature grid ─────────────────────────────────────────── */
+    .feat-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin: 100px 0; }
+    @media (min-width: 768px) { .feat-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .feat-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .feat-m {
+        position: relative; padding: 28px; border-radius: 16px; background: var(--panel);
+        border: 1px solid var(--line); overflow: hidden;
+        transition: transform .2s, border-color .2s;
+    }
+    .feat-m:hover { transform: translateY(-3px); border-color: rgba(139,92,246,.3); }
+    .feat-m::before {
+        content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(139,92,246,.4), transparent);
+    }
+    .feat-m .icon {
+        width: 42px; height: 42px; border-radius: 11px; display: inline-flex;
+        align-items: center; justify-content: center; margin-bottom: 18px;
+        background: linear-gradient(135deg, rgba(139,92,246,.15), rgba(34,211,238,.1));
+        border: 1px solid rgba(139,92,246,.2); color: var(--accent);
+    }
+    .feat-m h3 { font-size: 1.0625rem; font-weight: 600; margin: 0 0 8px; color: var(--text); letter-spacing: -0.01em; }
+    .feat-m p  { font-size: .9rem; color: var(--muted); line-height: 1.6; margin: 0; }
+
+    /* ─── Section heading ───────────────────────────────────── */
+    .sh { text-align: center; margin-bottom: 56px; }
+    .sh small { display: inline-block; padding: 4px 12px; border: 1px solid var(--line); border-radius: 999px; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+    .sh h2 { font-size: clamp(1.875rem, 3.5vw, 2.75rem); font-weight: 700; margin: 0 0 12px; letter-spacing: -0.02em; }
+    .sh p  { font-size: 1.05rem; color: var(--muted); max-width: 640px; margin: 0 auto; }
+
+    /* ─── Stats strip ───────────────────────────────────────── */
+    .stats {
+        display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; padding: 56px;
+        background: radial-gradient(ellipse at top, rgba(139,92,246,.12), transparent 70%), var(--panel);
+        border: 1px solid var(--line); border-radius: 20px; margin: 100px 0;
+    }
+    @media (min-width: 768px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+    .stat { text-align: center; }
+    .stat .n { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.02em; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .stat .l { font-size: .825rem; color: var(--muted); margin-top: 6px; letter-spacing: .04em; text-transform: uppercase; }
+
+    /* ─── Pricing ───────────────────────────────────────────── */
+    .price-grid { display: grid; grid-template-columns: 1fr; gap: 18px; margin-bottom: 80px; }
+    @media (min-width: 900px) { .price-grid { grid-template-columns: repeat(3, 1fr); align-items: stretch; } }
+    .plan {
+        position: relative; padding: 32px 28px; background: var(--panel); border: 1px solid var(--line); border-radius: 16px;
+        display: flex; flex-direction: column;
+    }
+    .plan.popular { border-color: rgba(139,92,246,.4); background: linear-gradient(180deg, rgba(139,92,246,.06), transparent 60%), var(--panel); transform: scale(1.02); }
+    .plan .ribbon { position: absolute; top: -12px; right: 24px; background: linear-gradient(135deg, var(--accent), #ec4899); color: #fff; padding: 4px 12px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; }
+    .plan h3 { font-size: 1.125rem; font-weight: 600; margin: 0 0 8px; letter-spacing: -0.01em; }
+    .plan .price { font-size: 2.25rem; font-weight: 700; margin: 14px 0 6px; letter-spacing: -0.02em; }
+    .plan .price small { font-size: 1rem; color: var(--muted); font-weight: 400; }
+    .plan .desc { font-size: .875rem; color: var(--muted); margin: 0 0 22px; min-height: 40px; }
+    .plan ul { list-style: none; padding: 0; margin: 0 0 26px; flex: 1; }
+    .plan li { font-size: .875rem; color: var(--text); padding: 6px 0; display: flex; align-items: flex-start; gap: 10px; }
+    .plan li::before { content: "✓"; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+    .plan .btn-m { justify-content: center; width: 100%; }
+
+    /* ─── Closing CTA ────────────────────────────────────── */
+    .cta-m {
+        margin: 100px 0 80px; padding: 80px 40px; text-align: center;
+        background: radial-gradient(ellipse at center, rgba(139,92,246,.25), transparent 70%), linear-gradient(135deg, rgba(139,92,246,.15), rgba(34,211,238,.08));
+        border: 1px solid var(--line); border-radius: 24px; position: relative; overflow: hidden;
+    }
+    .cta-m h2 { font-size: clamp(1.875rem, 4vw, 3rem); font-weight: 700; margin: 0 0 16px; letter-spacing: -0.02em; }
+    .cta-m p  { color: var(--muted); max-width: 560px; margin: 0 auto 32px; font-size: 1.05rem; line-height: 1.6; }
+
+    /* ─── Footer dark ───────────────────────────────────── */
+    .foot-m { border-top: 1px solid var(--line); padding: 28px 0; color: var(--muted); font-size: 13px; text-align: center; }
+    .foot-m a { color: var(--muted); }
+    .foot-m a:hover { color: var(--text); }

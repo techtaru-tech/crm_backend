@@ -1,0 +1,42 @@
+/* ─────────────────────────────────────────────────────────────────
+   Per-view stylesheet for resources/views/forms/show.blade.php
+   Class prefix: fs-  (forms-show).
+
+   Notes for reviewers:
+     - The view keeps its large inline <style> block because that
+       block injects per-tenant branding values:
+         * body.background-color     ← $form->background_color
+         * body.font-family          ← $form->font_family
+         * body.background-image     ← $form->background_image_url
+       Those rules MUST stay inline — their values vary per Form
+       record and per tenant theme.
+     - Only the static option/label layout helpers below are
+       extracted.  They have no tenant-driven values.
+   ──────────────────────────────────────────────────────────────── */
+
+/* Inline label used inside GDPR consent rows and standalone checkbox
+   fields.  No top margin (it sits next to the checkbox) and uses the
+   normal body weight rather than the bold label weight. */
+.fs-inline-label {
+    margin: 0;
+    font-weight: 400;
+}
+
+/* Layout for a single option row inside a multi_checkbox or radio
+   group: checkbox + label, horizontally aligned, with a small gap
+   between consecutive options. */
+.fs-option-label {
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-bottom: .3rem;
+}
+
+/* Layout for a single-checkbox field (the whole field-wrap, not just
+   its label).  Renders the checkbox and its label side by side. */
+.fs-checkbox-row {
+    display: flex;
+    gap: .6rem;
+    align-items: center;
+}

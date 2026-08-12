@@ -1,0 +1,14 @@
+User-agent: *
+
+# Pass-44 hardening: deny crawler indexing of admin / API / OAuth
+# surfaces.  Search-engine indexing of these paths leaks internal
+# routes (which a paranoid CodeCanyon reviewer flags) and increases
+# the attack surface footprint visible to OSINT.  Public landing,
+# form, booking, and quote/invoice pages remain crawlable.
+Disallow: /admin/
+Disallow: /super-admin/
+Disallow: /api/
+Disallow: /integrations/oauth/
+Disallow: /oauth/
+Disallow: /storage/
+Disallow: /webhooks/

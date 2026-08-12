@@ -1,0 +1,24 @@
+/*
+ |----------------------------------------------------------------
+ | recaptcha-settings.css — super-admin reCAPTCHA configuration page
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/super-admin/pages/recaptcha-settings.blade.php
+ */
+
+.rs-actions {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/*
+ | Console-link styling for the "Google reCAPTCHA v3" Section
+ | description on RecaptchaSettingsPage.  Extracted from an inline
+ | style="color:#4f46e5;text-decoration:underline" attribute so the
+ | description HtmlString carries no inline styles.
+ */
+.rs-console-link {
+    color: #4f46e5;
+    text-decoration: underline;
+}

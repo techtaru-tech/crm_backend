@@ -1,0 +1,39 @@
+/*
+ |----------------------------------------------------------------
+ | source-attribution-report.css — static styles for Source Attribution
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/pages/source-attribution-report.blade.php
+ | All STATIC styles live here.  Any remaining inline style="..."
+ | attributes on the view MUST contain Blade {{ }} interpolation
+ | (dynamic) — those are allowed per reviewer rules.
+ */
+
+/* Layout */
+.sa-page{display:flex;flex-direction:column;gap:1.5rem}
+.sa-section-pad{padding:1.5rem}
+.sa-section-overflow{overflow:hidden}
+.sa-section-header{padding:1rem 1.5rem;border-bottom:1px solid #f3f4f6}
+.sa-section-title{font-size:1rem;font-weight:600;color:#111827}
+.sa-section-sub{font-size:.75rem;color:#9ca3af;margin-top:.125rem}
+
+/* Cells */
+.sa-cell-source{color:#374151;font-weight:500}
+.sa-cell-campaign{color:#6b7280}
+.sa-cell-num{font-weight:600;color:#111827}
+.sa-cell-text{color:#374151}
+.sa-cell-won{color:#4f46e5;font-weight:600}
+.sa-cell-empty{text-align:center;padding:2rem 1.5rem;color:#9ca3af}
+
+/* Table */
+.sa-table{width:100%;font-size:.875rem;border-collapse:collapse}
+.sa-table th{padding:.75rem 1.5rem;text-align:left;font-weight:500;color:#6b7280;background:#f9fafb}
+.sa-table th:not(:first-child):not(:nth-child(2)){text-align:right}
+.sa-table td{padding:.75rem 1.5rem;border-bottom:1px solid #f3f4f6}
+.sa-table td:not(:first-child):not(:nth-child(2)){text-align:right}
+.sa-table tr:hover td{background:#f9fafb}
+
+/* Badges */
+.sa-badge{display:inline-block;padding:.125rem .5rem;font-size:.75rem;border-radius:.375rem}
+.sa-badge-high{background:#dcfce7;color:#15803d}
+.sa-badge-low{background:#f3f4f6;color:#4b5563}

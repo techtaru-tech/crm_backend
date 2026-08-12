@@ -1,0 +1,140 @@
+<?php
+
+return [
+    'default' => [
+        'first_name' => 'पहला नाम',
+        'last_name'  => 'अंतिम नाम',
+        'email'      => 'ईमेल',
+        'phone'      => 'फ़ोन',
+        'company'    => 'कंपनी',
+        'source'     => 'लीड स्रोत',
+        'status'     => 'स्थिति',
+        'lead_score' => 'लीड स्कोर',
+        'address'    => 'पता',
+        'city'       => 'शहर',
+        'country'    => 'देश',
+        'notes'      => 'नोट्स',
+    ],
+
+    'activecampaign' => [
+        'email'     => 'ईमेल',
+        'firstName' => 'पहला नाम',
+        'lastName'  => 'अंतिम नाम',
+        'phone'     => 'फ़ोन',
+        'orgname'   => 'संगठन का नाम',
+    ],
+
+    'freshsales' => [
+        'first_name'    => 'पहला नाम',
+        'last_name'     => 'अंतिम नाम',
+        'email'         => 'ईमेल',
+        'mobile_number' => 'मोबाइल नंबर',
+        'work_number'   => 'कार्य नंबर',
+        'job_title'     => 'पद का नाम',
+        'company'       => 'कंपनी',
+        'city'          => 'शहर',
+        'country'       => 'देश',
+    ],
+
+    'hubspot' => [
+        'email'     => 'ईमेल',
+        'firstname' => 'पहला नाम',
+        'lastname'  => 'अंतिम नाम',
+        'phone'     => 'फ़ोन',
+        'company'   => 'कंपनी',
+        'website'   => 'वेबसाइट',
+        'address'   => 'पता',
+        'city'      => 'शहर',
+        'country'   => 'देश',
+        'jobtitle'  => 'पद का नाम',
+    ],
+
+    'mailchimp' => [
+        'first_name' => 'पहला नाम',
+        'last_name'  => 'अंतिम नाम',
+        'phone'      => 'फ़ोन',
+        'company'    => 'कंपनी',
+    ],
+
+    'notion' => [
+        'name'    => 'नाम (title)',
+        'email'   => 'ईमेल (email)',
+        'phone'   => 'फ़ोन (phone_number)',
+        'source'  => 'स्रोत (rich_text)',
+        'status'  => 'स्थिति (rich_text)',
+        'company' => 'कंपनी (rich_text)',
+    ],
+
+    'pipedrive' => [
+        'name'       => 'नाम',
+        'email'      => 'ईमेल',
+        'phone'      => 'फ़ोन',
+        'org_name'   => 'संगठन',
+        'deal_title' => 'लीड: :name',
+    ],
+
+    'salesforce' => [
+        'email'        => 'ईमेल',
+        'first_name'   => 'पहला नाम',
+        'last_name'    => 'अंतिम नाम',
+        'phone'        => 'फ़ोन',
+        'company'      => 'कंपनी',
+        'lead_source'  => 'लीड स्रोत',
+        'status'       => 'स्थिति',
+        'mobile_phone' => 'मोबाइल फ़ोन',
+        'website'      => 'वेबसाइट',
+        'city'         => 'शहर',
+        'country'      => 'देश',
+    ],
+
+    'vtiger' => [
+        'firstname'  => 'पहला नाम',
+        'lastname'   => 'अंतिम नाम',
+        'email'      => 'ईमेल',
+        'phone'      => 'फ़ोन',
+        'company'    => 'कंपनी',
+        'leadsource' => 'लीड स्रोत',
+    ],
+
+    'zendesk' => [
+        'name'         => 'पूरा नाम',
+        'email'        => 'ईमेल',
+        'phone'        => 'फ़ोन',
+        'organization' => 'संगठन',
+        'external_id'  => 'बाहरी ID',
+        'details'      => 'विवरण',
+        'notes'        => 'नोट्स',
+    ],
+
+    'zoho_crm' => [
+        'first_name'  => 'पहला नाम',
+        'last_name'   => 'अंतिम नाम',
+        'email'       => 'ईमेल',
+        'phone'       => 'फ़ोन',
+        'company'     => 'कंपनी',
+        'lead_source' => 'लीड स्रोत',
+        'city'        => 'शहर',
+        'country'     => 'देश',
+    ],
+
+    'not_configured' => [
+        'convertkit'      => 'ConvertKit फ़ॉर्म ID कॉन्फ़िगर नहीं किया गया है।',
+        'activepieces'    => 'Activepieces वेबहुक URL कॉन्फ़िगर नहीं किया गया है।',
+        'google_sheets'   => 'Google Sheets स्प्रेडशीट ID कॉन्फ़िगर नहीं किया गया है।',
+        'airtable'        => 'Airtable बेस/तालिका ID कॉन्फ़िगर नहीं किया गया है।',
+        'getresponse'     => 'GetResponse अभियान ID कॉन्फ़िगर नहीं किया गया है।',
+        'generic_webhook' => 'वेबहुक URL कॉन्फ़िगर नहीं किया गया है।',
+        'make'            => 'Make वेबहुक URL कॉन्फ़िगर नहीं किया गया है।',
+        'monday'          => 'Monday.com बोर्ड ID कॉन्फ़िगर नहीं किया गया है।',
+        'n8n'             => 'n8n वेबहुक URL कॉन्फ़िगर नहीं किया गया है।',
+        'microsoft_teams' => 'Microsoft Teams वेबहुक URL कॉन्फ़िगर नहीं किया गया है।',
+        'pabbly'          => 'Pabbly वेबहुक URL कॉन्फ़िगर नहीं किया गया है।',
+        'notion'          => 'Notion डेटाबेस ID कॉन्फ़िगर नहीं किया गया है।',
+        'streak'          => 'Streak पाइपलाइन कुंजी कॉन्फ़िगर नहीं की गई है।',
+        'slack'           => 'Slack वेबहुक URL कॉन्फ़िगर नहीं किया गया है।',
+        'mailchimp'       => 'Mailchimp सूची ID कॉन्फ़िगर नहीं की गई है।',
+        'moosend'         => 'Moosend सूची ID कॉन्फ़िगर नहीं की गई है।',
+        'workato'         => 'Workato वेबहुक URL कॉन्फ़िगर नहीं किया गया है।',
+        'zapier'          => 'Zapier वेबहुक URL कॉन्फ़िगर नहीं किया गया है।',
+    ],
+];

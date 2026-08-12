@@ -1,0 +1,16 @@
+/*
+ |----------------------------------------------------------------
+ | meeting-availability.css — static styles for the meeting-availability page
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/pages/meeting-availability.blade.php
+ */
+
+.ma-actions {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}

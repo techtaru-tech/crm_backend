@@ -1,0 +1,67 @@
+/*
+ |----------------------------------------------------------------
+ | sessions.css — static styles for the active-sessions page
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/pages/sessions.blade.php
+ | via <link rel="stylesheet" href="{{ asset('css/views/filament/pages/sessions.css') }}">.
+ |
+ | All STATIC styles for the page live here. The view contains no
+ | dynamic style values — every visual variant maps to a class.
+ */
+
+.ses-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.ses-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background: #f9fafb;
+    border-radius: 0.5rem;
+}
+
+.ses-row-inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.ses-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: #9ca3af;
+    flex-shrink: 0;
+}
+
+.ses-meta-title {
+    font-weight: 500;
+    color: #111827;
+    font-size: 0.875rem;
+}
+
+.ses-current-pill {
+    margin-left: 0.5rem;
+    font-size: 0.75rem;
+    background: #dcfce7;
+    color: #15803d;
+    padding: 0.125rem 0.5rem;
+    border-radius: 9999px;
+}
+
+.ses-meta-sub {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 0.125rem;
+}
+
+.ses-empty {
+    color: #6b7280;
+    font-size: 0.875rem;
+    text-align: center;
+    padding: 1rem 0;
+}

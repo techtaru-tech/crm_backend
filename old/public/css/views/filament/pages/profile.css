@@ -1,0 +1,19 @@
+/*
+ |----------------------------------------------------------------
+ | profile.css — static styles for the tenant user profile page
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/pages/profile.blade.php
+ */
+
+.profile-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.profile-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 0.75rem;
+}

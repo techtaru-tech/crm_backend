@@ -1,0 +1,25 @@
+/*
+ |----------------------------------------------------------------
+ | email-sequences-report.css — static styles for the email sequences report page
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/pages/reports/email-sequences-report.blade.php
+ */
+
+.seq-table { width: 100%; font-size: .875rem; border-collapse: collapse; }
+.seq-table th { padding: .75rem 1rem; text-align: left; font-weight: 500; color: #6b7280; background: #f9fafb; font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; }
+.seq-table th:nth-child(n+3) { text-align: right; }
+.seq-table td { padding: .75rem 1rem; border-bottom: 1px solid #f3f4f6; }
+.seq-table td:nth-child(n+3) { text-align: right; }
+.seq-table tr:hover td { background: #f9fafb; }
+.seq-badge { display: inline-block; padding: .125rem .5rem; font-size: .75rem; font-weight: 600; border-radius: .375rem; }
+.seq-badge-active { background: #dcfce7; color: #15803d; }
+.seq-badge-draft { background: #f3f4f6; color: #6b7280; }
+.seq-badge-paused { background: #fef3c7; color: #92400e; }
+
+.seq-card { overflow: hidden; }
+.seq-card-header { padding: 1rem 1.5rem; border-bottom: 1px solid #f3f4f6; }
+.seq-card-title { font-size: 1rem; font-weight: 600; color: #111827; }
+.seq-empty { padding: 2rem; text-align: center; color: #6b7280; }
+.seq-cell-name { font-weight: 600; color: #111827; }
+.seq-cell-status { text-align: left; }

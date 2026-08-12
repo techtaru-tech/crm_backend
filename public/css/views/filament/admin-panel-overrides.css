@@ -1,0 +1,87 @@
+/*
+ |------------------------------------------------------------------
+ | admin-panel-overrides.css — global Filament-admin tweaks
+ |------------------------------------------------------------------
+ |
+ | Loaded by app/Providers/Filament/AdminPanelProvider.php via a
+ | HEAD_END render hook (<link rel="stylesheet" …>).  All styles here
+ | are static.  Per-tenant brand color is delivered via the panel's
+ | colors() config (not via inline CSS), and the chart-filter widget
+ | uses an embedded SVG via background-image data: URI (not a
+ | network-loaded asset).
+ */
+
+/* ─── Chart-filter widget: strip wrapper border/shadow ─── */
+.fi-wi-chart-filter.fi-input-wrp {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    ring: none !important;
+    outline: none !important;
+    --tw-ring-shadow: none !important;
+}
+
+/* ─── Chart-filter widget: style the <select> itself ─── */
+.fi-wi-chart-filter select {
+    appearance: none;
+    -webkit-appearance: none;
+    /* Embedded SVG caret icon (no CDN, no network request). */
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 5l3 3 3-3' fill='none' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 0.625rem center;
+    padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: #374151;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    outline: none;
+    min-width: 8rem;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.fi-wi-chart-filter select:hover {
+    border-color: #a5b4fc;
+}
+
+.fi-wi-chart-filter select:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+}
+
+/* ─── Logo: soft float animation + drop-shadow ─── */
+.fi-logo {
+    border-radius: 10px;
+    animation: lh-float 3.6s ease-in-out infinite;
+    filter: drop-shadow(0 6px 10px rgba(99, 102, 241, 0.25));
+}
+
+@keyframes lh-float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fi-logo {
+        animation: none;
+    }
+}
+
+/* ─── Tooltips: wrap long unbreakable content (e.g. webhook URLs) ───
+   Tippy sets the box max-width inline (effectively unbounded here), and
+   white-space:normal alone can't break a space-less URL — so a long
+   webhook URL ran off the screen edge on hover instead of wrapping. Cap
+   the box width and let the content break anywhere so it stays inside the
+   viewport. */
+.tippy-box {
+    max-width: min(92vw, 26rem) !important;
+}
+
+.tippy-content {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}

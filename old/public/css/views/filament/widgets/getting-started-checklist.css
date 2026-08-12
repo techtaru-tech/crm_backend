@@ -1,0 +1,136 @@
+/*
+ |------------------------------------------------------------------
+ | getting-started-checklist.css — static styles for the onboarding widget
+ |------------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/widgets/getting-started-checklist.blade.php.
+ |
+ | DYNAMIC values kept inline:
+ |   - Progress bar width ({{ $progress }}%)
+ |   - Item card background alpha (done vs not-done)
+ |   - Check-circle background color (done vs not-done)
+ |   - Item label text-decoration (line-through when done)
+ |
+ | Hover effects moved from onmouseover/onmouseout inline handlers
+ | to CSS :hover pseudo-class — cleaner and reviewer-friendly.
+ */
+
+.gsc-card {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    border-radius: 14px;
+    padding: 24px 28px;
+    color: #fff;
+    box-shadow: 0 10px 30px rgba(79, 70, 229, 0.25);
+}
+
+/* ─── Header row (title + counter) ─── */
+.gsc-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+.gsc-eyebrow {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    opacity: 0.85;
+    margin: 0 0 4px;
+}
+.gsc-title {
+    font-size: 22px;
+    font-weight: 800;
+    margin: 0;
+}
+.gsc-subtitle {
+    font-size: 14px;
+    opacity: 0.9;
+    margin: 6px 0 0;
+    max-width: 640px;
+}
+.gsc-counter {
+    text-align: right;
+    min-width: 120px;
+}
+.gsc-counter-value {
+    font-size: 28px;
+    font-weight: 800;
+}
+.gsc-counter-percent {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+/* ─── Progress bar (width dynamic) ─── */
+.gsc-progress-track {
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+    height: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+.gsc-progress-fill {
+    background: #fff;
+    height: 100%;
+    transition: width 0.4s ease;
+}
+
+/* ─── Items grid ─── */
+.gsc-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 10px;
+}
+
+/* ─── Item card (background alpha is dynamic) ─── */
+.gsc-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 10px;
+    padding: 12px 14px;
+    text-decoration: none;
+    color: #fff;
+    transition: background 0.15s, transform 0.15s;
+}
+.gsc-item:hover {
+    background: rgba(255, 255, 255, 0.32) !important;
+    transform: translateY(-1px);
+}
+
+/* ─── Check circle (background is dynamic — done vs not-done) ─── */
+.gsc-check {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.gsc-check-icon-not-done {
+    width: 16px;
+    height: 16px;
+}
+
+/* ─── Item body (text-decoration is dynamic — done shows line-through) ─── */
+.gsc-item-body {
+    flex: 1;
+    min-width: 0;
+}
+.gsc-item-label {
+    font-size: 13px;
+    font-weight: 600;
+}
+.gsc-item-label-done {
+    text-decoration: line-through;
+    opacity: 0.8;
+}
+.gsc-item-description {
+    font-size: 11px;
+    opacity: 0.8;
+    line-height: 1.4;
+}

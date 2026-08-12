@@ -1,0 +1,36 @@
+/*
+ |----------------------------------------------------------------
+ | lead-volume-report.css — static styles for Lead Volume report
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/pages/reports/lead-volume-report.blade.php
+ | All STATIC styles live here.  Any remaining inline style="..."
+ | attributes on the view MUST contain Blade {{ }} interpolation
+ | (dynamic) — those are allowed per reviewer rules.
+ */
+
+/* Layout */
+.lv-page{display:flex;flex-direction:column;gap:1.5rem}
+.lv-section-pad{padding:1.5rem}
+.lv-section-overflow{overflow:hidden}
+.lv-section-header{padding:1rem 1.5rem;border-bottom:1px solid #f3f4f6}
+.lv-section-title{font-size:1rem;font-weight:600;color:#111827}
+.lv-section-title-mb{font-size:1rem;font-weight:600;color:#111827;margin-bottom:1rem}
+.lv-section-sub{font-size:.875rem;font-weight:400;color:#9ca3af}
+
+/* Form */
+.lv-label{display:block;font-size:.875rem;font-weight:500;color:#374151;margin-bottom:.25rem}
+.lv-input{display:block;width:9rem;border-radius:.5rem;border:1px solid #d1d5db;background:#fff;font-size:.875rem;padding:.375rem .625rem;color:#374151}
+.lv-select{display:block;width:8rem;border-radius:.5rem;border:1px solid #d1d5db;background:#fff;font-size:.875rem;padding:.375rem .625rem;color:#374151}
+.lv-total-pill{margin-left:auto;display:inline-flex;align-items:center;padding:.375rem .75rem;font-size:.875rem;font-weight:600;background:rgba(79,70,229,.08);color:#4338ca;border-radius:.375rem}
+
+/* Table */
+.lv-table{width:100%;font-size:.875rem;border-collapse:collapse}
+.lv-table th{padding:.75rem 1.5rem;text-align:left;font-weight:500;color:#6b7280;background:#f9fafb}
+.lv-table th:last-child{text-align:right}
+.lv-table td{padding:.75rem 1.5rem;border-bottom:1px solid #f3f4f6}
+.lv-table td:last-child{text-align:right}
+.lv-table tr:hover td{background:#f9fafb}
+.lv-cell-period{color:#374151}
+.lv-cell-count{font-weight:600;color:#111827}
+.lv-cell-empty{text-align:center;padding:2rem 1.5rem;color:#9ca3af}

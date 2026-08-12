@@ -1,0 +1,43 @@
+/*
+ |----------------------------------------------------------------
+ | notification-preferences.css — static styles for the user's
+ | Notification Preferences page
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/pages/notification-preferences.blade.php
+ | via <link rel="stylesheet" href="{{ asset('css/filament/notification-preferences.css') }}">.
+ |
+ | All STATIC styles for the page live here.  No dynamic inline
+ | styles remain in the view after this refactor.
+ */
+
+/* ─── Notification matrix table ─── */
+.np-table{width:100%;font-size:.875rem;border-collapse:collapse}
+.np-table th{padding:.75rem 1rem;font-weight:600;color:#374151;border-bottom:2px solid #e5e7eb;text-align:left}
+.np-table th:not(:first-child){text-align:center}
+.np-table td{padding:.75rem 1rem;border-bottom:1px solid #f3f4f6}
+.np-table td:not(:first-child){text-align:center}
+.np-table tr:hover{background:#f9fafb}
+.np-table td:first-child{font-weight:500;color:#1f2937}
+.np-check{width:1.125rem;height:1.125rem;accent-color:#4f46e5;cursor:pointer}
+.np-select{font-size:.75rem;border-radius:.5rem;border:1px solid #d1d5db;background:#fff;color:#374151;padding:.375rem .625rem}
+.np-select:disabled{opacity:.5;cursor:not-allowed}
+
+/* ─── Column widths (header) ─── */
+.np-th-type{width:36%}
+.np-th-channel{width:10%}
+.np-th-freq{width:24%}
+.np-th-push{width:20%}
+
+/* ─── Section copy ─── */
+.np-lede{font-size:.875rem;color:#6b7280;margin-bottom:1rem}
+.np-table-scroll{overflow-x:auto}
+.np-save-wrap{margin-top:1.5rem}
+
+/* ─── Push-notification subsection ─── */
+.np-push-lede{font-size:.875rem;color:#4b5563;margin-bottom:.75rem}
+.np-push-row{display:flex;align-items:center;gap:.75rem}
+.np-push-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;font-size:.875rem;font-weight:500;color:#fff;background:var(--primary-600, #4f46e5);border-radius:.5rem;border:none;cursor:pointer}
+.np-push-enabled{display:inline-flex;align-items:center;gap:.375rem;padding:.375rem .75rem;font-size:.75rem;font-weight:500;background:#f0fdf4;color:#15803d;border-radius:9999px;border:1px solid #bbf7d0}
+.np-push-status{margin-top:.5rem;font-size:.875rem;color:#6b7280}
+.np-push-unsupported{font-size:.875rem;color:#6b7280}

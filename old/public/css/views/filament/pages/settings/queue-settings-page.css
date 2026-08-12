@@ -1,0 +1,30 @@
+/*
+ |----------------------------------------------------------------
+ | queue-settings-page.css — static styles for Queue Settings page
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/pages/settings/queue-settings-page.blade.php
+ | via <link rel="stylesheet" href="{{ asset('css/views/filament/pages/settings/queue-settings-page.css') }}">.
+ |
+ | All STATIC styles for the page live here.  No dynamic inline
+ | styles remain in the view after this refactor.
+ */
+
+/* ─── Queue config card ─── */
+.qs-section{padding:1.5rem}
+.qs-title{font-size:1rem;font-weight:600;color:#111827;margin-bottom:1rem}
+.qs-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;font-size:.875rem}
+.qs-dt{font-weight:500;color:#6b7280}
+.qs-dd{color:#111827;font-family:ui-monospace,monospace}
+
+/* ─── Horizon block ─── */
+.qs-horizon{padding-top:1rem;margin-top:1rem;border-top:1px solid #f3f4f6}
+.qs-horizon-lede{font-size:.875rem;color:#6b7280;margin-bottom:.5rem}
+.qs-horizon-link{display:inline-flex;align-items:center;gap:.375rem;padding:.375rem .75rem;font-size:.875rem;color:#374151;background:#f9fafb;border:1px solid #e5e7eb;border-radius:.5rem;text-decoration:none}
+.qs-icon-sm{width:1rem;height:1rem}
+
+/* ─── Service-operator info banner ─── */
+.qs-info-banner{background:#eff6ff;border:1px solid #bfdbfe;border-radius:.75rem;padding:1rem 1.25rem;margin-top:1.25rem;display:flex;gap:.75rem;align-items:flex-start}
+.qs-info-icon{width:20px;height:20px;color:#2563eb;flex-shrink:0;margin-top:2px}
+.qs-info-title{font-size:.9rem;font-weight:600;color:#1e3a8a;margin:0 0 4px}
+.qs-info-body{font-size:.8125rem;color:#1e40af;margin:0;line-height:1.5}

@@ -1,0 +1,33 @@
+/*
+ |------------------------------------------------------------------
+ | deletion-banner.css — Pending-deletion (GDPR Article 17) banner
+ |------------------------------------------------------------------
+ |
+ | Loaded by resources/views/filament/deletion-banner.blade.php.
+ | All styles static — extracted from a previously-inline HtmlString
+ | in AdminPanelProvider's PAGE_START render hook.
+ */
+
+.lh-deletion-banner {
+    background: #fee2e2;
+    border: 1px solid #fecaca;
+    border-radius: 10px;
+    padding: 14px 20px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    color: #991b1b;
+    font-size: 13px;
+    line-height: 1.55;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.lh-deletion-banner-link {
+    color: #7f1d1d;
+    font-weight: 600;
+    text-decoration: underline;
+    white-space: nowrap;
+}

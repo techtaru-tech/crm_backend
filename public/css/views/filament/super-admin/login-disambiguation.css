@@ -1,0 +1,34 @@
+/*
+ |------------------------------------------------------------------
+ | login-disambiguation.css — Super Admin login-form banner
+ |------------------------------------------------------------------
+ |
+ | Loaded by resources/views/filament/super-admin/login-disambiguation.blade.php.
+ | All styles static — extracted from a previously-inline HtmlString
+ | in SuperAdminPanelProvider's AUTH_LOGIN_FORM_AFTER render hook.
+ */
+
+.sa-disambig-banner {
+    margin-top: 1.5rem;
+    background: #eef2ff;
+    border: 1px solid #c7d2fe;
+    border-radius: 10px;
+    padding: 14px 18px;
+    color: #3730a3;
+    font-size: 13px;
+    line-height: 1.55;
+    text-align: left;
+}
+
+.sa-disambig-banner-title {
+    font-weight: 700;
+    margin-bottom: 6px;
+    font-size: 13.5px;
+    letter-spacing: 0.2px;
+}
+
+.sa-disambig-banner-link {
+    color: #3730a3;
+    font-weight: 700;
+    text-decoration: underline;
+}

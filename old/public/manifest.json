@@ -1,0 +1,41 @@
+{
+    "_comment": "i18n convention: PWA manifest strings are intentionally English-only. The W3C manifest spec is single-language by design (see the 'lang' field below) and this file is served by the web server BEFORE Laravel boots, so __() is unavailable. To localize, serve via a Laravel route returning __()-translated JSON. Buyers can edit name / short_name / description / shortcut labels directly.",
+    "name": "LeadHub",
+    "short_name": "LeadHub",
+    "description": "Multi-tenant CRM and marketing automation",
+    "start_url": "/admin",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "any",
+    "background_color": "#ffffff",
+    "theme_color": "#4f46e5",
+    "lang": "en",
+    "icons": [
+        {
+            "src": "/icons/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Leads",
+            "short_name": "Leads",
+            "url": "/admin/leads",
+            "description": "Open the leads list"
+        },
+        {
+            "name": "Pipeline",
+            "short_name": "Pipeline",
+            "url": "/admin/leads?view=kanban",
+            "description": "Open the kanban board"
+        }
+    ]
+}

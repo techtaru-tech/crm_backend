@@ -1,0 +1,20 @@
+/*
+ |----------------------------------------------------------------
+ | email-settings-page.css — static styles for Email Settings page
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/pages/settings/email-settings-page.blade.php
+ | via <link rel="stylesheet" href="{{ asset('css/views/filament/pages/settings/email-settings-page.css') }}">.
+ |
+ | All STATIC styles for the page live here.  No dynamic inline
+ | styles remain in the view after this refactor.
+ */
+
+/* ─── Override-notice banner ─── */
+.es-info-banner{background:#eff6ff;border:1px solid #bfdbfe;border-radius:.75rem;padding:1rem 1.25rem;margin-bottom:1.25rem;display:flex;gap:.75rem;align-items:flex-start}
+.es-info-icon{width:22px;height:22px;color:#2563eb;flex-shrink:0;margin-top:2px}
+.es-info-title{font-size:.925rem;font-weight:600;color:#1e3a8a;margin:0 0 6px}
+.es-info-body{font-size:.825rem;color:#1e40af;margin:0;line-height:1.55}
+
+/* ─── Save-action row ─── */
+.es-form-actions{display:flex;justify-content:flex-end;gap:.75rem;padding-top:1.25rem}

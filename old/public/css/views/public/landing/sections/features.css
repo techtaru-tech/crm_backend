@@ -1,0 +1,10 @@
+    .lp-features { padding: 80px 0; background: var(--bg); }
+    .lp-features h2{font-size:36px;font-weight:800;text-align:center;color:#0f172a;margin:0 0 12px;letter-spacing:-.01em}
+    .lp-features .lp-sub{text-align:center;color:#6b7280;font-size:17px;margin:0 auto 56px;max-width:620px;line-height:1.5}
+    .lp-features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;max-width:1120px;margin:0 auto}
+    .lp-feat{background:#fff;border:1px solid #f1f5f9;border-radius:16px;padding:28px 26px;transition:transform .2s,box-shadow .2s,border-color .2s}
+    .lp-feat:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(15,23,42,.08);border-color:#e0e7ff}
+    .lp-feat .lp-feat-icon{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,rgba(79,70,229,.12),rgba(139,92,246,.12));color:var(--primary);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+    .lp-feat h3{font-size:17px;font-weight:700;margin:0 0 8px;color:#111827}
+    .lp-feat p{font-size:14px;color:#6b7280;line-height:1.65;margin:0}
+    @media(max-width:640px){ .lp-features h2{font-size:28px} .lp-features{padding:56px 0} }

@@ -1,0 +1,1 @@
+9999999999s:215:"O:29:"App\Settings\SecuritySettings":6:{s:11:"enforce_2fa";b:0;s:12:"ip_whitelist";a:0:{}s:16:"session_lifetime";i:120;s:18:"max_login_attempts";i:5;s:16:"lockout_duration";i:15;s:24:"_settingsLoadedFromCache";b:1;}";

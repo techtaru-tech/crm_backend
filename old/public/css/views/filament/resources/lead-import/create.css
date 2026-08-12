@@ -1,0 +1,31 @@
+/*
+ |----------------------------------------------------------------
+ | create.css — static styles for lead-import wizard preview
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/resources/lead-import/create.blade.php
+ | via <link rel="stylesheet" href="{{ asset('css/views/filament/resources/lead-import/create.css') }}">.
+ |
+ | All STATIC styles for the page live here.
+ */
+
+.li-pill-ok{background:#d1fae5;color:#065f46}
+.li-pill-bad{background:#fee2e2;color:#991b1b}
+.li-cell-clip{max-width:180px;overflow:hidden;text-overflow:ellipsis}
+
+/* Step 1: guaranteed gap above the submit button.  Use PADDING, not margin:
+   margin-top computed to 0 on the live page (the wrapper sits in Filament's
+   flex/grid form context, where the margin was reset / didn't take), whereas
+   padding-top is never collapsed or reset.  Plain CSS so it never depends on
+   a Tailwind utility being compiled. */
+.li-upload-actions{padding-top:1.5rem}
+
+/* Step 2: keep the column-preview table inside its card and let it scroll
+   horizontally instead of overlapping the section when a CSV has many
+   columns.  min-width:0 lets the wrapper shrink inside Filament's flex/grid
+   section content (a flex/grid child defaults to min-width:auto and would
+   otherwise grow to the table's full intrinsic width).  The :has() rule
+   relaxes the section itself too — the table/thead were escaping
+   .fi-section-content, so the flex/grid chain needs the shrink one level up. */
+.li-scroll-x{display:block;width:100%;max-width:100%;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.fi-section-content:has(.li-scroll-x){min-width:0}

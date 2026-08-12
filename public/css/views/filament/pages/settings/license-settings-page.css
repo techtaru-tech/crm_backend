@@ -1,0 +1,35 @@
+/*
+ |----------------------------------------------------------------
+ | license-settings-page.css — static styles for tenant License Settings
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/pages/settings/license-settings-page.blade.php
+ | via <link rel="stylesheet" href="{{ asset('css/views/filament/pages/settings/license-settings-page.css') }}">.
+ |
+ | All STATIC styles for the page live here. No dynamic inline styles
+ | remain in the view after this refactor.
+ */
+
+/* ─── License status section ─── */
+.ls-section{padding:1.5rem}
+.ls-row{display:flex;align-items:center;gap:1rem}
+.ls-title{font-size:1rem;font-weight:600;color:#111827}
+.ls-sub{font-size:.875rem;color:#6b7280;margin-top:.25rem}
+.ls-status-wrap{margin-left:auto}
+
+/* ─── Status pills (one class per state) ─── */
+.ls-pill{display:inline-block;padding:.25rem .75rem;font-size:.75rem;font-weight:600;border-radius:.375rem}
+.ls-pill-active{background:#dcfce7;color:#15803d}
+.ls-pill-expired{background:#fef3c7;color:#92400e}
+.ls-pill-unlicensed{background:#f3f4f6;color:#4b5563}
+.ls-pill-invalid{background:#fee2e2;color:#b91c1c}
+
+/* ─── Buyer details ─── */
+.ls-details{margin-top:1rem;padding-top:.75rem;border-top:1px solid #e5e7eb}
+.ls-details-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem .75rem;font-size:.8125rem}
+.ls-detail-label{color:#6b7280}
+.ls-detail-value{color:#111827;font-weight:500}
+
+/* ─── Verify-form layout ─── */
+.ls-form{margin-top:1.5rem}
+.ls-form-actions{display:flex;justify-content:flex-end;padding-top:1.25rem}

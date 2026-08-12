@@ -1,0 +1,23 @@
+/*
+ |----------------------------------------------------------------
+ | create.css — static styles for the company-import wizard preview
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/resources/company-import/create.blade.php
+ | via <link rel="stylesheet" href="{{ asset('css/views/filament/resources/company-import/create.css') }}">.
+ |
+ | Mirrors the lead-import create.css (same li-* utility classes).
+ */
+
+.li-pill-ok{background:#d1fae5;color:#065f46}
+.li-pill-bad{background:#fee2e2;color:#991b1b}
+.li-cell-clip{max-width:180px;overflow:hidden;text-overflow:ellipsis}
+
+/* Step 1: guaranteed gap above the submit button (plain CSS padding, not a
+   Tailwind mt-* class that may not be compiled for this view). */
+.li-upload-actions{padding-top:1.5rem}
+
+/* Step 2: keep the wide column-preview table inside its card and let it
+   scroll horizontally instead of overlapping the section. */
+.li-scroll-x{display:block;width:100%;max-width:100%;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.fi-section-content:has(.li-scroll-x){min-width:0}

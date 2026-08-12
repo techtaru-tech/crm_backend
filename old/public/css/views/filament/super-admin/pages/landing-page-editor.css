@@ -1,0 +1,43 @@
+/*
+ |----------------------------------------------------------------
+ | landing-page-editor.css — super-admin landing-page editor hero
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/super-admin/pages/landing-page-editor.blade.php
+ */
+
+.lpe-hero {
+    background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+    color: #fff;
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 30px rgba(79, 70, 229, .25);
+}
+
+.lpe-eyebrow {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    opacity: .85;
+    margin: 0 0 6px;
+}
+
+.lpe-title {
+    font-size: 22px;
+    font-weight: 800;
+    margin: 0 0 6px;
+}
+
+.lpe-body {
+    font-size: 14px;
+    opacity: .92;
+    margin: 0;
+    max-width: 720px;
+}
+
+.lpe-code {
+    background: rgba(255, 255, 255, .18);
+    padding: 2px 6px;
+    border-radius: 4px;
+}

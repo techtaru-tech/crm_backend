@@ -1,0 +1,144 @@
+/*
+ |-----------------------------------------------------------------
+ | license-required.css — block-screen shown by EnforceLicense
+ |-----------------------------------------------------------------
+ |
+ | Paired with resources/views/license-required.blade.php.
+ | Standalone (not inside a Filament panel) so it carries its own
+ | typography + reset rather than inheriting from filament/admin.
+ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: #f8fafc;
+    color: #0f172a;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+.lr-shell {
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+.lr-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+    padding: 2.5rem;
+    max-width: 560px;
+    width: 100%;
+}
+
+.lr-icon {
+    width: 56px;
+    height: 56px;
+    background: #fef2f2;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.25rem;
+}
+.lr-icon svg {
+    width: 28px;
+    height: 28px;
+    stroke: #dc2626;
+}
+
+h1 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    color: #0f172a;
+}
+
+.lr-lead {
+    text-align: center;
+    color: #475569;
+    font-size: 0.92rem;
+    margin-bottom: 1.5rem;
+}
+
+.lr-reason {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+}
+
+.lr-steps {
+    list-style: decimal inside;
+    color: #334155;
+    font-size: 0.9rem;
+    margin-bottom: 1.75rem;
+    padding-left: 0.25rem;
+}
+.lr-steps li {
+    margin-bottom: 0.4rem;
+}
+
+.lr-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+}
+.lr-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.65rem 1.25rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.88rem;
+    text-decoration: none;
+    transition: background 150ms ease, transform 150ms ease;
+}
+.lr-btn-primary {
+    background: #4f46e5;
+    color: #ffffff;
+}
+.lr-btn-primary:hover {
+    background: #4338ca;
+    transform: translateY(-1px);
+}
+.lr-btn-ghost {
+    background: #f1f5f9;
+    color: #334155;
+    border: 1px solid #e2e8f0;
+}
+.lr-btn-ghost:hover {
+    background: #e2e8f0;
+}
+
+.lr-meta {
+    text-align: center;
+    color: #64748b;
+    font-size: 0.78rem;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 1rem;
+    margin-top: 0.5rem;
+}
+.lr-meta-strong {
+    color: #0f172a;
+    font-weight: 600;
+    font-family: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition-duration: 0ms !important;
+        animation-duration: 0ms !important;
+    }
+}

@@ -1,0 +1,281 @@
+        /* Load Inter once on the layout so every public page (home,
+           pricing, docs, static pages) renders with the same typeface.
+           MUST be the first rule — CSS spec requires @import to come
+           before any other at-rules or style declarations or the
+           browser silently ignores it.  Before this fix it sat after
+           the universal selector and was skipped, leaving every page
+           on system-ui and making the brand wordmark measure
+           narrower than the Inter-rendered version. */
+        /* Inter font: self-hosted via the <link> tag in head (see above);
+           no external CDN load.  System fonts in the fallback chain
+           take over instantly while the woff2 streams in. */
+        *{box-sizing:border-box;margin:0;padding:0}
+        /* overflow-x:hidden on html AND body.  body alone isn't
+           enough on mobile — the body::before/::after atmospheric
+           glows are positioned absolute at left:-200 / right:-160
+           (widths 900 / 780), so their natural extent reaches
+           ~700px.  Body clips them visually, but html keeps its
+           default overflow-x:visible and reports a 700px scroll-
+           width to the mobile viewport, which makes the page
+           appear horizontally scrollable ("not responsive"). */
+        html{scroll-behavior:smooth;overflow-x:hidden}
+        html,body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#111827;line-height:1.55;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+        html[dir="rtl"] body{font-family:'Segoe UI','Tahoma',-apple-system,BlinkMacSystemFont,sans-serif;text-align:right}
+        html[dir="rtl"] .hero-cta,html[dir="rtl"] .nav-links{flex-direction:row-reverse}
+        /* ── Atmospheric backdrop shared by every public marketing
+           page.  Grid underlay is body's own background-image; the
+           two coloured glows are rendered as absolute-positioned
+           pseudo-elements pinned near the top-left and top-right
+           corners.  isolation:isolate gives body its own stacking
+           context so z-index:-1 below places the glows ABOVE body's
+           white paint but BENEATH the nav / content in flow.
+           Previous attempt to stack the radials as extra layers on
+           body's background-image stretched the tile to 100% 100%
+           of body (potentially 10k+ px tall), which pushed each
+           gradient's centre thousands of pixels above the viewport
+           and rendered the glows invisible. */
+        body{position:relative;overflow-x:hidden;isolation:isolate;
+            background-color:#ffffff;
+            background-image:
+                linear-gradient(rgba(255,255,255,0),rgba(255,255,255,0.70) 70%,#ffffff 100%),
+                url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgZmlsbD0ibm9uZSI+PHBhdGggc3Ryb2tlPSIjMDAwIiBzdHJva2Utb3BhY2l0eT0iLjA0IiBzdHJva2Utd2lkdGg9Ii41IiBkPSJNLjI1LjI1aDQ3LjV2NDcuNUguMjV6Ii8+PC9zdmc+");
+            background-attachment:scroll,fixed;
+            background-repeat:no-repeat,repeat;
+            background-position:0 0,0 0;
+            background-size:100% 100%,48px 48px}
+        /* Glow composition — indigo is the dominant focal blob,
+           rose a softer counterweight.  Solid colour at the 0%
+           stop + alpha mid-stop + transparent end reads as a
+           luminous core fading into light, whereas a uniform
+           alpha wash reads as flat paint.  Overall element opacity
+           keeps the whole thing atmospheric instead of gaudy. */
+        body::before{content:"";position:absolute;
+            top:-120px;left:-200px;
+            width:900px;height:900px;border-radius:50%;
+            background:radial-gradient(circle,#6366f1 0%,rgba(139,92,246,.4) 45%,transparent 70%);
+            opacity:.12;filter:blur(40px);
+            pointer-events:none;z-index:-1}
+        body::after{content:"";position:absolute;
+            top:-200px;right:-160px;
+            width:780px;height:780px;border-radius:50%;
+            background:radial-gradient(circle,#ec4899 0%,rgba(236,72,153,.35) 50%,transparent 75%);
+            opacity:.06;filter:blur(50px);
+            pointer-events:none;z-index:-1}
+        a{color:#4f46e5;text-decoration:none}
+        a:hover{color:#4338ca}
+        .wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+        .btn{display:inline-block;padding:12px 22px;border-radius:8px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid transparent;transition:all .15s;cursor:pointer}
+        .btn-primary{background:#4f46e5;color:#fff}
+        .btn-primary:hover{background:#4338ca;color:#fff;transform:translateY(-1px);box-shadow:0 6px 14px rgba(79,70,229,.35)}
+        .btn-ghost{background:transparent;color:#374151;border-color:#e5e7eb}
+        .btn-ghost:hover{background:#f9fafb;color:#111827}
+        /* ── Pill nav — floating rounded bar centred at the top of
+           every public marketing page.  Sized up to match the
+           Relate.so genre: larger type, more generous vertical
+           padding, chunkier CTAs.  Width unchanged. */
+        body{padding-top:140px}
+        header.nav{position:fixed;top:28px;left:50%;transform:translateX(-50%);
+            width:calc(100% - 32px);max-width:1080px;z-index:50;
+            background:rgba(255,255,255,.84);backdrop-filter:saturate(180%) blur(20px);
+            -webkit-backdrop-filter:saturate(180%) blur(20px);
+            border:1px solid #e4e4e7;border-radius:999px;
+            padding:14px 32px !important;
+            box-shadow:0 1px 2px rgba(15,23,42,.04),0 14px 40px -20px rgba(15,23,42,.14),inset 0 1px 0 rgba(255,255,255,.6);
+            transition:box-shadow .3s ease}
+        header.nav.scrolled{box-shadow:0 1px 2px rgba(15,23,42,.06),0 18px 50px -18px rgba(15,23,42,.22),inset 0 1px 0 rgba(255,255,255,.7)}
+        /* Hyper-specific selector + !important so no landing-variant
+           (warm / modern / editorial / light) can re-inject padding
+           into the nav's inner row.  Previously .wrap cascaded on
+           top of .nav-inner on variants, adding 24px per side only
+           on those pages. */
+        html body header.nav .nav-inner{display:flex !important;
+            align-items:center !important;justify-content:space-between !important;
+            padding:0 !important;margin:0 !important;
+            max-width:none !important;width:100% !important;gap:20px !important}
+        .brand{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:600;color:#111827;letter-spacing:-0.01em}
+        .brand img{width:28px;height:28px}
+        .nav-links{display:flex;align-items:center;gap:28px}
+        /* Nav links rendered bold (600) to match Relate.so's weight
+           — small uplift in type size too (15 → 16) for better
+           legibility on the pill nav's translucent surface. */
+        .nav-links a.link{padding:0;color:#4b5563;font-weight:600;font-size:16px;border-radius:0;background:transparent;letter-spacing:-0.005em}
+        .nav-links a.link:hover{color:#4f46e5;background:transparent}
+        /* Language switcher — same pill pixel dimensions as CTA */
+        .lang-switch{position:relative}
+        .lang-switch > button{display:inline-flex;align-items:center;gap:6px;
+            height:42px;padding:0 16px;
+            background:transparent;border:1px solid #e4e4e7;border-radius:999px;
+            color:#4b5563;font-size:14px;font-weight:500;cursor:pointer;
+            transition:border-color .15s ease,color .15s ease}
+        .lang-switch > button:hover{border-color:#4f46e5;color:#4f46e5}
+        /* CTA — solid dark pill, matched to language-switcher height */
+        .nav .btn.btn-primary{background:#0f172a !important;color:#fff !important;
+            height:42px;padding:0 22px;border-radius:999px;
+            font-size:15px;font-weight:600;border:0;letter-spacing:-0.005em;
+            display:inline-flex;align-items:center;
+            box-shadow:none;transition:transform .15s ease,background .15s ease}
+        .nav .btn.btn-primary:hover{background:#4f46e5 !important;transform:translateY(-1px);box-shadow:none}
+        /* ── Hamburger + mobile panel ────────────────────────────
+           Hidden on desktop, shown in the pill on mobile.  Tap
+           toggles the .nav-mobile-panel below, and the three
+           lines morph into an X (pure CSS). */
+        .nav-toggle{display:none;width:40px;height:40px;padding:0;
+            background:transparent;border:1px solid #e4e4e7;
+            border-radius:12px;cursor:pointer;
+            flex-direction:column;justify-content:center;align-items:center;gap:4px;
+            transition:border-color .15s,background .15s}
+        .nav-toggle:hover{border-color:#4f46e5;background:rgba(79,70,229,.04)}
+        .nav-toggle span{display:block;width:18px;height:2px;
+            background:#374151;border-radius:999px;
+            transition:transform .22s ease,opacity .15s ease}
+        .nav-toggle.is-open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+        .nav-toggle.is-open span:nth-child(2){opacity:0}
+        .nav-toggle.is-open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+        .nav-mobile-panel{display:none;position:fixed;
+            left:12px;right:12px;top:72px;z-index:49;
+            background:rgba(255,255,255,.96);
+            backdrop-filter:saturate(180%) blur(18px);
+            -webkit-backdrop-filter:saturate(180%) blur(18px);
+            border:1px solid #e4e4e7;border-radius:18px;
+            padding:10px 10px 12px;
+            box-shadow:0 20px 50px -18px rgba(15,23,42,.28),0 1px 0 rgba(255,255,255,.7) inset;
+            max-height:calc(100vh - 96px);overflow-y:auto}
+        .nav-mobile-panel.is-open{display:block}
+        .nav-mobile-panel[hidden]{display:none}
+        .nav-mobile-panel.is-open[hidden]{display:block}
+        .nav-mobile-panel a{display:block;padding:12px 14px;
+            color:#1f2937;font-size:16px;font-weight:600;
+            text-decoration:none;border-radius:10px;
+            letter-spacing:-0.005em;
+            transition:background .15s,color .15s}
+        .nav-mobile-panel a:hover,
+        .nav-mobile-panel a:focus{background:#f3f4f6;color:#4f46e5}
+        .nav-mobile-langs{margin-top:8px;padding-top:12px;
+            border-top:1px solid #eef0f3}
+        .nav-mobile-langs-label{display:block;
+            padding:4px 14px 8px;
+            font-size:11px;font-weight:600;color:#6b7280;
+            text-transform:uppercase;letter-spacing:.08em}
+        .nav-mobile-langs-grid{display:grid;
+            grid-template-columns:repeat(2,1fr);gap:4px}
+        .nav-mobile-langs-grid a{display:flex;align-items:center;gap:10px;
+            font-size:14px;font-weight:500;padding:10px 14px}
+        .nav-mobile-langs-grid a.active{background:#eef2ff;color:#4f46e5}
+
+        /* ── Responsive nav ──────────────────────────────────────
+           Two breakpoints:
+             ≤ 768px  Hide text nav links AND the lang chip from
+                      the pill — move them into the hamburger
+                      panel instead.  Pill compacts.
+             ≤ 420px  Hide the wordmark span too — favicon +
+                      compact CTA + hamburger only. */
+        @media (max-width:768px){
+            .nav-links a.link,
+            .lang-switch{display:none !important}
+            .nav-toggle{display:inline-flex}
+            html body header.nav{top:16px;
+                padding:10px 14px 10px 18px !important;
+                width:calc(100% - 24px)}
+            html body header.nav .nav-inner{gap:12px !important}
+            .brand{font-size:16px;gap:9px}
+            .brand img{width:26px;height:26px}
+            .nav .btn.btn-primary{height:38px;padding:0 18px;font-size:14px}
+            body{padding-top:88px}
+        }
+        @media (max-width:420px){
+            .brand span{display:none}
+            .brand{gap:0}
+            html body header.nav{top:12px;
+                padding:8px 10px 8px 12px !important;
+                width:calc(100% - 20px)}
+            .nav-toggle{width:36px;height:36px;border-radius:10px}
+            .nav-toggle span{width:16px}
+            .nav .btn.btn-primary{height:36px;padding:0 12px;font-size:12px}
+            .nav-mobile-panel{top:64px}
+            body{padding-top:74px}
+        }
+        /* Menu: zero margin-top + 8px padding-top so the hover surface
+           of the .lang-switch parent covers the gap between the button
+           and the menu items.  Previously a 6px empty gap made the
+           menu unreachable — mouse left .lang-switch before entering
+           .menu and the :hover state dropped. */
+        .lang-switch .menu{display:none;position:absolute;right:0;top:100%;margin-top:0;background:#fff;border:1px solid #e5e7eb;border-radius:8px;min-width:160px;box-shadow:0 6px 24px rgba(0,0,0,.08);padding:8px 6px 6px;z-index:60}
+        html[dir="rtl"] .lang-switch .menu{right:auto;left:0}
+        .lang-switch:hover .menu,
+        .lang-switch:focus-within .menu{display:block}
+        .lang-switch .menu a{display:flex;align-items:center;gap:8px;padding:8px 12px;color:#374151;font-size:13px;border-radius:6px}
+        .lang-switch .menu a:hover{background:#f3f4f6;color:#111827}
+        .lang-switch .menu a.active{background:#eef2ff;color:#4f46e5;font-weight:600}
+        /* ── Footer — dark navy card aligned with the body content
+           column (the same 1180px / 24px-gutter box that landing-
+           light's .wrap uses), so the card edges sit flush with the
+           CTA card above and every other body element on the page.
+           Nav intentionally stays narrower (1080px pill) — header
+           and body don't need to share a width, but footer and
+           body should.  Indigo corner glow gives the card a subtle
+           centre of light that echoes the hero backdrop upstairs. */
+        footer.site-foot{margin:96px auto 16px;padding:0 24px;
+            max-width:1180px;font-size:15px}
+        .foot-card{position:relative;overflow:hidden;border-radius:28px;
+            background:linear-gradient(135deg,#0b1220 0%,#0f172a 100%);
+            padding:64px 56px 32px;color:rgba(255,255,255,.70)}
+        .foot-card::before{content:"";position:absolute;
+            top:-180px;left:-180px;width:560px;height:560px;border-radius:50%;
+            background:radial-gradient(circle,#6366f1 0%,rgba(139,92,246,.35) 50%,transparent 75%);
+            opacity:.22;filter:blur(50px);pointer-events:none}
+        .foot-grid{position:relative;display:grid;grid-template-columns:1fr;
+            gap:44px;margin-bottom:48px}
+        @media (min-width:800px){
+            .foot-grid{grid-template-columns:1.8fr 1fr 1fr 1fr;gap:56px}
+        }
+        /* Tablet — shrink card padding so the 4-column grid doesn't
+           cramp against the rounded corners before the breakpoint
+           collapses it to 1 column. */
+        @media (max-width:860px){
+            .foot-card{padding:48px 36px 28px}
+        }
+        /* Mobile — keep wrapper gutter at 24px so the card's left
+           and right edges stay aligned with body content (which
+           uses .wrap { padding: 0 24px } on every viewport).  Only
+           card-internal padding and corner radius shrink. */
+        @media (max-width:640px){
+            footer.site-foot{margin:64px auto 10px}
+            .foot-card{padding:36px 22px 22px;border-radius:20px}
+            .foot-grid{gap:36px;margin-bottom:36px}
+        }
+        .foot-brand .wordmark{display:flex;align-items:center;gap:10px;
+            font-size:23px;font-weight:700;letter-spacing:-0.015em;
+            color:#fff;margin-bottom:14px}
+        .foot-brand .wordmark img{width:32px;height:32px;border-radius:9px;
+            box-shadow:0 4px 14px -4px rgba(99,102,241,.45)}
+        .foot-brand p{color:rgba(255,255,255,.55);font-size:15px;line-height:1.6;
+            max-width:320px;margin:0 0 20px}
+        .foot-social{display:flex;gap:8px}
+        .foot-social a{width:36px;height:36px;border-radius:9px;
+            border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.03);
+            display:inline-flex;align-items:center;justify-content:center;
+            color:rgba(255,255,255,.65);
+            transition:border-color .15s,color .15s,background .15s,transform .15s}
+        .foot-social a:hover{border-color:rgba(129,140,248,.55);color:#fff;
+            background:rgba(99,102,241,.15);transform:translateY(-1px)}
+        .foot-social svg{width:16px;height:16px}
+        .foot-col h4{font-size:13px;font-weight:600;color:rgba(255,255,255,.85);
+            text-transform:uppercase;letter-spacing:.06em;margin:0 0 18px}
+        .foot-col ul{list-style:none;padding:0;margin:0;
+            display:flex;flex-direction:column;gap:10px}
+        .foot-col a{font-size:15px;color:rgba(255,255,255,.55);
+            text-decoration:none;transition:color .15s}
+        .foot-col a:hover{color:#fff}
+        .foot-bottom{position:relative;padding-top:28px;
+            border-top:1px solid rgba(255,255,255,.08);
+            display:flex;align-items:center;justify-content:space-between;
+            flex-wrap:wrap;gap:16px}
+        .foot-bottom .copy{font-size:14px;color:rgba(255,255,255,.40)}
+        .foot-bottom .legal{display:flex;gap:20px;font-size:14px}
+        .foot-bottom .legal a{color:rgba(255,255,255,.45);text-decoration:none;
+            transition:color .15s}
+        .foot-bottom .legal a:hover{color:#fff}
+        @media (max-width:640px){
+            .nav-links a.link{display:none}
+        }

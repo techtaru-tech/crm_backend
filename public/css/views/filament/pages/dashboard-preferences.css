@@ -1,0 +1,122 @@
+/*
+ |------------------------------------------------------------------
+ | dashboard-preferences.css — widget visibility preferences page
+ |------------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/pages/dashboard-preferences.blade.php.
+ | All styles in this view are static.  Hover effects moved from
+ | onmouseover/onmouseout inline event handlers to CSS :hover.
+ */
+
+.dp-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 24px 28px;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+.dp-title {
+    margin: 0 0 6px;
+    font-size: 17px;
+    font-weight: 700;
+    color: #0f172a;
+    letter-spacing: -0.01em;
+}
+.dp-subtitle {
+    margin: 0 0 20px;
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.55;
+}
+
+/* ─── Widget option list ─── */
+.dp-options {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+.dp-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #fff;
+    transition: border-color 0.15s, background 0.15s;
+}
+.dp-option:hover {
+    border-color: #6366f1;
+    background: #fafbff;
+}
+.dp-checkbox {
+    margin-top: 2px;
+    width: 16px;
+    height: 16px;
+    accent-color: #4f46e5;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+.dp-option-body {
+    flex: 1;
+    min-width: 0;
+}
+.dp-option-label {
+    margin: 0 0 2px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+}
+.dp-option-key {
+    margin: 0;
+    font-size: 12px;
+    color: #9ca3af;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* ─── Action buttons ─── */
+.dp-actions {
+    margin-top: 28px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.dp-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    background: #4f46e5;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.15s;
+    box-shadow: 0 1px 2px rgba(79, 70, 229, 0.2);
+}
+.dp-btn-primary:hover {
+    background: #4338ca;
+    transform: translateY(-1px);
+}
+.dp-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+    background: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+}
+.dp-btn-secondary:hover {
+    background: #f9fafb;
+    border-color: #9ca3af;
+}

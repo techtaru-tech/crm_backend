@@ -1,0 +1,179 @@
+/*
+ |------------------------------------------------------------------
+ | super-admin/pages/modules.css — static styles for SA modules page
+ |------------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/super-admin/pages/modules.blade.php
+ | via <link rel="stylesheet" href="{{ asset('css/views/filament/super-admin/pages/modules.css') }}">.
+ |
+ | All inline style="" attributes in this view are static. There are
+ | no dynamic interpolated values in inline styles for this page.
+ */
+
+/* ─── Hero banner ─── */
+.mod-hero {
+    background: linear-gradient(135deg, #0ea5e9, #6366f1);
+    color: #fff;
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 30px rgba(14, 165, 233, .25);
+}
+.mod-hero-eyebrow {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    opacity: .85;
+    margin: 0 0 6px;
+}
+.mod-hero-title {
+    font-size: 26px;
+    font-weight: 800;
+    margin: 0 0 6px;
+}
+.mod-hero-sub {
+    font-size: 14px;
+    opacity: .92;
+    margin: 0;
+    max-width: 720px;
+}
+.mod-hero-code {
+    background: rgba(255, 255, 255, .18);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+/* ─── Unavailable warning banner ─── */
+.mod-warn {
+    background: #fef3c7;
+    border: 1px solid #fcd34d;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    color: #92400e;
+    font-size: 14px;
+}
+.mod-warn-code {
+    background: #fde68a;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+/* ─── Installed-modules section ─── */
+.mod-section {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 24px;
+}
+.mod-section-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #374151;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    margin: 0 0 16px;
+}
+.mod-empty {
+    color: #9ca3af;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* ─── Table ─── */
+.mod-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+.mod-table-head-row {
+    text-align: left;
+    color: #6b7280;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+.mod-table-th {
+    padding: 8px 0;
+    font-weight: 600;
+}
+.mod-table-th-right {
+    padding: 8px 0;
+    font-weight: 600;
+    text-align: right;
+}
+.mod-table-row {
+    border-top: 1px solid #f1f5f9;
+}
+.mod-td-name {
+    padding: 14px 0;
+    color: #111827;
+}
+.mod-name {
+    font-weight: 600;
+}
+.mod-desc {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 2px;
+}
+.mod-alias {
+    font-size: 11px;
+    color: #9ca3af;
+    font-family: ui-monospace, monospace;
+    margin-top: 3px;
+}
+.mod-td-version {
+    padding: 14px 0;
+    color: #6b7280;
+    font-family: ui-monospace, monospace;
+}
+.mod-td-status {
+    padding: 14px 0;
+}
+.mod-td-actions {
+    padding: 14px 0;
+    text-align: right;
+}
+
+/* ─── Status pills ─── */
+.mod-pill-enabled {
+    background: #d1fae5;
+    color: #047857;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+}
+.mod-pill-disabled {
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+/* ─── Action buttons ─── */
+.mod-btn {
+    border: 0;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-inline-start: 6px;
+}
+.mod-btn-disable {
+    background: #f3f4f6;
+    color: #374151;
+}
+.mod-btn-enable {
+    background: #4f46e5;
+    color: #fff;
+}
+.mod-btn-delete {
+    background: #fee2e2;
+    color: #991b1b;
+}

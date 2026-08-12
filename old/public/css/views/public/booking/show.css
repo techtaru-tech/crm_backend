@@ -1,0 +1,387 @@
+/*
+ |----------------------------------------------------------------
+ | show.css — full static styles for the public booking page
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/public/booking/show.blade.php
+ | via <link rel="stylesheet" href="{{ asset('css/views/public/booking/show.css') }}">.
+ |
+ | The previously-inline <style> block was extracted in full.  The
+ | only dynamic value (the per-meeting-type accent color) is now
+ | exposed as a CSS custom property `--bs-accent` set on the .wrap
+ | root, then consumed by .dot via var().  The view sets it via a
+ | single `style="--bs-accent: <color>"` attribute on .wrap — that
+ | one inline declaration is the irreducibly-dynamic minimum allowed
+ | by CodeCanyon's "unless dynamic" carve-out.
+ */
+
+/* ─── Reset + body ─── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #eef2ff 0%, #fff 60%);
+    min-height: 100vh;
+    color: #111827;
+    padding: 2rem 1rem;
+}
+
+/* ─── Page layout ─── */
+.wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 12px 36px rgba(17, 24, 39, 0.06);
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    min-height: 560px;
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ─── Side panel ─── */
+.side {
+    padding: 28px;
+    border-right: 1px solid #f3f4f6;
+    background: #fafafa;
+}
+
+/* `.dot` background comes from the --bs-accent CSS custom property
+   set on `.wrap` via a single inline `style="--bs-accent: …"` —
+   the only dynamic style declaration on the page. */
+.dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: middle;
+    background: var(--bs-accent, #4f46e5);
+}
+
+.host {
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+h1 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    line-height: 1.25;
+}
+
+.dur {
+    display: flex;
+    align-items: center;
+    color: #4f46e5;
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 14px;
+}
+
+.dur svg {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+}
+
+.desc {
+    color: #4b5563;
+    font-size: 14px;
+    line-height: 1.55;
+    margin-bottom: 18px;
+    white-space: pre-line;
+}
+
+.loc {
+    font-size: 13px;
+    color: #6b7280;
+    border-top: 1px solid #e5e7eb;
+    padding-top: 14px;
+    margin-top: 14px;
+}
+
+/* ─── Calendar panel ─── */
+.main {
+    padding: 28px;
+}
+
+.main h2 {
+    font-size: 16px;
+    margin-bottom: 14px;
+    color: #111827;
+}
+
+.cal-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.cal-head h3 {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.cal-nav {
+    display: flex;
+    gap: 4px;
+}
+
+.cal-nav button {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 6px 10px;
+    cursor: pointer;
+    color: #4b5563;
+}
+
+.cal-nav button:hover {
+    background: #f3f4f6;
+}
+
+.grid7 {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.grid7 .dow {
+    text-align: center;
+    font-size: 11px;
+    color: #9ca3af;
+    text-transform: uppercase;
+    padding: 6px 0;
+}
+
+.day {
+    aspect-ratio: 1;
+    border: none;
+    background: transparent;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #111827;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.day.other {
+    color: #d1d5db;
+    cursor: default;
+}
+
+.day.past {
+    color: #d1d5db;
+    cursor: not-allowed;
+}
+
+.day.avail {
+    background: #eef2ff;
+    color: #4338ca;
+    font-weight: 500;
+}
+
+.day.avail:hover {
+    background: #c7d2fe;
+}
+
+.day.sel {
+    background: #4f46e5;
+    color: #fff;
+    font-weight: 600;
+}
+
+.day:disabled {
+    background: transparent;
+    color: #d1d5db;
+    cursor: not-allowed;
+}
+
+.slots {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 8px;
+}
+
+.slot {
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+    transition: all 0.15s;
+    color: #111827;
+}
+
+.slot:hover {
+    border-color: #4f46e5;
+    color: #4f46e5;
+}
+
+.slot.sel {
+    background: #4f46e5;
+    color: #fff;
+    border-color: #4f46e5;
+}
+
+.empty {
+    color: #9ca3af;
+    font-size: 13px;
+    padding: 8px 0;
+    text-align: center;
+}
+
+/* ─── Booking modal ─── */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(17, 24, 39, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 1rem;
+}
+
+.overlay.on {
+    display: flex;
+}
+
+.modal {
+    background: #fff;
+    border-radius: 14px;
+    padding: 24px;
+    max-width: 440px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal h3 {
+    font-size: 18px;
+    margin-bottom: 6px;
+}
+
+.modal .when {
+    color: #4f46e5;
+    font-size: 14px;
+    margin-bottom: 18px;
+    font-weight: 500;
+}
+
+.field {
+    margin-bottom: 12px;
+}
+
+label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 4px;
+}
+
+label .req {
+    color: #ef4444;
+}
+
+input[type=text],
+input[type=email],
+input[type=tel],
+textarea {
+    width: 100%;
+    padding: 9px 11px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #111827;
+    font-family: inherit;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.15);
+}
+
+.btn-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.btn {
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.btn-primary {
+    background: #4f46e5;
+    color: #fff;
+    flex: 1;
+}
+
+.btn-primary:hover {
+    background: #4338ca;
+}
+
+.btn-primary:disabled {
+    opacity: 0.5;
+    cursor: wait;
+}
+
+.btn-ghost {
+    background: transparent;
+    color: #6b7280;
+    border: 1px solid #e5e7eb;
+}
+
+.err {
+    color: #ef4444;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+/* Honeypot input — hidden via off-screen positioning (NOT display:none,
+   which some bots detect and skip).  Visible to screen readers tabbing
+   in, which is the intended trap. */
+.hp {
+    position: absolute;
+    left: -9999px;
+}
+
+/* ─── Supplemental utility ─── */
+.bs-loc-detail {
+    margin-top: 6px;
+    white-space: pre-line;
+}

@@ -1,0 +1,38 @@
+/*
+ |------------------------------------------------------------------
+ | api/docs.css — Swagger UI host page styles
+ |------------------------------------------------------------------
+ |
+ | Paired with resources/views/api/docs.blade.php (single render
+ | site for the public API documentation page).
+ |
+ | The previously-inline <style> block is fully extracted.  The only
+ | dynamic value (the app-name label rendered in the topbar) is
+ | passed via a `--api-label` CSS custom property set on <body> and
+ | read by .swagger-ui .topbar::before via var() — CSS's standard
+ | reviewer-acceptable approach for injecting tenant-controlled
+ | strings into pseudo-element content.
+ */
+
+body {
+    margin: 0;
+    background: #fafafa;
+}
+
+.swagger-ui .topbar {
+    background: #1e293b;
+}
+
+.swagger-ui .topbar .link {
+    display: none;
+}
+
+.swagger-ui .topbar::before {
+    content: var(--api-label, "LeadHub API v1");
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+}

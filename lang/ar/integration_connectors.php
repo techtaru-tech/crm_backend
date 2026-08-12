@@ -1,0 +1,140 @@
+<?php
+
+return [
+    'default' => [
+        'first_name' => 'الاسم الأول',
+        'last_name'  => 'اسم العائلة',
+        'email'      => 'البريد الإلكتروني',
+        'phone'      => 'الهاتف',
+        'company'    => 'الشركة',
+        'source'     => 'مصدر العميل المحتمل',
+        'status'     => 'الحالة',
+        'lead_score' => 'درجة العميل المحتمل',
+        'address'    => 'العنوان',
+        'city'       => 'المدينة',
+        'country'    => 'الدولة',
+        'notes'      => 'الملاحظات',
+    ],
+
+    'activecampaign' => [
+        'email'     => 'البريد الإلكتروني',
+        'firstName' => 'الاسم الأول',
+        'lastName'  => 'اسم العائلة',
+        'phone'     => 'الهاتف',
+        'orgname'   => 'اسم المؤسسة',
+    ],
+
+    'freshsales' => [
+        'first_name'    => 'الاسم الأول',
+        'last_name'     => 'اسم العائلة',
+        'email'         => 'البريد الإلكتروني',
+        'mobile_number' => 'رقم الجوال',
+        'work_number'   => 'رقم العمل',
+        'job_title'     => 'المسمى الوظيفي',
+        'company'       => 'الشركة',
+        'city'          => 'المدينة',
+        'country'       => 'الدولة',
+    ],
+
+    'hubspot' => [
+        'email'     => 'البريد الإلكتروني',
+        'firstname' => 'الاسم الأول',
+        'lastname'  => 'اسم العائلة',
+        'phone'     => 'الهاتف',
+        'company'   => 'الشركة',
+        'website'   => 'الموقع الإلكتروني',
+        'address'   => 'العنوان',
+        'city'      => 'المدينة',
+        'country'   => 'الدولة',
+        'jobtitle'  => 'المسمى الوظيفي',
+    ],
+
+    'mailchimp' => [
+        'first_name' => 'الاسم الأول',
+        'last_name'  => 'اسم العائلة',
+        'phone'      => 'الهاتف',
+        'company'    => 'الشركة',
+    ],
+
+    'notion' => [
+        'name'    => 'الاسم (title)',
+        'email'   => 'البريد الإلكتروني (email)',
+        'phone'   => 'الهاتف (phone_number)',
+        'source'  => 'المصدر (rich_text)',
+        'status'  => 'الحالة (rich_text)',
+        'company' => 'الشركة (rich_text)',
+    ],
+
+    'pipedrive' => [
+        'name'       => 'الاسم',
+        'email'      => 'البريد الإلكتروني',
+        'phone'      => 'الهاتف',
+        'org_name'   => 'المؤسسة',
+        'deal_title' => 'عميل محتمل: :name',
+    ],
+
+    'salesforce' => [
+        'email'        => 'البريد الإلكتروني',
+        'first_name'   => 'الاسم الأول',
+        'last_name'    => 'اسم العائلة',
+        'phone'        => 'الهاتف',
+        'company'      => 'الشركة',
+        'lead_source'  => 'مصدر العميل المحتمل',
+        'status'       => 'الحالة',
+        'mobile_phone' => 'الهاتف المحمول',
+        'website'      => 'الموقع الإلكتروني',
+        'city'         => 'المدينة',
+        'country'      => 'الدولة',
+    ],
+
+    'vtiger' => [
+        'firstname'  => 'الاسم الأول',
+        'lastname'   => 'اسم العائلة',
+        'email'      => 'البريد الإلكتروني',
+        'phone'      => 'الهاتف',
+        'company'    => 'الشركة',
+        'leadsource' => 'مصدر العميل المحتمل',
+    ],
+
+    'zendesk' => [
+        'name'         => 'الاسم الكامل',
+        'email'        => 'البريد الإلكتروني',
+        'phone'        => 'الهاتف',
+        'organization' => 'المؤسسة',
+        'external_id'  => 'المعرّف الخارجي',
+        'details'      => 'التفاصيل',
+        'notes'        => 'الملاحظات',
+    ],
+
+    'zoho_crm' => [
+        'first_name'  => 'الاسم الأول',
+        'last_name'   => 'اسم العائلة',
+        'email'       => 'البريد الإلكتروني',
+        'phone'       => 'الهاتف',
+        'company'     => 'الشركة',
+        'lead_source' => 'مصدر العميل المحتمل',
+        'city'        => 'المدينة',
+        'country'     => 'الدولة',
+    ],
+
+    'not_configured' => [
+        'convertkit'      => 'لم يتم تكوين معرّف نموذج ConvertKit.',
+        'activepieces'    => 'لم يتم تكوين رابط Webhook لـ Activepieces.',
+        'google_sheets'   => 'لم يتم تكوين معرّف جدول بيانات Google Sheets.',
+        'airtable'        => 'لم يتم تكوين معرّف القاعدة/الجدول في Airtable.',
+        'getresponse'     => 'لم يتم تكوين معرّف حملة GetResponse.',
+        'generic_webhook' => 'لم يتم تكوين رابط Webhook.',
+        'make'            => 'لم يتم تكوين رابط Webhook لـ Make.',
+        'monday'          => 'لم يتم تكوين معرّف لوحة Monday.com.',
+        'n8n'             => 'لم يتم تكوين رابط Webhook لـ n8n.',
+        'microsoft_teams' => 'لم يتم تكوين رابط Webhook لـ Microsoft Teams.',
+        'pabbly'          => 'لم يتم تكوين رابط Webhook لـ Pabbly.',
+        'notion'          => 'لم يتم تكوين معرّف قاعدة بيانات Notion.',
+        'streak'          => 'لم يتم تكوين مفتاح خط Streak.',
+        'slack'           => 'لم يتم تكوين رابط Webhook لـ Slack.',
+        'mailchimp'       => 'لم يتم تكوين معرّف قائمة Mailchimp.',
+        'moosend'         => 'لم يتم تكوين معرّف قائمة Moosend.',
+        'workato'         => 'لم يتم تكوين رابط Webhook لـ Workato.',
+        'zapier'          => 'لم يتم تكوين رابط Webhook لـ Zapier.',
+    ],
+];

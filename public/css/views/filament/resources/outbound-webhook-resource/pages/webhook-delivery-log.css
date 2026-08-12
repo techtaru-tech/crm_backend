@@ -1,0 +1,25 @@
+/*
+ |----------------------------------------------------------------
+ | webhook-delivery-log.css — static styles for webhook delivery log
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/resources/outbound-webhook-resource/pages/webhook-delivery-log.blade.php
+ | via <link rel="stylesheet" href="{{ asset('css/views/filament/resources/outbound-webhook-resource/pages/webhook-delivery-log.css') }}">.
+ |
+ | All STATIC styles for the page live here. No dynamic styles remain
+ | in this view.
+ */
+
+.wdl-card{padding:1.5rem}
+.wdl-header{margin-bottom:1.25rem}
+.wdl-title{font-size:1rem;font-weight:600;color:#111827}
+.wdl-url{font-size:.8125rem;color:#6b7280;margin-top:.25rem;font-family:ui-monospace,monospace}
+.wdl-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.wdl-stat{border-radius:.5rem;padding:1rem;text-align:center}
+.wdl-stat-total{background:#f9fafb}
+.wdl-stat-success{background:#f0fdf4}
+.wdl-stat-failed{background:#fef2f2}
+.wdl-stat-num{font-size:1.5rem;font-weight:700;color:#111827}
+.wdl-stat-num-success{font-size:1.5rem;font-weight:700;color:#16a34a}
+.wdl-stat-num-failed{font-size:1.5rem;font-weight:700;color:#dc2626}
+.wdl-stat-label{font-size:.8125rem;color:#6b7280;margin-top:.25rem}

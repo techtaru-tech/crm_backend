@@ -1,0 +1,24 @@
+    .docs-wrap{max-width:1100px;margin:0 auto;padding:60px 24px 80px;display:grid;grid-template-columns:260px 1fr;gap:48px}
+    .docs-nav{position:sticky;top:90px;align-self:flex-start;max-height:calc(100vh - 110px);overflow-y:auto}
+    .docs-nav h4{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:#6b7280;font-weight:700;margin:20px 0 8px;padding:0 12px}
+    .docs-nav h4:first-child{margin-top:0}
+    .docs-nav a{display:block;padding:7px 12px;font-size:13px;color:#4b5563;border-radius:6px;margin-bottom:2px}
+    .docs-nav a:hover{background:#f3f4f6;color:#111827}
+    .docs-nav a.active{background:#eef2ff;color:#4f46e5;font-weight:600}
+    .docs-main h1{font-size:36px;font-weight:800;color:#0f172a;margin-bottom:12px;letter-spacing:-.01em}
+    .docs-main p.lead{font-size:17px;color:#6b7280;margin-bottom:32px;max-width:680px}
+    .docs-main h2{font-size:22px;font-weight:700;color:#0f172a;margin:48px 0 12px;padding-top:20px;border-top:1px solid #f1f5f9}
+    .docs-main h2:first-of-type{border-top:0;padding-top:0;margin-top:0}
+    .docs-main h3{font-size:16px;font-weight:700;color:#111827;margin:24px 0 8px}
+    .docs-main p{font-size:15px;color:#374151;line-height:1.7;margin-bottom:14px}
+    .docs-main ul,.docs-main ol{padding-left:22px;margin-bottom:14px;color:#374151;font-size:15px;line-height:1.7}
+    .docs-main li{margin-bottom:6px}
+    .docs-main code{background:#f1f5f9;color:#4f46e5;padding:2px 6px;border-radius:4px;font-size:13px;font-family:ui-monospace,monospace}
+    .docs-main pre{background:#0f172a;color:#e2e8f0;padding:18px;border-radius:8px;overflow-x:auto;font-size:13px;line-height:1.6;margin-bottom:14px}
+    .docs-main pre code{background:transparent;color:inherit;padding:0}
+    .docs-main .callout{background:#eef2ff;border-left:3px solid #4f46e5;padding:14px 18px;border-radius:6px;margin:16px 0;color:#312e81;font-size:14px}
+    .docs-main .callout strong{color:#4f46e5}
+    .docs-main table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+    .docs-main th,.docs-main td{border:1px solid #e5e7eb;padding:10px 14px;text-align:left}
+    .docs-main th{background:#f9fafb;font-weight:600;color:#374151}
+    @media(max-width:860px){.docs-wrap{grid-template-columns:1fr;gap:24px}.docs-nav{position:static;max-height:none}}

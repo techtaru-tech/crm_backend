@@ -1,0 +1,121 @@
+<?php
+
+declare(strict_types=1);
+
+return [
+    'first_contact' => [
+        'title'  => 'Realizar el primer contacto',
+        'reason' => 'Este cliente potencial nunca ha sido contactado. Comuníquese en la próxima hora para obtener las mejores tasas de conversión.',
+    ],
+    'follow_up' => [
+        'title'  => 'Hacer seguimiento — :days días desde el último contacto',
+        'reason' => 'Los clientes potenciales contactados en menos de 24 horas tienen 7 veces más probabilidades de calificar. Envíe un seguimiento ahora.',
+    ],
+    'qualify' => [
+        'title'  => 'Calificar al cliente potencial',
+        'reason' => 'La puntuación del cliente potencial es baja (:score/100). Haga preguntas de calificación para determinar la idoneidad.',
+    ],
+    'create_task' => [
+        'title'  => 'Crear una tarea de seguimiento',
+        'reason' => 'No hay tareas abiertas para este cliente potencial. Programe un recordatorio para mantener el negocio en marcha.',
+    ],
+    'log_call' => [
+        'title'  => 'Registrar una nota de llamada',
+        'reason' => 'Mantenga su CRM actualizado con notas después de cada interacción.',
+    ],
+    'priority' => [
+        'high'   => 'Alta',
+        'medium' => 'Media',
+        'low'    => 'Baja',
+    ],
+
+    'fallback_summary' => [
+        'this_lead'         => 'Este cliente potencial',
+        'at_company'        => ' en :company',
+        'unassigned_stage'  => 'etapa sin asignar',
+        'never_contacted'   => 'Nunca ha sido contactado — el primer contacto es la acción de mayor impacto.',
+        'last_contacted'    => 'Último contacto hace :days día(s).',
+        'high_score'        => 'Puntuación alta — dele prioridad.',
+        'low_score'         => 'Puntuación baja — califique antes de invertir más tiempo.',
+        'mid_score'         => 'Puntuación intermedia — siga nutriendo.',
+        'sentence_template' => ':name:company se encuentra en :stage (:days día(s) de antigüedad). :second :third',
+    ],
+
+    'fallback_draft_email' => [
+        'default_first_name'  => 'hola',
+        'opener_formal'       => 'Estimado/a :first:',
+        'opener_direct'       => 'Hola :first,',
+        'opener_empathetic'   => 'Hola :first, espero que tenga una buena semana —',
+        'opener_friendly'     => 'Hola :first,',
+        'body_followup'       => 'Quería retomar nuestra última conversación para ver si ha tenido la oportunidad de reflexionar sobre el tema.',
+        'body_first_touch'    => 'Le contacto en relación con su consulta — observé que llegó a través de :source y tengo algunas ideas que podrían serle útiles.',
+        'cta'                 => '¿Le vendrían bien 15 minutos esta semana para una llamada rápida? Puedo presentarle detalles concretos sobre los próximos pasos.',
+        'signoff'             => 'Gracias',
+    ],
+
+    'ai_email_composer' => [
+        'intent' => [
+            'introduction' => 'un correo electrónico inicial de presentación y calificación',
+            'follow_up'    => 'un correo electrónico cordial de seguimiento',
+            'proposal'     => 'un correo electrónico de propuesta o próximos pasos',
+            're_engage'    => 'un correo electrónico de reactivación para un cliente potencial frío',
+            'closing'      => 'un correo electrónico de cierre o confirmación de negocio',
+            'default'      => 'un correo electrónico de seguimiento de ventas',
+        ],
+        'system_prompt' => 'Usted es un experto redactor de correos electrónicos de ventas B2B. Responda únicamente en el idioma cuyo código de localización es ":locale". Escriba correos electrónicos concisos, personalizados y profesionales. Nunca use frases genéricas de relleno como «Espero que este correo le encuentre bien». Devuelva únicamente JSON.',
+        'prompt_write_label'   => 'Write',
+        'prompt_for_lead'      => 'for a lead with these details:',
+        'prompt_name'          => 'Name',
+        'prompt_company'       => 'Company',
+        'prompt_job_title'     => 'Job Title',
+        'prompt_industry'      => 'Industry',
+        'prompt_source'        => 'Lead Source',
+        'prompt_status'        => 'Lead Status',
+        'prompt_score'         => 'Lead Score',
+        'prompt_source_default' => 'sitio web',
+        'prompt_status_default' => 'nuevo',
+        'prompt_additional_context' => 'Additional context',
+        'prompt_closing_instructions' => "\nMantenlo en menos de 150 palabras. Personaliza según el origen y la empresa. Firma como «:signoff».",
+        'prompt_closing_signoff' => 'El equipo',
+        'function_description' => 'Return a sales email draft',
+        'subject_description'  => 'Email subject line',
+        'body_description'     => 'Email body in plain text with paragraph breaks. Do not use HTML tags.',
+    ],
+
+    'lead_enrichment' => [
+        'system_prompt' => 'Usted es un asistente de enriquecimiento de clientes potenciales B2B. Responda únicamente en el idioma cuyo código de localización es ":locale". Dado un nombre, un dominio de correo electrónico y una dirección de correo electrónico, devuelva datos estructurados. Si no puede determinar algo con razonable confianza, devuelva null para ese campo. Nunca invente datos.',
+        'prompt_name'   => 'Name',
+        'prompt_email'  => 'Email',
+        'prompt_domain' => 'Domain',
+        'prompt_instruction' => 'Based on the email domain, infer company name, industry, and available public information. Do not hallucinate specific person details.',
+        'function_description'      => 'Return structured enrichment data for a lead',
+        'company_description'       => 'Company name from domain',
+        'job_title_description'     => 'Likely job title based on available info',
+        'industry_description'      => 'Industry sector',
+        'company_size_description'  => 'Estimated company size (e.g. 1-10, 11-50, 51-200, 201-1000, 1000+)',
+        'country_description'       => 'Country code (ISO 3166-1 alpha-2)',
+        'linkedin_url_description'  => 'LinkedIn company page URL if inferable from domain',
+    ],
+
+    'ai_prompts' => [
+        'recommendations_system' => 'Usted es un coach de ventas con IA. Responda únicamente en el idioma cuyo código de localización es ":locale". Dado el perfil y estado de un cliente potencial, devuelva exactamente 3 próximas mejores acciones priorizadas para hacer avanzar el negocio. Sea específico y accionable. Devuelva únicamente JSON válido.',
+        'recommendations_user_suffix' => "\n\nReturn exactly 3 actions as a JSON array: [{\"priority\": \"high|medium|low\", \"icon\": \"phone|email|task|note|warning|star\", \"title\": \"Short action title in language :locale\", \"reason\": \"1-2 sentence explanation in language :locale\"}]",
+        'summary_system' => 'Usted es un coach de ventas con IA. Responda únicamente en el idioma cuyo código de localización es ":locale". Dado un perfil de cliente potencial, escriba un resumen ejecutivo de 2 o 3 frases que cubra: quién es, dónde se sitúa en el embudo y qué hacer a continuación. Sin relleno, sin saludos.',
+        'draft_email_system' => 'Usted es un comercial redactando un correo electrónico de seguimiento. Responda únicamente en el idioma cuyo código de localización es ":locale". Tono: :tone. Escriba el cuerpo completo del correo electrónico (sin línea de asunto). Haga referencia a un detalle específico del perfil del cliente potencial. Termine con una sola llamada a la acción clara. Texto plano, 80-150 palabras, sin preámbulo.',
+        'context_lead'          => 'Lead',
+        'context_at'            => 'at',
+        'context_source'        => 'Source',
+        'context_status'        => 'Status',
+        'context_score'         => 'Score',
+        'context_pipeline_stage' => 'Pipeline stage',
+        'context_days_created'  => 'Days since created',
+        'context_days_contact'  => 'Days since last contact',
+        'context_days_activity' => 'Days since last activity',
+        'context_open_tasks'    => 'Open tasks',
+        'context_job_title'     => 'Job title',
+        'context_industry'      => 'Industry',
+        'context_unknown'       => 'desconocido',
+        'context_new'           => 'nuevo',
+        'context_none'          => 'ninguno',
+    ],
+];

@@ -1,0 +1,27 @@
+/* ─────────────────────────────────────────────────────────────────
+   Per-view stylesheet for resources/views/public/landing/sections/hero.blade.php
+   Class prefix: pls-hero-  (public-landing-section hero variant).
+
+   Notes for reviewers:
+     - The view also carries a dynamic inline <style> block whose
+       values depend on $content['background'] / $alignment / $image.
+       Those styles MUST stay inline because they vary per landing-page
+       record at render time.  Only static rules live here.
+     - Likewise the <section> element keeps its inline style="" because
+       its `padding`/`background` is driven by per-section data.
+   ──────────────────────────────────────────────────────────────── */
+
+/* Optional hero-illustration wrapper rendered when the editor uploaded
+   an image AND chose a background mode other than "image". */
+.pls-hero-illustration {
+    margin-top: 44px;
+}
+
+/* The illustration image itself. */
+.pls-hero-illustration img {
+    max-width: 100%;
+    border-radius: 18px;
+    box-shadow:
+        0 30px 60px rgba(15, 23, 42, 0.14),
+        0 12px 24px rgba(15, 23, 42, 0.06);
+}

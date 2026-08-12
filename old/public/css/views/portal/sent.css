@@ -1,0 +1,41 @@
+/*
+ |----------------------------------------------------------------
+ | sent.css — static styles for the lead-portal "check your email"
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/portal/sent.blade.php
+ | via <link rel="stylesheet" href="{{ asset('css/views/portal/sent.css') }}">.
+ |
+ | All STATIC styles for the page live here.  The view contains no
+ | dynamic Blade-interpolated inline styles.
+ |
+ | Class prefix: ps- (portal-sent).
+ */
+
+.ps-wrap {
+    max-width: 440px;
+    margin: 80px auto;
+}
+
+.ps-card { text-align: center; }
+
+.ps-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #eef2ff;
+    color: #4f46e5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.ps-body {
+    color: #6b7280;
+    font-size: 14px;
+    margin-top: 12px;
+    line-height: 1.6;
+}
+
+.ps-alt-btn { margin-top: 24px; }

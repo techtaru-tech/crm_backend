@@ -1,0 +1,67 @@
+/*
+ |------------------------------------------------------------------
+ | sa-panel-overrides.css — Super Admin Filament panel tweaks
+ |------------------------------------------------------------------
+ |
+ | Loaded by app/Providers/Filament/SuperAdminPanelProvider.php via
+ | a HEAD_END render hook.  All styles here are static; per-tenant
+ | brand colors come from the panel's colors() config, not from
+ | inline CSS.
+ |
+ | Extracted from a previously-inline <style> block in the panel
+ | provider so the SA panel has zero inline styles per CodeCanyon's
+ | Item 2 rule ("no inline scripts or styles unless dynamic").
+ */
+
+/* Soft bounce + drop shadow on the SA panel brand logo. */
+.fi-logo {
+    border-radius: 10px;
+    animation: lh-float 3.6s ease-in-out infinite;
+    filter: drop-shadow(0 6px 10px rgba(244, 63, 94, 0.28));
+}
+
+@keyframes lh-float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-4px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fi-logo { animation: none; }
+}
+
+/*
+ | Full-width override for every plausible Filament 4 wrapper class
+ | applied on Create / Edit / List / Dashboard pages WITHIN the SA
+ | panel only.  The .fi-panel-super-admin body class scopes these
+ | rules to the SA panel and leaves the tenant /admin panel alone.
+ |
+ | max-width:100% on .fi-main-ctn only — its default width:100vw is
+ | load-bearing for the flex layout, so we don't touch that.
+ */
+.fi-panel-super-admin .fi-main-ctn {
+    max-width: 100% !important;
+}
+
+.fi-panel-super-admin .fi-main,
+.fi-panel-super-admin .fi-page,
+.fi-panel-super-admin .fi-page-main,
+.fi-panel-super-admin .fi-page-content,
+.fi-panel-super-admin .fi-sc-form,
+.fi-panel-super-admin .fi-fo-component-ctn {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+/* ─── Tooltips: wrap long unbreakable content (e.g. webhook URLs) ───
+   Tippy sets the box max-width inline (effectively unbounded), and
+   white-space:normal alone can't break a space-less URL, so long tooltip
+   content ran off the screen edge on hover. Cap the box and let it wrap. */
+.tippy-box {
+    max-width: min(92vw, 26rem) !important;
+}
+
+.tippy-content {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}

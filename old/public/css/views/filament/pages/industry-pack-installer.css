@@ -1,0 +1,24 @@
+        .ipi-intro{margin-bottom:1.5rem;font-size:.875rem;color:#6b7280}
+        .dark .ipi-intro{color:#9ca3af}
+        .ipi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1rem}
+        .ipi-card{position:relative;background:#fff;border:1px solid #e5e7eb;border-radius:.75rem;padding:1.25rem;display:flex;flex-direction:column;gap:.75rem;transition:border-color .15s, box-shadow .15s}
+        .ipi-card:hover{border-color:#4f46e5;box-shadow:0 4px 12px rgba(79,70,229,.12)}
+        .dark .ipi-card{background:#1f2937;border-color:#374151}
+        .dark .ipi-card:hover{border-color:#6366f1}
+        .ipi-head{display:flex;align-items:center;gap:.75rem}
+        .ipi-icon{width:2.25rem;height:2.25rem;border-radius:.5rem;background:#eef2ff;display:flex;align-items:center;justify-content:center;color:#4338ca;flex-shrink:0}
+        .dark .ipi-icon{background:rgba(79,70,229,.25);color:#a5b4fc}
+        .ipi-name{font-size:1rem;font-weight:600;color:#111827;margin:0}
+        .dark .ipi-name{color:#f3f4f6}
+        .ipi-desc{font-size:.8125rem;color:#6b7280;line-height:1.4}
+        .dark .ipi-desc{color:#9ca3af}
+        .ipi-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.25rem .75rem;font-size:.75rem;color:#4b5563;padding:.5rem 0;border-top:1px solid #f3f4f6;border-bottom:1px solid #f3f4f6}
+        .dark .ipi-stats{color:#d1d5db;border-color:#374151}
+        .ipi-stats li{list-style:none;display:flex;justify-content:space-between}
+        .ipi-stats strong{color:#111827;font-weight:600}
+        .dark .ipi-stats strong{color:#f3f4f6}
+        .ipi-btn{display:inline-flex;align-items:center;justify-content:center;gap:.375rem;background:#4f46e5;color:#fff;padding:.5rem .875rem;border-radius:.5rem;font-size:.8125rem;font-weight:500;border:none;cursor:pointer;transition:background .15s}
+        .ipi-btn:hover{background:#4338ca}
+        .ipi-btn:disabled{opacity:.6;cursor:not-allowed}
+        .ipi-btn svg{width:1rem;height:1rem}
+        .ipi-icon svg{width:1.25rem;height:1.25rem}

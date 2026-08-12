@@ -1,0 +1,51 @@
+Stage,Deal Value,Score,Assigned,Created At,Waiting On,Budget Range,Property Type,Bedrooms,Pre-Approved,Timeline,Preference
+Lost,12771056,75,John,2026-07-02,Client,₹162L,Commercial,1 BHK,Yes,30 Days,Ready to Move
+Proposal,16616568,85,David,2026-07-07,Follow-up,₹434L,Villa,2 BHK,Yes,90+ Days,Luxury
+Won,15173500,72,Mike,2026-07-30,Documents,₹216L,Plot,3 BHK,Yes,Immediate,Ready to Move
+Lost,42788153,73,John,2026-07-19,Follow-up,₹291L,Apartment,1 BHK,Yes,Immediate,Affordable
+Qualified,42798616,47,David,2026-07-21,Client,₹247L,Plot,2 BHK,Yes,60 Days,Ready to Move
+Contacted,47537300,77,Sarah,2026-07-12,Documents,₹303L,Apartment,3 BHK,Yes,30 Days,Ready to Move
+Lost,16829212,71,Emily,2026-07-30,Documents,₹313L,Commercial,3 BHK,No,Immediate,Affordable
+Contacted,17665318,66,Mike,2026-07-20,Sales,₹263L,Plot,1 BHK,No,Immediate,Ready to Move
+Lost,29863087,84,Emily,2026-07-10,Documents,₹78L,Villa,4 BHK,Yes,Immediate,Investment
+Won,18495025,69,Emily,2026-07-13,Documents,₹106L,Commercial,4 BHK,Yes,30 Days,Investment
+New,38138940,44,John,2026-07-10,Follow-up,₹455L,Plot,4 BHK,No,90+ Days,Investment
+Qualified,7266256,86,Mike,2026-07-05,Documents,₹475L,Villa,4 BHK,Yes,90+ Days,Ready to Move
+Qualified,39060806,75,David,2026-07-09,Sales,₹185L,Commercial,1 BHK,No,Immediate,Affordable
+Lost,22391748,99,Mike,2026-07-19,Documents,₹76L,Apartment,4 BHK,No,60 Days,Investment
+Negotiation,45520920,77,Emily,2026-07-17,Client,₹448L,Apartment,4 BHK,Yes,Immediate,Ready to Move
+Proposal,48403234,56,David,2026-07-17,Documents,₹201L,Commercial,2 BHK,Yes,90+ Days,Affordable
+Contacted,7396625,89,Mike,2026-07-16,Client,₹276L,Plot,3 BHK,Yes,30 Days,Luxury
+Negotiation,39678008,44,Sarah,2026-07-13,Documents,₹201L,Commercial,2 BHK,Yes,60 Days,Investment
+Proposal,18128567,63,Sarah,2026-07-13,Sales,₹451L,Commercial,2 BHK,Yes,90+ Days,Ready to Move
+New,24046711,61,Mike,2026-07-10,Client,₹374L,Apartment,4 BHK,Yes,Immediate,Investment
+Lost,33849038,94,Sarah,2026-07-30,Follow-up,₹436L,Apartment,2 BHK,Yes,Immediate,Luxury
+Proposal,35072914,43,Mike,2026-07-04,Follow-up,₹287L,Villa,3 BHK,Yes,90+ Days,Luxury
+Lost,19201946,86,Sarah,2026-07-01,Client,₹86L,Villa,2 BHK,No,Immediate,Investment
+New,24044534,47,Mike,2026-07-20,Follow-up,₹311L,Apartment,1 BHK,No,Immediate,Affordable
+Proposal,19952615,62,Sarah,2026-07-06,Documents,₹432L,Plot,3 BHK,No,30 Days,Affordable
+Negotiation,7508571,81,Mike,2026-07-15,Documents,₹480L,Apartment,3 BHK,No,Immediate,Affordable
+Won,8432455,73,Emily,2026-07-22,Client,₹66L,Plot,1 BHK,Yes,60 Days,Luxury
+Contacted,5784774,87,Emily,2026-07-30,Sales,₹256L,Plot,1 BHK,No,Immediate,Luxury
+Proposal,46590359,92,John,2026-07-15,Documents,₹82L,Plot,1 BHK,No,Immediate,Affordable
+Qualified,16926074,63,Sarah,2026-07-23,Follow-up,₹197L,Villa,4 BHK,No,60 Days,Luxury
+Negotiation,6363743,57,David,2026-07-06,Sales,₹470L,Apartment,3 BHK,Yes,30 Days,Luxury
+Won,49800837,85,Sarah,2026-07-17,Follow-up,₹122L,Apartment,2 BHK,No,Immediate,Ready to Move
+Lost,14196588,56,Mike,2026-07-30,Sales,₹63L,Villa,1 BHK,Yes,30 Days,Ready to Move
+Proposal,41683922,58,Emily,2026-07-23,Follow-up,₹116L,Apartment,4 BHK,Yes,30 Days,Luxury
+Negotiation,49668173,79,David,2026-07-29,Client,₹252L,Apartment,1 BHK,Yes,30 Days,Ready to Move
+Negotiation,9219685,73,David,2026-07-05,Client,₹214L,Apartment,4 BHK,Yes,Immediate,Luxury
+New,40377433,95,Mike,2026-07-26,Sales,₹262L,Apartment,2 BHK,Yes,60 Days,Luxury
+Won,38706052,64,John,2026-07-09,Client,₹287L,Villa,3 BHK,No,Immediate,Affordable
+Won,13020460,48,Sarah,2026-07-06,Follow-up,₹326L,Apartment,1 BHK,No,90+ Days,Luxury
+New,49973740,60,Mike,2026-07-06,Client,₹371L,Villa,2 BHK,No,30 Days,Luxury
+Won,27225244,94,Emily,2026-07-22,Documents,₹288L,Commercial,1 BHK,Yes,30 Days,Affordable
+Negotiation,32778429,83,Mike,2026-07-03,Client,₹155L,Plot,1 BHK,No,60 Days,Luxury
+Proposal,16179425,61,John,2026-07-21,Follow-up,₹204L,Apartment,1 BHK,Yes,90+ Days,Luxury
+New,19108954,83,John,2026-07-12,Sales,₹52L,Villa,1 BHK,No,Immediate,Affordable
+Won,42788716,89,David,2026-07-02,Sales,₹282L,Villa,4 BHK,Yes,Immediate,Affordable
+Contacted,18892309,78,David,2026-07-01,Documents,₹227L,Plot,1 BHK,Yes,60 Days,Investment
+Won,30277645,75,Mike,2026-07-27,Documents,₹322L,Commercial,3 BHK,Yes,60 Days,Affordable
+Contacted,28995353,41,Emily,2026-07-13,Sales,₹283L,Apartment,2 BHK,No,60 Days,Ready to Move
+Contacted,17982889,77,Sarah,2026-07-26,Sales,₹364L,Villa,4 BHK,Yes,60 Days,Ready to Move
+Negotiation,44245470,81,Emily,2026-07-23,Documents,₹341L,Plot,3 BHK,Yes,30 Days,Investment

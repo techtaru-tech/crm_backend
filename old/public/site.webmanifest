@@ -1,0 +1,34 @@
+{
+  "_comment": "i18n convention: PWA manifest strings are intentionally English-only. The W3C manifest spec is single-language by design and this file is served by the web server BEFORE Laravel boots, so __() is unavailable. To localize, replace this file or serve it via a Laravel route that returns __()-translated JSON. Buyers can edit name / short_name / description / shortcut labels directly.",
+  "name": "LeadHub",
+  "short_name": "LeadHub",
+  "description": "Capture, route & convert every lead.",
+  "start_url": "/admin",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f9fafb",
+  "theme_color": "#4f46e5",
+  "icons": [
+    { "src": "/favicon.svg",    "sizes": "any",     "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icon-192.png",   "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png",   "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Capture a lead",
+      "short_name": "Capture",
+      "description": "Quick lead capture (works offline)",
+      "url": "/mobile/capture",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Scan a business card",
+      "short_name": "Scan card",
+      "description": "Use the camera to capture a business card",
+      "url": "/mobile/scan",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    }
+  ],
+  "categories": ["business", "productivity"]
+}

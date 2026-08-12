@@ -1,0 +1,266 @@
+/*
+ |------------------------------------------------------------------
+ | super-admin/pages/script-settings.css — static styles for SA script settings
+ |------------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/super-admin/pages/script-settings.blade.php
+ | via <link rel="stylesheet" href="{{ asset('css/views/filament/super-admin/pages/script-settings.css') }}">.
+ |
+ | All inline style="" attributes in this view are static. There are
+ | no dynamic interpolated values in inline styles for this page.
+ */
+
+/* ─── Hero banner ─── */
+.ss-hero {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #fff;
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 30px rgba(99, 102, 241, .25);
+}
+.ss-hero-eyebrow {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    opacity: .85;
+    margin: 0 0 6px;
+}
+.ss-hero-title {
+    font-size: 22px;
+    font-weight: 800;
+    margin: 0 0 6px;
+}
+.ss-hero-sub {
+    font-size: 14px;
+    opacity: .9;
+    margin: 0;
+    max-width: 720px;
+}
+
+/* ─── Section card ─── */
+.ss-section {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    box-shadow: 0 1px 3px rgba(17, 24, 39, .04);
+}
+.ss-section-head {
+    display: flex;
+    align-items: flex-start;
+    gap: .875rem;
+    margin-bottom: 1.25rem;
+}
+.ss-section-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: .625rem;
+    background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+    color: #4f46e5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.ss-section-icon svg {
+    width: 22px;
+    height: 22px;
+}
+.ss-section-text {
+    flex: 1;
+    min-width: 0;
+}
+.ss-section-title {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 .25rem;
+}
+.ss-section-desc {
+    font-size: .875rem;
+    color: #4b5563;
+    margin: 0;
+    max-width: 780px;
+    line-height: 1.55;
+}
+
+/* ─── Inline code chips ─── */
+.ss-chip {
+    padding: 1px 6px;
+    background: #f3f4f6;
+    border-radius: 4px;
+    font-size: .85em;
+}
+.ss-chip-light {
+    padding: 1px 5px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 3px;
+}
+.ss-chip-warn {
+    padding: 1px 5px;
+    background: #fff;
+    border: 1px solid #fcd34d;
+    border-radius: 3px;
+}
+.ss-chip-success {
+    padding: 1px 5px;
+    background: #fff;
+    border: 1px solid #bbf7d0;
+    border-radius: 3px;
+}
+
+/* ─── Details disclosure ─── */
+.ss-details {
+    margin-bottom: 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: .5rem;
+    padding: .75rem 1rem;
+    background: #fafafa;
+}
+.ss-details-summary {
+    cursor: pointer;
+    font-size: .8125rem;
+    font-weight: 600;
+    color: #374151;
+}
+.ss-details-list {
+    margin: .75rem 0 0;
+    padding-left: 1.25rem;
+    font-size: .8125rem;
+    color: #4b5563;
+    line-height: 1.7;
+}
+
+/* ─── Cron option blocks ─── */
+.ss-cron-block {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: .5rem;
+    padding: 1rem;
+    margin-bottom: .75rem;
+}
+.ss-cron-block-last {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: .5rem;
+    padding: 1rem;
+}
+.ss-cron-head {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-bottom: .5rem;
+}
+.ss-cron-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    background: #4f46e5;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+}
+.ss-cron-label {
+    font-size: .9rem;
+    color: #111827;
+}
+.ss-cron-tag {
+    margin-left: auto;
+    padding: 2px 8px;
+    font-size: .7rem;
+    font-weight: 600;
+    border-radius: 999px;
+}
+.ss-cron-tag-easy {
+    background: #ecfdf5;
+    color: #047857;
+}
+.ss-cron-tag-rec {
+    background: #eff6ff;
+    color: #1d4ed8;
+}
+.ss-cron-desc {
+    font-size: .8125rem;
+    color: #4b5563;
+    margin-bottom: .5rem;
+}
+
+/* ─── Code snippet block + copy button ─── */
+.ss-snippet-wrap {
+    position: relative;
+}
+.ss-snippet {
+    display: block;
+    padding: .625rem .75rem;
+    background: #0f172a;
+    color: #e2e8f0;
+    border-radius: .375rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: .75rem;
+    line-height: 1.5;
+    overflow-x: auto;
+    white-space: pre;
+}
+.ss-snippet-break {
+    display: block;
+    padding: .625rem .75rem;
+    background: #0f172a;
+    color: #e2e8f0;
+    border-radius: .375rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: .75rem;
+    line-height: 1.5;
+    overflow-x: auto;
+    word-break: break-all;
+}
+.ss-copy-btn {
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+    padding: .25rem .5rem;
+    font-size: .6875rem;
+    background: #1e293b;
+    color: #cbd5e1;
+    border: 0;
+    border-radius: .25rem;
+    cursor: pointer;
+}
+
+/* ─── Hint paragraphs ─── */
+.ss-hint {
+    font-size: .75rem;
+    color: #6b7280;
+    margin-top: .5rem;
+    margin-bottom: 0;
+}
+.ss-warn {
+    font-size: .75rem;
+    color: #b45309;
+    margin-top: .5rem;
+    margin-bottom: 0;
+    background: #fef3c7;
+    border: 1px solid #fcd34d;
+    border-radius: .375rem;
+    padding: .5rem .625rem;
+}
+
+/* ─── Success verify block ─── */
+.ss-verify {
+    margin-top: 1rem;
+    padding: .75rem 1rem;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: .5rem;
+}
+.ss-verify-text {
+    font-size: .8125rem;
+    color: #166534;
+    margin: 0;
+    line-height: 1.5;
+}

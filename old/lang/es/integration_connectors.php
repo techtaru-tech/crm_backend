@@ -1,0 +1,140 @@
+<?php
+
+return [
+    'default' => [
+        'first_name' => 'Nombre',
+        'last_name'  => 'Apellido',
+        'email'      => 'Email',
+        'phone'      => 'Teléfono',
+        'company'    => 'Empresa',
+        'source'     => 'Origen del cliente potencial',
+        'status'     => 'Estado',
+        'lead_score' => 'Puntuación del cliente potencial',
+        'address'    => 'Dirección',
+        'city'       => 'Ciudad',
+        'country'    => 'País',
+        'notes'      => 'Notas',
+    ],
+
+    'activecampaign' => [
+        'email'     => 'Email',
+        'firstName' => 'Nombre',
+        'lastName'  => 'Apellido',
+        'phone'     => 'Teléfono',
+        'orgname'   => 'Nombre de la organización',
+    ],
+
+    'freshsales' => [
+        'first_name'    => 'Nombre',
+        'last_name'     => 'Apellido',
+        'email'         => 'Email',
+        'mobile_number' => 'Número móvil',
+        'work_number'   => 'Número de trabajo',
+        'job_title'     => 'Cargo',
+        'company'       => 'Empresa',
+        'city'          => 'Ciudad',
+        'country'       => 'País',
+    ],
+
+    'hubspot' => [
+        'email'     => 'Email',
+        'firstname' => 'Nombre',
+        'lastname'  => 'Apellido',
+        'phone'     => 'Teléfono',
+        'company'   => 'Empresa',
+        'website'   => 'Sitio web',
+        'address'   => 'Dirección',
+        'city'      => 'Ciudad',
+        'country'   => 'País',
+        'jobtitle'  => 'Cargo',
+    ],
+
+    'mailchimp' => [
+        'first_name' => 'Nombre',
+        'last_name'  => 'Apellido',
+        'phone'      => 'Teléfono',
+        'company'    => 'Empresa',
+    ],
+
+    'notion' => [
+        'name'    => 'Nombre (title)',
+        'email'   => 'Email (email)',
+        'phone'   => 'Teléfono (phone_number)',
+        'source'  => 'Origen (rich_text)',
+        'status'  => 'Estado (rich_text)',
+        'company' => 'Empresa (rich_text)',
+    ],
+
+    'pipedrive' => [
+        'name'       => 'Nombre',
+        'email'      => 'Email',
+        'phone'      => 'Teléfono',
+        'org_name'   => 'Organización',
+        'deal_title' => 'Cliente potencial: :name',
+    ],
+
+    'salesforce' => [
+        'email'        => 'Email',
+        'first_name'   => 'Nombre',
+        'last_name'    => 'Apellido',
+        'phone'        => 'Teléfono',
+        'company'      => 'Empresa',
+        'lead_source'  => 'Origen del cliente potencial',
+        'status'       => 'Estado',
+        'mobile_phone' => 'Teléfono móvil',
+        'website'      => 'Sitio web',
+        'city'         => 'Ciudad',
+        'country'      => 'País',
+    ],
+
+    'vtiger' => [
+        'firstname'  => 'Nombre',
+        'lastname'   => 'Apellido',
+        'email'      => 'Email',
+        'phone'      => 'Teléfono',
+        'company'    => 'Empresa',
+        'leadsource' => 'Origen del cliente potencial',
+    ],
+
+    'zendesk' => [
+        'name'         => 'Nombre completo',
+        'email'        => 'Email',
+        'phone'        => 'Teléfono',
+        'organization' => 'Organización',
+        'external_id'  => 'ID externo',
+        'details'      => 'Detalles',
+        'notes'        => 'Notas',
+    ],
+
+    'zoho_crm' => [
+        'first_name'  => 'Nombre',
+        'last_name'   => 'Apellido',
+        'email'       => 'Email',
+        'phone'       => 'Teléfono',
+        'company'     => 'Empresa',
+        'lead_source' => 'Origen del cliente potencial',
+        'city'        => 'Ciudad',
+        'country'     => 'País',
+    ],
+
+    'not_configured' => [
+        'convertkit'      => 'El ID del formulario de ConvertKit no está configurado.',
+        'activepieces'    => 'La URL del webhook de Activepieces no está configurada.',
+        'google_sheets'   => 'El ID de la hoja de cálculo de Google Sheets no está configurado.',
+        'airtable'        => 'El ID de la base/tabla de Airtable no está configurado.',
+        'getresponse'     => 'El ID de la campaña de GetResponse no está configurado.',
+        'generic_webhook' => 'La URL del webhook no está configurada.',
+        'make'            => 'La URL del webhook de Make no está configurada.',
+        'monday'          => 'El ID del tablero de Monday.com no está configurado.',
+        'n8n'             => 'La URL del webhook de n8n no está configurada.',
+        'microsoft_teams' => 'La URL del webhook de Microsoft Teams no está configurada.',
+        'pabbly'          => 'La URL del webhook de Pabbly no está configurada.',
+        'notion'          => 'El ID de la base de datos de Notion no está configurado.',
+        'streak'          => 'La clave del pipeline de Streak no está configurada.',
+        'slack'           => 'La URL del webhook de Slack no está configurada.',
+        'mailchimp'       => 'El ID de la lista de Mailchimp no está configurado.',
+        'moosend'         => 'El ID de la lista de Moosend no está configurado.',
+        'workato'         => 'La URL del webhook de Workato no está configurada.',
+        'zapier'          => 'La URL del webhook de Zapier no está configurada.',
+    ],
+];

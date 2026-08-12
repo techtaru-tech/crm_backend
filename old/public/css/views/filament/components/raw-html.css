@@ -1,0 +1,12 @@
+/*
+ |----------------------------------------------------------------
+ | raw-html.css — sandbox wrapper for trusted raw-HTML rendering
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/components/raw-html.blade.php
+ */
+
+.rh-sandbox {
+    max-width: 100%;
+    overflow: auto;
+}

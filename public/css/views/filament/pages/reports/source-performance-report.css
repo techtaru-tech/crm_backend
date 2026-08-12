@@ -1,0 +1,43 @@
+/*
+ |----------------------------------------------------------------
+ | source-performance-report.css — static styles for Source Performance
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/pages/reports/source-performance-report.blade.php
+ | All STATIC styles live here.  Any remaining inline style="..."
+ | attributes on the view MUST contain Blade {{ }} interpolation
+ | (dynamic) — those are allowed per reviewer rules.
+ */
+
+/* Layout */
+.sp-page{display:flex;flex-direction:column;gap:1.5rem}
+.sp-section-pad{padding:1.5rem}
+.sp-section-overflow{overflow:hidden}
+.sp-section-header{padding:1rem 1.5rem;border-bottom:1px solid #f3f4f6}
+.sp-section-title{font-size:1rem;font-weight:600;color:#111827}
+.sp-section-title-mb{font-size:1rem;font-weight:600;color:#111827;margin-bottom:1rem}
+.sp-section-sub{font-size:.75rem;color:#9ca3af;margin-top:.125rem}
+
+/* Table */
+.sp-table{width:100%;font-size:.875rem;border-collapse:collapse}
+.sp-table th{padding:.75rem 1.5rem;text-align:left;font-weight:500;color:#6b7280;background:#f9fafb}
+.sp-table th:not(:first-child){text-align:right}
+.sp-table td{padding:.75rem 1.5rem;border-bottom:1px solid #f3f4f6}
+.sp-table td:not(:first-child){text-align:right}
+.sp-table tr:hover td{background:#f9fafb}
+
+/* Cells */
+.sp-cell-source{color:#374151;font-weight:500;text-transform:capitalize}
+.sp-cell-num{font-weight:600;color:#111827}
+.sp-cell-dash{color:#9ca3af}
+.sp-cell-text{color:#374151}
+.sp-cell-empty{text-align:center;padding:2rem 1.5rem;color:#9ca3af}
+
+/* Trend badges */
+.sp-trend{display:inline-flex;align-items:center;gap:.25rem}
+.sp-trend-up{color:#16a34a}
+.sp-trend-down{color:#dc2626}
+.sp-trend-icon{width:.75rem;height:.75rem}
+.sp-badge{display:inline-block;padding:.125rem .5rem;font-size:.75rem;border-radius:.375rem}
+.sp-badge-high{background:#dcfce7;color:#15803d}
+.sp-badge-low{background:#f3f4f6;color:#4b5563}

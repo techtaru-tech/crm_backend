@@ -1,0 +1,49 @@
+/*
+ |----------------------------------------------------------------
+ | agent-performance-report.css — static styles for Agent Performance report
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/pages/reports/agent-performance-report.blade.php
+ | All STATIC styles live here.  Any remaining inline style="..."
+ | attributes on the view MUST contain Blade {{ }} interpolation
+ | (dynamic) — those are allowed per reviewer rules.
+ */
+
+/* Layout */
+.ap-page{display:flex;flex-direction:column;gap:1.5rem}
+.ap-section-pad{padding:1.5rem}
+.ap-section-overflow{overflow:hidden}
+.ap-section-header{padding:1rem 1.5rem;border-bottom:1px solid #f3f4f6}
+.ap-section-title{font-size:1rem;font-weight:600;color:#111827}
+.ap-section-sub{font-size:.75rem;color:#9ca3af;margin-top:.125rem}
+.ap-th-center{text-align:center}
+
+/* Table */
+.ap-table{width:100%;font-size:.875rem;border-collapse:collapse}
+.ap-table th{padding:.75rem 1.5rem;text-align:left;font-weight:500;color:#6b7280;background:#f9fafb}
+.ap-table th:not(:first-child){text-align:right}
+.ap-table th:last-child{text-align:center}
+.ap-table td{padding:.75rem 1.5rem;border-bottom:1px solid #f3f4f6}
+.ap-table td:not(:first-child){text-align:right}
+.ap-table td:last-child{text-align:center}
+.ap-table tr:hover td{background:#f9fafb}
+
+/* Cells */
+.ap-cell-agent{font-weight:500;color:#111827}
+.ap-agent-wrap{display:flex;align-items:center;gap:.5rem}
+.ap-cell-num{font-weight:600;color:#111827}
+.ap-cell-won{font-weight:600;color:#16a34a}
+.ap-cell-num-fmt{color:#374151;font-variant-numeric:tabular-nums}
+.ap-cell-text{color:#374151}
+.ap-cell-empty{text-align:center;padding:2rem 1.5rem;color:#9ca3af}
+
+/* Win rate row */
+.ap-rate-wrap{display:flex;align-items:center;justify-content:flex-end;gap:.5rem}
+.ap-rate-text{color:#374151}
+
+/* Avatar / progress / sparkline */
+.ap-avatar{width:1.75rem;height:1.75rem;border-radius:9999px;background:#e0e7ff;display:inline-flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#4338ca;flex-shrink:0}
+.ap-progress-bg{width:4rem;height:.375rem;background:#e5e7eb;border-radius:9999px;overflow:hidden;display:inline-block;vertical-align:middle}
+.ap-progress-bar{height:100%;border-radius:9999px;background:#4f46e5}
+.ap-sparkline{display:inline-flex;align-items:flex-end;gap:2px;height:1.5rem}
+.ap-spark-bar{width:.5rem;border-radius:2px;background:#818cf8;min-height:2px}

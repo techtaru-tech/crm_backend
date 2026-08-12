@@ -1,0 +1,174 @@
+/*
+ |----------------------------------------------------------------
+ | confirmation.css — full static styles for booking confirmation
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/public/booking/confirmation.blade.php
+ | via <link rel="stylesheet" href="{{ asset('css/views/public/booking/confirmation.css') }}">.
+ |
+ | The previously-inline <style> block (with $cancelled-conditional
+ | icon colors) was fully extracted by replacing the dynamic style
+ | interpolation with a class-flag pattern: the icon's default state
+ | is "confirmed" (green); adding the `.icon--cancelled` class flips
+ | the colors to red.  No inline styles remain in the view.
+ |
+ | Class prefix: bc- (booking-confirmation) for new utility classes;
+ | base classes (.wrap, .icon, .row, etc.) match the legacy markup.
+ */
+
+/* ─── Reset + body ─── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #eef2ff 0%, #fff 60%);
+    min-height: 100vh;
+    color: #111827;
+    padding: 2rem 1rem;
+}
+
+/* ─── Card layout ─── */
+.wrap {
+    max-width: 560px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 12px 36px rgba(17, 24, 39, 0.06);
+    padding: 32px;
+    border: 1px solid #e5e7eb;
+}
+
+/* ─── Status icon — green by default, red when .icon--cancelled is added ─── */
+.icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #dcfce7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+}
+
+.icon svg {
+    width: 28px;
+    height: 28px;
+    color: #16a34a;
+}
+
+.icon--cancelled {
+    background: #fee2e2;
+}
+
+.icon--cancelled svg {
+    color: #ef4444;
+}
+
+/* ─── Typography ─── */
+h1 {
+    font-size: 22px;
+    margin-bottom: 6px;
+}
+
+.sub {
+    color: #6b7280;
+    font-size: 15px;
+    margin-bottom: 24px;
+}
+
+/* ─── Detail rows ─── */
+.row {
+    display: flex;
+    padding: 12px 0;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 14px;
+}
+
+.row:last-of-type {
+    border: none;
+}
+
+.lbl {
+    color: #6b7280;
+    width: 110px;
+    flex-shrink: 0;
+}
+
+.val {
+    color: #111827;
+    font-weight: 500;
+}
+
+/* ─── Action buttons ─── */
+.btn-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 22px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.btn-primary {
+    background: #4f46e5;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: #4338ca;
+}
+
+.btn-ghost {
+    background: #f9fafb;
+    color: #374151;
+    border: 1px solid #e5e7eb;
+}
+
+.btn-ghost:hover {
+    background: #f3f4f6;
+}
+
+.btn-danger {
+    background: transparent;
+    color: #ef4444;
+    border: 1px solid #fecaca;
+}
+
+.btn-danger:hover {
+    background: #fef2f2;
+}
+
+/* ─── Supplemental utility classes ─── */
+.bc-guest-email {
+    color: #6b7280;
+    font-weight: 400;
+}
+
+.bc-loc-detail {
+    color: #6b7280;
+    font-weight: 400;
+    margin-top: 4px;
+    white-space: pre-line;
+}
+
+.bc-cancel-form {
+    display: inline;
+}

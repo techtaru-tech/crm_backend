@@ -1,0 +1,121 @@
+<?php
+
+declare(strict_types=1);
+
+return [
+    'first_contact' => [
+        'title'  => 'إجراء أول اتصال',
+        'reason' => 'لم يتم التواصل مع هذا العميل المحتمل من قبل. تواصل معه خلال الساعة القادمة للحصول على أفضل معدلات تحويل.',
+    ],
+    'follow_up' => [
+        'title'  => 'متابعة — :days يوماً منذ آخر اتصال',
+        'reason' => 'العملاء المحتملون الذين يتم التواصل معهم خلال 24 ساعة أكثر احتمالاً للتأهل بمقدار 7 أضعاف. أرسل متابعة الآن.',
+    ],
+    'qualify' => [
+        'title'  => 'تأهيل العميل المحتمل',
+        'reason' => 'درجة العميل المحتمل منخفضة (:score/100). اطرح أسئلة تأهيلية لتحديد مدى الملاءمة.',
+    ],
+    'create_task' => [
+        'title'  => 'إنشاء مهمة متابعة',
+        'reason' => 'لا توجد مهام مفتوحة لهذا العميل المحتمل. قم بجدولة تذكير للحفاظ على تقدم الصفقة.',
+    ],
+    'log_call' => [
+        'title'  => 'تسجيل ملاحظة مكالمة',
+        'reason' => 'حافظ على تحديث CRM بملاحظات بعد كل تفاعل.',
+    ],
+    'priority' => [
+        'high'   => 'عالية',
+        'medium' => 'متوسطة',
+        'low'    => 'منخفضة',
+    ],
+
+    'fallback_summary' => [
+        'this_lead'         => 'هذا العميل المحتمل',
+        'at_company'        => ' في :company',
+        'unassigned_stage'  => 'مرحلة غير معيّنة',
+        'never_contacted'   => 'لم يتم التواصل معه قط — الاتصال الأول هو الإجراء الأعلى تأثيراً.',
+        'last_contacted'    => 'آخر تواصل قبل :days يوم/أيام.',
+        'high_score'        => 'درجة عالية — أعطه الأولوية.',
+        'low_score'         => 'درجة منخفضة — قم بتأهيله قبل استثمار مزيد من الوقت.',
+        'mid_score'         => 'درجة متوسطة — تابع رعايته.',
+        'sentence_template' => ':name:company في :stage (منذ :days يوم/أيام). :second :third',
+    ],
+
+    'fallback_draft_email' => [
+        'default_first_name'  => 'مرحباً',
+        'opener_formal'       => 'عزيزي/عزيزتي :first،',
+        'opener_direct'       => 'مرحباً :first،',
+        'opener_empathetic'   => 'مرحباً :first، أتمنى أن يكون أسبوعك على ما يرام —',
+        'opener_friendly'     => 'أهلاً :first،',
+        'body_followup'       => 'أردت العودة إلى محادثتنا الأخيرة لأرى ما إذا كانت لديك فرصة للتفكير في الأمر.',
+        'body_first_touch'    => 'أتواصل معك بخصوص استفسارك — لاحظت أنك وصلت عبر :source ولديّ بضع أفكار قد تكون مفيدة.',
+        'cta'                 => 'هل يناسبك 15 دقيقة هذا الأسبوع لمكالمة سريعة؟ يمكنني الحضور بتفاصيل محددة حول الخطوات التالية.',
+        'signoff'             => 'شكراً',
+    ],
+
+    'ai_email_composer' => [
+        'intent' => [
+            'introduction' => 'بريد إلكتروني تعريفي وتأهيلي أولي',
+            'follow_up'    => 'بريد إلكتروني ودي للمتابعة',
+            'proposal'     => 'بريد إلكتروني مقترح أو خطوات تالية',
+            're_engage'    => 'بريد إلكتروني لإعادة التواصل مع عميل محتمل بارد',
+            'closing'      => 'بريد إلكتروني للإغلاق أو تأكيد الصفقة',
+            'default'      => 'بريد إلكتروني لمتابعة المبيعات',
+        ],
+        'system_prompt' => 'أنت كاتب بريد إلكتروني خبير في مبيعات B2B. أجب فقط باللغة التي رمز محليتها ":locale". اكتب رسائل بريد إلكتروني موجزة ومخصصة ومهنية. لا تستخدم أبداً عبارات حشو عامة مثل «أتمنى أن يصلك هذا البريد وأنت بخير». أعد JSON فقط.',
+        'prompt_write_label'   => 'Write',
+        'prompt_for_lead'      => 'for a lead with these details:',
+        'prompt_name'          => 'Name',
+        'prompt_company'       => 'Company',
+        'prompt_job_title'     => 'Job Title',
+        'prompt_industry'      => 'Industry',
+        'prompt_source'        => 'Lead Source',
+        'prompt_status'        => 'Lead Status',
+        'prompt_score'         => 'Lead Score',
+        'prompt_source_default' => 'الموقع الإلكتروني',
+        'prompt_status_default' => 'جديد',
+        'prompt_additional_context' => 'Additional context',
+        'prompt_closing_instructions' => "\nاحرص على ألا يتجاوز 150 كلمة. خصّصه بناءً على المصدر والشركة. وقّع باسم «:signoff».",
+        'prompt_closing_signoff' => 'الفريق',
+        'function_description' => 'Return a sales email draft',
+        'subject_description'  => 'Email subject line',
+        'body_description'     => 'Email body in plain text with paragraph breaks. Do not use HTML tags.',
+    ],
+
+    'lead_enrichment' => [
+        'system_prompt' => 'أنت مساعد إثراء بيانات للعملاء المحتملين في B2B. أجب فقط باللغة التي رمز محليتها ":locale". بناءً على الاسم ونطاق البريد الإلكتروني وعنوان البريد الإلكتروني، أعد بيانات منظَّمة. إذا لم تتمكن من تحديد شيء بدرجة معقولة من الثقة، فأعد null لذلك الحقل. لا تختلق البيانات أبداً.',
+        'prompt_name'   => 'Name',
+        'prompt_email'  => 'Email',
+        'prompt_domain' => 'Domain',
+        'prompt_instruction' => 'Based on the email domain, infer company name, industry, and available public information. Do not hallucinate specific person details.',
+        'function_description'      => 'Return structured enrichment data for a lead',
+        'company_description'       => 'Company name from domain',
+        'job_title_description'     => 'Likely job title based on available info',
+        'industry_description'      => 'Industry sector',
+        'company_size_description'  => 'Estimated company size (e.g. 1-10, 11-50, 51-200, 201-1000, 1000+)',
+        'country_description'       => 'Country code (ISO 3166-1 alpha-2)',
+        'linkedin_url_description'  => 'LinkedIn company page URL if inferable from domain',
+    ],
+
+    'ai_prompts' => [
+        'recommendations_system' => 'أنت ذكاء اصطناعي لتدريب المبيعات. أجب فقط باللغة التي رمز محليتها ":locale". بناءً على ملف وحالة العميل المحتمل، أعد بالضبط 3 إجراءات تالية مرتبة حسب الأولوية لدفع الصفقة قدماً. كن محدداً وقابلاً للتنفيذ. أعد JSON صالحاً فقط.',
+        'recommendations_user_suffix' => "\n\nReturn exactly 3 actions as a JSON array: [{\"priority\": \"high|medium|low\", \"icon\": \"phone|email|task|note|warning|star\", \"title\": \"Short action title in language :locale\", \"reason\": \"1-2 sentence explanation in language :locale\"}]",
+        'summary_system' => 'أنت ذكاء اصطناعي لتدريب المبيعات. أجب فقط باللغة التي رمز محليتها ":locale". بناءً على ملف عميل محتمل، اكتب ملخصاً تنفيذياً من 2-3 جمل يغطي: من هم، أين يقفون في القُمع، وما الذي يجب فعله بعد ذلك. دون حشو ودون تحيات.',
+        'draft_email_system' => 'أنت مندوب مبيعات يصيغ بريداً إلكترونياً للمتابعة. أجب فقط باللغة التي رمز محليتها ":locale". النبرة: :tone. اكتب نص البريد الإلكتروني كاملاً (دون سطر الموضوع). أشر إلى تفصيل محدد من ملف العميل المحتمل. اختتم بدعوة واحدة واضحة للعمل. نص عادي، 80-150 كلمة، دون ديباجة.',
+        'context_lead'          => 'Lead',
+        'context_at'            => 'at',
+        'context_source'        => 'Source',
+        'context_status'        => 'Status',
+        'context_score'         => 'Score',
+        'context_pipeline_stage' => 'Pipeline stage',
+        'context_days_created'  => 'Days since created',
+        'context_days_contact'  => 'Days since last contact',
+        'context_days_activity' => 'Days since last activity',
+        'context_open_tasks'    => 'Open tasks',
+        'context_job_title'     => 'Job title',
+        'context_industry'      => 'Industry',
+        'context_unknown'       => 'غير معروف',
+        'context_new'           => 'جديد',
+        'context_none'          => 'لا شيء',
+    ],
+];

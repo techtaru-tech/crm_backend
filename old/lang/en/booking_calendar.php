@@ -1,0 +1,18 @@
+<?php
+
+declare(strict_types=1);
+
+return [
+    'month_jan' => 'January',
+    'month_feb' => 'February',
+    'month_mar' => 'March',
+    'month_apr' => 'April',
+    'month_may' => 'May',
+    'month_jun' => 'June',
+    'month_jul' => 'July',
+    'month_aug' => 'August',
+    'month_sep' => 'September',
+    'month_oct' => 'October',
+    'month_nov' => 'November',
+    'month_dec' => 'December',
+];

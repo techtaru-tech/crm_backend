@@ -1,0 +1,23 @@
+/* ─────────────────────────────────────────────────────────────────
+   Per-view stylesheet for resources/views/public/landing/show.blade.php
+   Class prefix: pls-  (public-landing-section).
+
+   Notes for reviewers:
+     - The view keeps its inline <style> block because it injects
+       per-tenant CSS variables ($page->primary_color,
+       $page->background_color, $page->font_family) and renders the
+       editor-provided $page->custom_css verbatim.  Those rules MUST
+       stay inline because their values vary per landing-page record.
+   ──────────────────────────────────────────────────────────────── */
+
+/* Success flash shown after a form submission redirects back with the
+   "landing_success" session key.  Solid colours — no per-tenant
+   theming. */
+.pls-flash-success {
+    background: #ecfdf5;
+    color: #065f46;
+    padding: 14px 24px;
+    text-align: center;
+    font-weight: 600;
+    border-bottom: 1px solid #a7f3d0;
+}

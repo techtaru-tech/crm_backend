@@ -1,0 +1,121 @@
+<?php
+
+declare(strict_types=1);
+
+return [
+    'first_contact' => [
+        'title'  => 'पहला संपर्क करें',
+        'reason' => 'इस लीड से कभी संपर्क नहीं किया गया है। सर्वोत्तम रूपांतरण दरों के लिए एक घंटे के भीतर संपर्क करें।',
+    ],
+    'follow_up' => [
+        'title'  => 'फ़ॉलो-अप — पिछले संपर्क के बाद :days दिन',
+        'reason' => '24 घंटे के भीतर संपर्क की गई लीड के योग्य होने की संभावना 7 गुना अधिक होती है। अभी फ़ॉलो-अप भेजें।',
+    ],
+    'qualify' => [
+        'title'  => 'लीड को योग्य ठहराएँ',
+        'reason' => 'लीड स्कोर कम है (:score/100)। उपयुक्तता निर्धारित करने के लिए योग्यता प्रश्न पूछें।',
+    ],
+    'create_task' => [
+        'title'  => 'फ़ॉलो-अप कार्य बनाएँ',
+        'reason' => 'इस लीड के लिए कोई खुला कार्य नहीं है। डील को आगे बढ़ाते रहने के लिए अनुस्मारक शेड्यूल करें।',
+    ],
+    'log_call' => [
+        'title'  => 'कॉल नोट दर्ज करें',
+        'reason' => 'हर बातचीत के बाद नोट्स के साथ अपने CRM को अद्यतन रखें।',
+    ],
+    'priority' => [
+        'high'   => 'उच्च',
+        'medium' => 'मध्यम',
+        'low'    => 'निम्न',
+    ],
+
+    'fallback_summary' => [
+        'this_lead'         => 'यह लीड',
+        'at_company'        => ' :company में',
+        'unassigned_stage'  => 'अनिर्धारित चरण',
+        'never_contacted'   => 'कभी संपर्क नहीं किया गया — पहला संपर्क सबसे अधिक प्रभाव वाला कार्य है।',
+        'last_contacted'    => ':days दिन पहले अंतिम बार संपर्क किया गया।',
+        'high_score'        => 'उच्च स्कोर — प्राथमिकता दें।',
+        'low_score'         => 'निम्न स्कोर — अधिक समय निवेश करने से पहले योग्यता जाँचें।',
+        'mid_score'         => 'मध्यम स्कोर — पोषण जारी रखें।',
+        'sentence_template' => ':name:company :stage में स्थित है (:days दिन पुराना)। :second :third',
+    ],
+
+    'fallback_draft_email' => [
+        'default_first_name'  => 'नमस्ते',
+        'opener_formal'       => 'आदरणीय :first,',
+        'opener_direct'       => 'नमस्ते :first,',
+        'opener_empathetic'   => 'नमस्ते :first, आशा है आपका सप्ताह अच्छा बीत रहा है —',
+        'opener_friendly'     => 'हैलो :first,',
+        'body_followup'       => 'मैं अपनी पिछली बातचीत पर वापस आना चाहता था यह देखने के लिए कि क्या आपको इस पर विचार करने का अवसर मिला है।',
+        'body_first_touch'    => 'मैं आपकी पूछताछ के संबंध में संपर्क कर रहा हूँ — मैंने देखा कि आप :source के माध्यम से आए, और मेरे पास कुछ विचार हैं जो उपयोगी हो सकते हैं।',
+        'cta'                 => 'क्या इस सप्ताह एक त्वरित कॉल के लिए 15 मिनट काम करेंगे? मैं अगले चरणों के विशिष्ट विवरण के साथ तैयार आ सकता हूँ।',
+        'signoff'             => 'धन्यवाद',
+    ],
+
+    'ai_email_composer' => [
+        'intent' => [
+            'introduction' => 'एक प्रारंभिक परिचय और योग्यता ईमेल',
+            'follow_up'    => 'एक सौहार्दपूर्ण फ़ॉलो-अप ईमेल',
+            'proposal'     => 'एक प्रस्ताव या अगले-चरण ईमेल',
+            're_engage'    => 'एक ठंडी लीड के लिए पुनः जुड़ाव ईमेल',
+            'closing'      => 'एक समापन या डील पुष्टि ईमेल',
+            'default'      => 'एक बिक्री फ़ॉलो-अप ईमेल',
+        ],
+        'system_prompt' => 'आप एक विशेषज्ञ B2B बिक्री ईमेल लेखक हैं। केवल उस भाषा में उत्तर दें जिसका लोकेल कोड ":locale" है। संक्षिप्त, व्यक्तिगत और पेशेवर ईमेल लिखें। कभी भी "I hope this email finds you well" जैसी सामान्य भरण-वाक्यांशों का उपयोग न करें। केवल JSON लौटाएँ।',
+        'prompt_write_label'   => 'Write',
+        'prompt_for_lead'      => 'for a lead with these details:',
+        'prompt_name'          => 'Name',
+        'prompt_company'       => 'Company',
+        'prompt_job_title'     => 'Job Title',
+        'prompt_industry'      => 'Industry',
+        'prompt_source'        => 'Lead Source',
+        'prompt_status'        => 'Lead Status',
+        'prompt_score'         => 'Lead Score',
+        'prompt_source_default' => 'वेबसाइट',
+        'prompt_status_default' => 'नया',
+        'prompt_additional_context' => 'Additional context',
+        'prompt_closing_instructions' => "\nइसे 150 शब्दों से कम रखें। स्रोत और कंपनी के आधार पर वैयक्तिकृत करें। ':signoff' के रूप में हस्ताक्षर करें।",
+        'prompt_closing_signoff' => 'टीम',
+        'function_description' => 'Return a sales email draft',
+        'subject_description'  => 'Email subject line',
+        'body_description'     => 'Email body in plain text with paragraph breaks. Do not use HTML tags.',
+    ],
+
+    'lead_enrichment' => [
+        'system_prompt' => 'आप एक B2B लीड संवर्धन सहायक हैं। केवल उस भाषा में उत्तर दें जिसका लोकेल कोड ":locale" है। नाम, ईमेल डोमेन और ईमेल पता दिए जाने पर संरचित डेटा लौटाएँ। यदि आप किसी चीज़ को उचित विश्वास के साथ निर्धारित नहीं कर सकते, तो उस फ़ील्ड के लिए null लौटाएँ। कभी भी डेटा गढ़ें नहीं।',
+        'prompt_name'   => 'Name',
+        'prompt_email'  => 'Email',
+        'prompt_domain' => 'Domain',
+        'prompt_instruction' => 'Based on the email domain, infer company name, industry, and available public information. Do not hallucinate specific person details.',
+        'function_description'      => 'Return structured enrichment data for a lead',
+        'company_description'       => 'Company name from domain',
+        'job_title_description'     => 'Likely job title based on available info',
+        'industry_description'      => 'Industry sector',
+        'company_size_description'  => 'Estimated company size (e.g. 1-10, 11-50, 51-200, 201-1000, 1000+)',
+        'country_description'       => 'Country code (ISO 3166-1 alpha-2)',
+        'linkedin_url_description'  => 'LinkedIn company page URL if inferable from domain',
+    ],
+
+    'ai_prompts' => [
+        'recommendations_system' => 'आप एक बिक्री कोचिंग AI हैं। केवल उस भाषा में उत्तर दें जिसका लोकेल कोड ":locale" है। एक लीड के प्रोफ़ाइल और स्थिति को देखते हुए, डील को आगे बढ़ाने के लिए ठीक 3 प्राथमिकता वाली अगली सर्वोत्तम कार्रवाइयाँ लौटाएँ। विशिष्ट और क्रियाशील रहें। केवल वैध JSON लौटाएँ।',
+        'recommendations_user_suffix' => "\n\nReturn exactly 3 actions as a JSON array: [{\"priority\": \"high|medium|low\", \"icon\": \"phone|email|task|note|warning|star\", \"title\": \"Short action title in language :locale\", \"reason\": \"1-2 sentence explanation in language :locale\"}]",
+        'summary_system' => 'आप एक बिक्री कोचिंग AI हैं। केवल उस भाषा में उत्तर दें जिसका लोकेल कोड ":locale" है। एक लीड प्रोफ़ाइल को देखते हुए, 2-3 वाक्यों का कार्यकारी सारांश लिखें जिसमें शामिल हो: वे कौन हैं, फ़नल में कहाँ हैं, और आगे क्या करना है। कोई भराव नहीं, कोई अभिवादन नहीं।',
+        'draft_email_system' => 'आप एक बिक्री प्रतिनिधि हैं जो फ़ॉलो-अप ईमेल का मसौदा तैयार कर रहे हैं। केवल उस भाषा में उत्तर दें जिसका लोकेल कोड ":locale" है। टोन: :tone. एक पूरा ईमेल मुख्य भाग लिखें (कोई विषय पंक्ति नहीं)। लीड प्रोफ़ाइल से एक विशिष्ट विवरण का संदर्भ दें। एक एकल स्पष्ट कॉल-टू-एक्शन के साथ समाप्त करें। सादा पाठ, 80-150 शब्द, कोई प्रस्तावना नहीं।',
+        'context_lead'          => 'Lead',
+        'context_at'            => 'at',
+        'context_source'        => 'Source',
+        'context_status'        => 'Status',
+        'context_score'         => 'Score',
+        'context_pipeline_stage' => 'Pipeline stage',
+        'context_days_created'  => 'Days since created',
+        'context_days_contact'  => 'Days since last contact',
+        'context_days_activity' => 'Days since last activity',
+        'context_open_tasks'    => 'Open tasks',
+        'context_job_title'     => 'Job title',
+        'context_industry'      => 'Industry',
+        'context_unknown'       => 'अज्ञात',
+        'context_new'           => 'नया',
+        'context_none'          => 'कोई नहीं',
+    ],
+];

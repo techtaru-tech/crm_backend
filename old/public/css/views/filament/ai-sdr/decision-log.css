@@ -1,0 +1,94 @@
+/* AI SDR decision-log modal — static styles (no Tailwind JIT on shared
+   hosting; see CLAUDE.md). Scoped under .lh-sdr-* to avoid bleed. */
+
+.lh-sdr-log {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.lh-sdr-row {
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 0.75rem 0.875rem;
+    background: #fff;
+}
+
+.lh-sdr-head {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.lh-sdr-action {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    padding: 0.125rem 0.5rem;
+    border-radius: 9999px;
+    color: #fff;
+    background: #6b7280;
+}
+
+.lh-sdr-action--send    { background: #4f46e5; }
+.lh-sdr-action--wait    { background: #9ca3af; }
+.lh-sdr-action--qualify { background: #0ea5e9; }
+.lh-sdr-action--handoff { background: #0ea5e9; }
+.lh-sdr-action--stop    { background: #ef4444; }
+
+.lh-sdr-badge {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    padding: 0.0625rem 0.4375rem;
+    border-radius: 9999px;
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.lh-sdr-meta,
+.lh-sdr-time {
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+.lh-sdr-time {
+    margin-left: auto;
+}
+
+.lh-sdr-reason {
+    margin: 0.4rem 0 0;
+    font-size: 0.8125rem;
+    color: #374151;
+}
+
+.lh-sdr-subj {
+    margin: 0.4rem 0 0;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+.lh-sdr-body {
+    margin: 0.2rem 0 0;
+    font-size: 0.8125rem;
+    color: #4b5563;
+    white-space: pre-wrap;
+}
+
+.lh-sdr-foot {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+    font-size: 0.6875rem;
+    color: #9ca3af;
+}
+
+.lh-sdr-empty {
+    padding: 1rem;
+    text-align: center;
+    color: #9ca3af;
+    font-size: 0.875rem;
+}

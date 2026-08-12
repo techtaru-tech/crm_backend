@@ -1,0 +1,1 @@
+9999999999s:236:"O:30:"App\Settings\RecaptchaSettings":8:{s:7:"enabled";b:0;s:8:"site_key";N;s:10:"secret_key";N;s:14:"guard_register";b:1;s:17:"guard_admin_login";b:1;s:14:"guard_sa_login";b:1;s:9:"min_score";d:0.5;s:24:"_settingsLoadedFromCache";b:1;}";

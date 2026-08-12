@@ -1,0 +1,19 @@
+:root {
+  --fi-primary: #4f46e5;
+  --fi-primary-50: #4f46e51a;
+  --fi-accent: #06b6d4;
+  --color-primary-50: #4f46e50d;
+  --color-primary-100: #4f46e51a;
+  --color-primary-200: #4f46e533;
+  --color-primary-300: #4f46e54d;
+  --color-primary-400: #4f46e580;
+  --color-primary-500: #4f46e5;
+  --color-primary-600: #4f46e5;
+  --color-primary-700: #4f46e5;
+  --color-primary-800: #4f46e5;
+  --color-primary-900: #4f46e5;
+  --color-primary-950: #4f46e5;
+  --tenant-login-bg: #f3f4f6;
+  --tenant-logo-url: url('');
+}
+.fi-simple-layout { background: #f3f4f6; }

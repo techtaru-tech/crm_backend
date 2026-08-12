@@ -1,0 +1,39 @@
+/*
+ |------------------------------------------------------------------
+ | snippet-modal.css — LeadCaptureWidgetResource "Get Snippet" modal
+ |------------------------------------------------------------------
+ |
+ | Static styles for the modal that shows tenants the embed script
+ | tag for their floating lead-capture widget.  Extracted from
+ | inline style="" attributes on the HtmlString that used to be
+ | built inline in modalContent() per CodeCanyon's "no inline
+ | styles unless dynamic" rule.
+ */
+
+.lh-lcw-snippet-modal {
+    margin-top: 1rem;
+}
+
+.lh-lcw-snippet-modal__label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+
+.lh-lcw-snippet-modal__code-wrap {
+    position: relative;
+}
+
+.lh-lcw-snippet-modal__code {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.8125rem;
+    overflow-x: auto;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    white-space: pre-wrap;
+    word-break: break-all;
+}

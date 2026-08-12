@@ -1,0 +1,79 @@
+# ─── LeadHub root .htaccess ──────────────────────────────────────────────────
+# Convenience router for shared / cPanel hosting where the document
+# root cannot be pointed at the public/ subdirectory.
+#
+# Without this file, URLs like https://yourdomain.com/super-admin
+# land on /super-admin (404) instead of /public/super-admin (Laravel's
+# front controller) - which is the exact symptom that breaks the
+# post-install redirect on cPanel-style installs.
+#
+# What it does: forwards every request into the public/ subfolder so
+# Laravel's index.php + public/.htaccess take over the routing.
+#
+# Layouts handled:
+#   1. STANDARD install (recommended) - the host's document root is
+#      pointed at public/ directly.  This file is unreachable and
+#      inert; remove it if you prefer.
+#   2. SHARED-HOSTING / cPanel - docroot is public_html (or htdocs),
+#      the whole project tree (app/, bootstrap/, public/, vendor/, …)
+#      lives inside it, and you cannot change the docroot.  This file
+#      fires and forwards every URL into public/ so the install
+#      wizard, the post-install /super-admin redirect, and every
+#      subsequent admin page reach Laravel correctly.
+#   3. FLAT install - public/ contents have been merged into the
+#      document root manually.  The RewriteCond below makes this
+#      file a no-op (because no public/ subfolder exists any more)
+#      and routing happens via the merged-up public/.htaccess rules.
+#
+# Let's Encrypt / ACME HTTP-01 challenges (/.well-known/acme-challenge/)
+# are passed through directly so SSL certificate renewal keeps
+# working when the document root is the project root.
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # 1) Pass-through for ACME HTTP-01 challenges - they MUST reach
+    #    .well-known/ at the docroot, not get rewritten into public/.
+    RewriteCond %{REQUEST_URI} !^/\.well-known/
+
+    # 2) Never re-rewrite an already-rewritten request.  Apache
+    #    re-processes the per-directory rules after an internal
+    #    rewrite, so without this guard a URL like /super-admin would
+    #    rewrite to /public/super-admin then loop into
+    #    /public/public/super-admin etc.
+    RewriteCond %{REQUEST_URI} !^/public/
+
+    # 3) Only forward when a public/ subfolder actually exists under
+    #    the docroot - i.e. the shared-hosting / cPanel layout, not a
+    #    flat install.  Makes this file safe to ship in every zip.
+    RewriteCond %{DOCUMENT_ROOT}/public -d
+
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+# ─── Hardening when the project root IS web-reachable ────────────────────────
+# In layouts #2 and #3 above the project root is browsable, so block
+# direct access to dotfiles (notably .env, .git/, .htpasswd) the same
+# way public/.htaccess does for its scope.  Harmless in layout #1
+# where the docroot is public/ and this file is never consulted.
+
+<Files ~ "^\.(env|env\.[^.]+|git.*|htpasswd|htaccess)$">
+    Require all denied
+</Files>
+
+# Block direct access to sensitive Laravel directories when the
+# document root sits above public/.  These rules are identical in
+# spirit to the ones in public/.htaccess; duplicated here so the
+# protection holds regardless of which .htaccess Apache reaches first.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(app|bootstrap|config|database|resources|routes|storage)(/|$) - [F,L]
+    RewriteRule ^(app|bootstrap|config|database|resources|routes|storage|vendor).*\.php$ - [F,L]
+</IfModule>
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php83” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php83___lsphp .php .php8 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit

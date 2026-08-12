@@ -1,0 +1,168 @@
+/*
+ |------------------------------------------------------------------
+ | super-admin/pages/updates.css — static styles for SA updates page
+ |------------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/super-admin/pages/updates.blade.php
+ | via <link rel="stylesheet" href="{{ asset('css/views/filament/super-admin/pages/updates.css') }}">.
+ |
+ | All inline style="" attributes in this view are static. There are
+ | no dynamic interpolated values in inline styles for this page.
+ */
+
+/* ─── Hero version banner ─── */
+.up-hero {
+    background: linear-gradient(135deg, #0ea5e9, #6366f1);
+    color: #fff;
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 30px rgba(14, 165, 233, .25);
+}
+.up-hero-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.up-hero-eyebrow {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    opacity: .85;
+    margin: 0 0 6px;
+}
+.up-hero-version {
+    font-size: 34px;
+    font-weight: 800;
+    margin: 0;
+}
+.up-hero-checked {
+    font-size: 12px;
+    opacity: .8;
+    margin: 6px 0 0;
+}
+
+/* ─── Update-available card ─── */
+.up-update-card {
+    background: rgba(255, 255, 255, .15);
+    padding: 16px 22px;
+    border-radius: 12px;
+    text-align: center;
+}
+.up-update-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    opacity: .9;
+    margin: 0 0 4px;
+}
+.up-update-version {
+    font-size: 22px;
+    font-weight: 800;
+    margin: 0;
+}
+.up-update-link {
+    font-size: 12px;
+    color: #fff;
+    text-decoration: underline;
+    opacity: .9;
+}
+
+/* ─── Latest pill ─── */
+.up-latest-pill {
+    background: rgba(255, 255, 255, .15);
+    padding: 12px 18px;
+    border-radius: 12px;
+}
+.up-latest-text {
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* ─── History card ─── */
+.up-history {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 24px;
+}
+.up-history-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #374151;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    margin: 0 0 16px;
+}
+.up-history-empty {
+    color: #9ca3af;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* ─── History table ─── */
+.up-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+.up-table-head-row {
+    text-align: left;
+    color: #6b7280;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+.up-table-th {
+    padding: 8px 0;
+    font-weight: 600;
+}
+.up-table-th-right {
+    padding: 8px 0;
+    font-weight: 600;
+    text-align: right;
+}
+.up-table-row {
+    border-top: 1px solid #f1f5f9;
+}
+.up-td {
+    padding: 12px 0;
+    color: #374151;
+}
+.up-td-mono {
+    padding: 12px 0;
+    color: #111827;
+    font-family: ui-monospace, monospace;
+}
+.up-td-backup {
+    padding: 12px 0;
+    color: #6b7280;
+    font-family: ui-monospace, monospace;
+    font-size: 12px;
+}
+.up-td-right {
+    padding: 12px 0;
+    text-align: right;
+}
+
+/* ─── Status badges ─── */
+.up-badge-failed {
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+}
+.up-badge-ok {
+    background: #d1fae5;
+    color: #047857;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+}

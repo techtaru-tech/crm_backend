@@ -1,0 +1,21 @@
+    .lp-pricing { padding: 80px 0; background: var(--bg); }
+    .lp-pricing h2{font-size:36px;font-weight:800;text-align:center;color:#0f172a;margin:0 0 12px;letter-spacing:-.01em}
+    .lp-pricing .lp-sub{text-align:center;color:#6b7280;font-size:17px;margin:0 auto 56px;max-width:620px}
+    .lp-plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:1080px;margin:0 auto;align-items:stretch}
+    .lp-plan{background:#fff;border:1px solid #e5e7eb;border-radius:18px;padding:32px 28px;display:flex;flex-direction:column;position:relative;transition:transform .2s,box-shadow .2s}
+    .lp-plan:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(15,23,42,.08)}
+    .lp-plan--highlight{border:2px solid var(--primary);box-shadow:0 14px 40px rgba(79,70,229,.18);transform:translateY(-6px)}
+    .lp-plan--highlight:hover{transform:translateY(-8px)}
+    .lp-plan-ribbon{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--primary);color:#fff;padding:4px 16px;border-radius:20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;white-space:nowrap}
+    .lp-plan h3{font-size:18px;font-weight:700;color:#111827;margin:0 0 4px}
+    .lp-plan-price{display:flex;align-items:baseline;gap:4px;margin:18px 0 24px}
+    .lp-plan-price .amount{font-size:42px;font-weight:800;color:#0f172a;line-height:1;letter-spacing:-.02em}
+    .lp-plan-price .interval{font-size:14px;color:#6b7280;font-weight:500}
+    .lp-plan ul{list-style:none;padding:0;margin:0 0 28px;font-size:14px;color:#374151;flex:1}
+    .lp-plan li{padding:8px 0;display:flex;align-items:flex-start;gap:10px;line-height:1.45}
+    .lp-plan li svg{flex-shrink:0;color:#10b981;margin-top:2px}
+    .lp-plan-cta{display:block;width:100%;text-align:center;padding:12px 20px;border-radius:10px;font-weight:600;font-size:14px;text-decoration:none;border:1px solid #e5e7eb;color:#374151;background:#f9fafb;transition:background .15s,transform .15s}
+    .lp-plan-cta:hover{background:#f3f4f6}
+    .lp-plan--highlight .lp-plan-cta{background:var(--primary);color:#fff;border-color:var(--primary)}
+    .lp-plan--highlight .lp-plan-cta:hover{background:#4338ca;transform:translateY(-1px)}
+    @media(max-width:640px){ .lp-pricing h2{font-size:28px} .lp-plan--highlight{transform:none} .lp-pricing{padding:56px 0} }

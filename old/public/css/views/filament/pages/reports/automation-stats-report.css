@@ -1,0 +1,46 @@
+/*
+ |----------------------------------------------------------------
+ | automation-stats-report.css — static styles for Automation Stats report
+ |----------------------------------------------------------------
+ |
+ | Paired with resources/views/filament/pages/reports/automation-stats-report.blade.php
+ | All STATIC styles live here.  Any remaining inline style="..."
+ | attributes on the view MUST contain Blade {{ }} interpolation
+ | (dynamic) — those are allowed per reviewer rules.
+ */
+
+/* Layout */
+.as-page{display:flex;flex-direction:column;gap:1.5rem}
+.as-section-pad{padding:1.5rem}
+.as-section-overflow{overflow:hidden}
+.as-section-header{padding:1rem 1.5rem;border-bottom:1px solid #f3f4f6}
+.as-section-title{font-size:1rem;font-weight:600;color:#111827}
+
+/* Cells */
+.as-cell-name{font-weight:500;color:#111827}
+.as-cell-trigger{color:#6b7280;text-transform:capitalize;font-size:.75rem}
+.as-cell-num{font-weight:600;color:#111827}
+.as-cell-won{color:#16a34a}
+.as-cell-secs{color:#6b7280;font-variant-numeric:tabular-nums}
+.as-cell-empty{text-align:center;padding:2rem 1.5rem;color:#9ca3af}
+.as-rate-wrap{display:flex;align-items:center;justify-content:flex-end;gap:.5rem}
+.as-rate-text{color:#374151}
+
+/* Table */
+.as-table{width:100%;font-size:.875rem;border-collapse:collapse}
+.as-table th{padding:.75rem 1.5rem;text-align:left;font-weight:500;color:#6b7280;background:#f9fafb}
+.as-table th:nth-child(3){text-align:center}
+.as-table th:nth-child(n+4){text-align:right}
+.as-table td{padding:.75rem 1.5rem;border-bottom:1px solid #f3f4f6}
+.as-table td:nth-child(3){text-align:center}
+.as-table td:nth-child(n+4){text-align:right}
+.as-table tr:hover td{background:#f9fafb}
+
+/* Badges */
+.as-badge{display:inline-block;padding:.125rem .5rem;font-size:.75rem;font-weight:600;border-radius:.375rem}
+.as-badge-active{background:#dcfce7;color:#15803d}
+.as-badge-disabled{background:#f3f4f6;color:#6b7280}
+
+/* Progress */
+.as-progress-bg{width:5rem;height:.375rem;background:#e5e7eb;border-radius:9999px;overflow:hidden;display:inline-block;vertical-align:middle}
+.as-progress-bar{height:100%;border-radius:9999px}

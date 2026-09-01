@@ -78,6 +78,9 @@ class ProcessLeadImport implements ShouldQueue
             $sheets  = Excel::toArray(new HeadingRowDataImport, $path);
             $rows    = $sheets[0] ?? [];
 
+            $defaultPipeline = \App\Models\Pipeline::defaultForTenant($import->tenant_id);
+            $defaultStageId  = $defaultPipeline?->firstStage()?->id;
+
             $total    = count($rows);
             $imported = 0;
             $dupes    = 0;
@@ -173,6 +176,17 @@ class ProcessLeadImport implements ShouldQueue
                         if ($existing) {
                             $dupes++;
                             continue;
+                        }
+
+                        // Same reasoning as CrmCsvImporter: a lead with no
+                        // pipeline has no Stage options and never reaches the
+                        // Kanban.  A mapped column still wins.
+                        if (blank($data['pipeline_id'] ?? null) && $defaultPipeline) {
+                            $data['pipeline_id'] = $defaultPipeline->id;
+
+                            if (blank($data['pipeline_stage_id'] ?? null) && $defaultStageId) {
+                                $data['pipeline_stage_id'] = $defaultStageId;
+                            }
                         }
 
                         $lead = Lead::create(array_merge($data, [

@@ -237,13 +237,33 @@ class LeadResource extends Resource
                     ->label(__('filament/leads.pipeline'))
                     ->options(fn() => Pipeline::where('tenant_id', $tenantId())->pluck('name', 'id'))
                     ->reactive()
+                    // Stages belong to one pipeline.  Without this, switching
+                    // pipeline kept the old pipeline's stage id selected and
+                    // the record saved a stage that does not belong to it.
+                    ->afterStateUpdated(fn ($state, $set) => $set('pipeline_stage_id', null))
                     ->nullable(),
                 Select::make('pipeline_stage_id')
                     ->label(__('filament/leads.stage'))
-                    ->options(fn($get) => $get('pipeline_id')
-                        ? PipelineStage::where('pipeline_id', $get('pipeline_id'))->pluck('name', 'id')
+                    // Stage options are the chosen pipeline's stages, so with
+                    // no pipeline picked the list is legitimately empty — but
+                    // it rendered as an ordinary enabled dropdown with nothing
+                    // in it, which reads as a broken field.  Most leads have
+                    // no pipeline (CSV import does not set one), so this is
+                    // what an operator normally hits.  Disable it and say why.
+                    ->options(fn ($get) => $get('pipeline_id')
+                        ? PipelineStage::where('tenant_id', $tenantId())
+                            ->where('pipeline_id', $get('pipeline_id'))
+                            ->orderBy('sort_order')
+                            ->pluck('name', 'id')
                         : []
                     )
+                    ->disabled(fn ($get) => blank($get('pipeline_id')))
+                    ->placeholder(fn ($get) => blank($get('pipeline_id'))
+                        ? __('filament/leads.stage_needs_pipeline')
+                        : __('filament/leads.stage_placeholder'))
+                    ->helperText(fn ($get) => blank($get('pipeline_id'))
+                        ? __('filament/leads.stage_needs_pipeline_help')
+                        : null)
                     ->nullable(),
                 Select::make('tags')
                     ->label(__('filament/leads.tags'))

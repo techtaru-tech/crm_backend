@@ -100,6 +100,9 @@ class CrmCsvImporter
         $vendor = $vendor ?? $this->detect($headers);
         $mapper = $this->mapperFor($vendor);
 
+        $defaultPipeline = \App\Models\Pipeline::defaultForTenant($tenant->id);
+        $defaultStageId  = $defaultPipeline?->firstStage()?->id;
+
         $imported   = 0;
         $skipped    = 0;
         $duplicates = 0;
@@ -133,7 +136,31 @@ class CrmCsvImporter
                     continue;
                 }
 
+                // Dedupe on email/phone.  The unique index this used to lean
+                // on is (tenant_id, source, source_id) and source_id is
+                // NULLable — MySQL counts every NULL as distinct, so a file
+                // with no ID column (very common: Name/Phone/Source exports)
+                // had NO duplicate protection at all and re-importing it
+                // simply inserted a second full copy of every lead.
+                if ($this->alreadySeen($tenant->id, $mapped['email'] ?? null, $mapped['phone'] ?? null)) {
+                    $duplicates++;
+                    continue;
+                }
+
                 $mapped['tenant_id'] = $tenant->id;
+
+                // Land the lead on a board.  Without a pipeline the Stage
+                // field on the edit form has nothing to offer and the lead
+                // never appears on the Kanban at all — imported leads were
+                // effectively invisible to the funnel they were imported for.
+                // A mapped Pipeline/Stage column, if the file had one, wins.
+                if (blank($mapped['pipeline_id'] ?? null) && $defaultPipeline) {
+                    $mapped['pipeline_id'] = $defaultPipeline->id;
+
+                    if (blank($mapped['pipeline_stage_id'] ?? null) && $defaultStageId) {
+                        $mapped['pipeline_stage_id'] = $defaultStageId;
+                    }
+                }
                 $batch[] = ['attributes' => $mapped, 'follow_up_at' => $followUpAt];
 
                 if (count($batch) >= 200) {
@@ -381,6 +408,73 @@ class CrmCsvImporter
             : null;
 
         return [$mapped, $followUpAt, array_keys($unmapped)];
+    }
+
+    /**
+     * Emails and normalised phones already accounted for in this run —
+     * either found in the database or seen earlier in the same file.
+     *
+     * @var array<string, true>
+     */
+    private array $seenContacts = [];
+
+    /**
+     * True when this contact already exists for the tenant, or appeared
+     * earlier in the file being imported.
+     *
+     * Deliberately bypasses global scopes: LeadVisibilityScope would limit the
+     * lookup to the importing user's own leads, so a rep would happily
+     * re-create a lead that belongs to a colleague.  Duplicate checks are a
+     * tenant-wide question, not a per-user one.
+     */
+    protected function alreadySeen(int $tenantId, ?string $email, ?string $phone): bool
+    {
+        $keys = [];
+
+        if (filled($email)) {
+            $keys[] = 'e:' . strtolower(trim($email));
+        }
+
+        if ($normalized = Lead::normalizePhone($phone)) {
+            $keys[] = 'p:' . $normalized;
+        }
+
+        if ($keys === []) {
+            return false;
+        }
+
+        foreach ($keys as $key) {
+            if (isset($this->seenContacts[$key])) {
+                return true;
+            }
+        }
+
+        $exists = Lead::withoutGlobalScopes()
+            // withoutGlobalScopes() drops SoftDeletingScope too, so trashed
+            // leads would count as duplicates and an operator who deletes a
+            // bad import and re-runs the file would import nothing at all.
+            // A lead in the recycle bin is not a lead you already have.
+            ->whereNull('deleted_at')
+            ->where('tenant_id', $tenantId)
+            ->where(function ($q) use ($email, $normalized) {
+                if (filled($email)) {
+                    $q->orWhere('email', strtolower(trim($email)));
+                }
+                if ($normalized) {
+                    $q->orWhere('phone_normalized', $normalized);
+                }
+            })
+            ->exists();
+
+        if ($exists) {
+            return true;
+        }
+
+        foreach ($keys as $key) {
+            $this->seenContacts[$key] = true;
+        }
+
+        return false;
     }
 
     /** Slug a CSV header into a custom_fields key. */

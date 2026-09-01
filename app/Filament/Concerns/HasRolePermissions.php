@@ -26,9 +26,23 @@ namespace App\Filament\Concerns;
  * Resources that need a more nuanced policy (e.g. "delete admin-
  * owned records requires admin") can override any of the gates
  * individually — they're all static methods, not a final trait.
+ *
+ * READ-ONLY ROLES: `{prefix}.view` granting canEdit is deliberate — it
+ * lets a `member` open records on resources where they hold no explicit
+ * `.edit` permission.  That convention makes a genuinely read-only role
+ * impossible, so roles listed in READ_ONLY_ROLES short-circuit every
+ * write gate before the normal resolution runs.  Only users whose roles
+ * are ALL read-only are affected; someone holding `viewer` alongside a
+ * writing role keeps that role's access.
  */
 trait HasRolePermissions
 {
+    /** Roles that may never create, edit or delete anything. */
+    public const READ_ONLY_ROLES = ['viewer'];
+
+    /** Roles that carry write access; presence of any one cancels read-only. */
+    protected const WRITING_ROLES = ['super_admin', 'admin', 'manager', 'member'];
+
     // IMPORTANT: the resource class declares its own
     //   protected static string $permissionPrefix = 'leads';
     // We don't declare it here because PHP rejects the trait-and-
@@ -43,11 +57,19 @@ trait HasRolePermissions
 
     public static function canCreate(): bool
     {
+        if (static::userIsReadOnly()) {
+            return false;
+        }
+
         return static::userHasAny([static::permPrefix() . '.create']);
     }
 
     public static function canEdit($record): bool
     {
+        if (static::userIsReadOnly()) {
+            return false;
+        }
+
         return static::userHasAny([
             static::permPrefix() . '.edit',
             static::permPrefix() . '.view',
@@ -56,6 +78,10 @@ trait HasRolePermissions
 
     public static function canDelete($record): bool
     {
+        if (static::userIsReadOnly()) {
+            return false;
+        }
+
         return static::userHasAny([
             static::permPrefix() . '.delete',
             static::permPrefix() . '.manage',
@@ -65,6 +91,26 @@ trait HasRolePermissions
     public static function canDeleteAny(): bool
     {
         return static::canDelete(null);
+    }
+
+    /**
+     * True when every role the user holds is read-only.
+     *
+     * Checked before the permission lookup, not inside it, so it also
+     * overrides the super-admin bypass and the tenant pivot-role fallback
+     * further down — both of which would otherwise hand a viewer write
+     * access through a side door.
+     */
+    protected static function userIsReadOnly(): bool
+    {
+        $user = auth()->user();
+
+        if (! $user || ! method_exists($user, 'hasAnyRole')) {
+            return false;
+        }
+
+        return $user->hasAnyRole(self::READ_ONLY_ROLES)
+            && ! $user->hasAnyRole(self::WRITING_ROLES);
     }
 
     protected static function permPrefix(): string

@@ -115,7 +115,13 @@ class LeadMergeService
 
         foreach ($tables as $table => $column) {
             try {
-                if (DB::getSchemaBuilder()->hasTable($table)) {
+                // hasColumn as well as hasTable: webhook_logs exists but has
+                // never carried a lead_id (it links through
+                // source_connection_id), so every merge logged an "Unknown
+                // column" warning here.  Checking the column keeps the list
+                // declarative and silent for tables that don't have it.
+                $schema = DB::getSchemaBuilder();
+                if ($schema->hasTable($table) && $schema->hasColumn($table, $column)) {
                     DB::table($table)
                       ->where($column, $duplicateId)
                       ->update([$column => $primaryId]);

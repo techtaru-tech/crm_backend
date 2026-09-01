@@ -33,6 +33,7 @@ class MeetingBookingObserver
     public function created(MeetingBooking $booking): void
     {
         $this->pushToCalendar($booking);
+        $this->logToLeadTimeline($booking, 'scheduled');
     }
 
     public function updated(MeetingBooking $booking): void
@@ -42,6 +43,50 @@ class MeetingBookingObserver
             return;
         }
         $this->pushToCalendar($booking);
+
+        if ($booking->wasChanged('status') && $booking->status === 'cancelled') {
+            $this->logToLeadTimeline($booking, 'cancelled');
+        } elseif ($booking->wasChanged(['starts_at', 'ends_at'])) {
+            $this->logToLeadTimeline($booking, 'rescheduled');
+        }
+    }
+
+    /**
+     * Mirror the booking onto the lead's activity timeline (spec §10).
+     *
+     * Bookings can arrive from the public booking page and from calendar
+     * sync, i.e. with no authenticated user and no tenant bound — so the lead
+     * is resolved without global scopes and the whole thing is wrapped: a
+     * timeline entry must never be the reason a booking fails to save.
+     */
+    protected function logToLeadTimeline(MeetingBooking $booking, string $event): void
+    {
+        if (! $booking->lead_id) {
+            return;
+        }
+
+        try {
+            $lead = \App\Models\Lead::withoutGlobalScopes()->find($booking->lead_id);
+            if (! $lead) {
+                return;
+            }
+
+            $label = $booking->meetingType?->name
+                ?? __('filament/leads.meeting_generic_label');
+
+            $when = $booking->starts_at
+                ? $booking->starts_at->format('d M Y, H:i')
+                : null;
+
+            app(\App\Services\LeadActivityService::class)
+                ->logMeeting($lead, $event, (string) $label, $when, $booking->user_id);
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::warning('MeetingBookingObserver: timeline log failed', [
+                'booking_id' => $booking->id,
+                'event'      => $event,
+                'error'      => $e->getMessage(),
+            ]);
+        }
     }
 
     /**

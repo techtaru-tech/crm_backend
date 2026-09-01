@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\LeadStatus;
 use App\Models\Lead;
 use App\Models\LeadActivity;
 
@@ -33,13 +34,30 @@ class LeadActivityService
         ]);
     }
 
-    public function logStatusChanged(Lead $lead, string $oldStatus, string $newStatus): void
+    /**
+     * The Lead model casts `status` to LeadStatus, so both the observer's
+     * getOriginal('status') and $lead->status arrive as enum cases.  Accept
+     * either shape: raw values still reach here from importers and legacy
+     * rows written before the H7 cast landed.
+     */
+    public function logStatusChanged(Lead $lead, LeadStatus|string $oldStatus, LeadStatus|string $newStatus): void
     {
-        $this->log($lead, 'status_changed', "Status changed from {$oldStatus} to {$newStatus}", [
-            'old'         => $oldStatus,
-            'new'         => $newStatus,
+        $oldCase = $oldStatus instanceof LeadStatus ? $oldStatus : LeadStatus::tryFrom($oldStatus);
+        $newCase = $newStatus instanceof LeadStatus ? $newStatus : LeadStatus::tryFrom($newStatus);
+
+        // metadata.old/new stay machine-readable enum values for reporting;
+        // the description and i18n_params carry the human label, matching
+        // the write-time translation convention used by logStageMoved().
+        $oldValue = $oldCase?->value ?? (string) $oldStatus;
+        $newValue = $newCase?->value ?? (string) $newStatus;
+        $oldLabel = $oldCase?->label() ?? $oldValue;
+        $newLabel = $newCase?->label() ?? $newValue;
+
+        $this->log($lead, 'status_changed', "Status changed from {$oldLabel} to {$newLabel}", [
+            'old'         => $oldValue,
+            'new'         => $newValue,
             'i18n_key'    => 'lead_activities.status_changed',
-            'i18n_params' => ['from' => $oldStatus, 'to' => $newStatus],
+            'i18n_params' => ['from' => $oldLabel, 'to' => $newLabel],
         ]);
     }
 
@@ -97,6 +115,24 @@ class LeadActivityService
                 'outcome'   => $outcome,
             ],
         ]);
+    }
+
+    /**
+     * Meeting booked / rescheduled / cancelled (spec §10).
+     *
+     * Meetings live in their own module (meeting_bookings) and were invisible
+     * on the lead timeline, so a rep reading a lead's history saw calls and
+     * notes but no sign that a site visit had been booked.  Writing an
+     * activity row keeps the timeline the single place to read a lead's story.
+     */
+    public function logMeeting(Lead $lead, string $event, string $meetingLabel, ?string $when = null, ?int $userId = null): void
+    {
+        $key = 'lead_activities.meeting_' . $event;
+
+        $this->log($lead, 'meeting_' . $event, trim("Meeting {$event}: {$meetingLabel} {$when}"), [
+            'i18n_key'    => $key,
+            'i18n_params' => ['meeting' => $meetingLabel, 'when' => (string) $when],
+        ], $userId);
     }
 
     public function logNoteAdded(Lead $lead, string $noteBody): void

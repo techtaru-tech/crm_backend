@@ -21,9 +21,7 @@ class ExportFailedNotification extends Notification implements ShouldQueue
 
     public function toMail(object $notifiable): LeadNotificationMail
     {
-        $tenant = $this->resolveNotifiableTenant($notifiable);
-
-        return (new LeadNotificationMail(
+        return $this->brandedMailFor(new LeadNotificationMail(
             emailSubject: __('notifications.export_failed_mail_subject'),
             headline: __('notifications.export_failed_mail_headline'),
             lines: [
@@ -33,7 +31,7 @@ class ExportFailedNotification extends Notification implements ShouldQueue
             ],
             actionUrl: null,
             actionLabel: null,
-        ))->withTenant($tenant);
+        ), $notifiable);
     }
 
     public function toArray(object $notifiable): array

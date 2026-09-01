@@ -855,7 +855,11 @@ class ViewLead extends ViewRecord
                         'activities' => $lead->activities->map(fn ($a) => $a->only([
                             'id', 'type', 'description', 'metadata', 'created_at',
                         ]))->toArray(),
-                        'notes' => $lead->notes->map(fn ($n) => $n->only([
+                        // leads.notes is a real column, so $lead->notes resolves
+                        // to the attribute (usually null) and shadows the
+                        // notes() HasMany even after load().  Read the eager-
+                        // loaded relation explicitly.
+                        'notes' => $lead->getRelation('notes')->map(fn ($n) => $n->only([
                             'id', 'body', 'mentions', 'created_at',
                         ]))->toArray(),
                         'tasks' => $lead->tasks->map(fn ($t) => $t->only([
@@ -1240,6 +1244,14 @@ class ViewLead extends ViewRecord
             'emails'      => $lead->emails()->latest('created_at')->get(),
             'messages'    => $lead->messages,
             'calls'       => $lead->calls()->with('user')->latest('created_at')->limit(10)->get(),
+            // Definition of Done: stage and assignment history must be
+            // visible, not just recorded.  Capped at 50 — these are append-only
+            // and a long-lived lead can accumulate hundreds.
+            'stageHistory'      => $lead->stageHistories()->with('actor')->limit(50)->get(),
+            'assignmentHistory' => $lead->assignmentHistories()
+                ->with(['actor', 'fromUser', 'toUser', 'fromTeam', 'toTeam'])
+                ->limit(50)
+                ->get(),
         ];
     }
 }

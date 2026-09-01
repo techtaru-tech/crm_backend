@@ -747,6 +747,61 @@
                 </x-filament::section>
             @endif
 
+            {{-- Stage & ownership history (spec §12 / Definition of Done).
+                 Separate from the activity timeline on purpose: the timeline
+                 narrates everything that happened, these two tables answer
+                 "how did this lead move" and "who has owned it". --}}
+            @if($stageHistory->isNotEmpty() || $assignmentHistory->isNotEmpty())
+                <x-filament::section :heading="__('filament/leads.section_history')" collapsible collapsed>
+                    <div class="lh-lead-history">
+                        @if($stageHistory->isNotEmpty())
+                            <h4 class="lh-lead-history-title">{{ __('filament/leads.history_stage') }}</h4>
+                            <table class="lh-lead-history-table">
+                                <tbody>
+                                @foreach($stageHistory as $h)
+                                    <tr>
+                                        <td class="lh-lead-history-move">
+                                            <span class="lh-lead-history-from">{{ $h->from_stage_name ?? __('filament/leads.history_none') }}</span>
+                                            <span class="lh-lead-history-arrow">&rarr;</span>
+                                            <strong>{{ $h->to_stage_name ?? __('filament/leads.history_none') }}</strong>
+                                        </td>
+                                        <td class="lh-lead-history-actor">{{ $h->actor?->name ?? __('filament/leads.history_system') }}</td>
+                                        <td class="lh-lead-history-time" title="{{ $h->created_at }}">{{ $h->created_at?->diffForHumans() }}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        @endif
+
+                        @if($assignmentHistory->isNotEmpty())
+                            <h4 class="lh-lead-history-title">{{ __('filament/leads.history_assignment') }}</h4>
+                            <table class="lh-lead-history-table">
+                                <tbody>
+                                @foreach($assignmentHistory as $h)
+                                    <tr>
+                                        <td class="lh-lead-history-move">
+                                            <span class="lh-lead-history-from">{{ $h->fromUser?->name ?? __('filament/leads.history_unassigned') }}</span>
+                                            <span class="lh-lead-history-arrow">&rarr;</span>
+                                            <strong>{{ $h->toUser?->name ?? __('filament/leads.history_unassigned') }}</strong>
+                                            @if($h->from_team_id !== $h->to_team_id)
+                                                <span class="lh-lead-history-team">
+                                                    ({{ $h->fromTeam?->name ?? __('filament/leads.history_none') }}
+                                                    &rarr;
+                                                    {{ $h->toTeam?->name ?? __('filament/leads.history_none') }})
+                                                </span>
+                                            @endif
+                                        </td>
+                                        <td class="lh-lead-history-actor">{{ $h->actor?->name ?? __('filament/leads.history_system') }}</td>
+                                        <td class="lh-lead-history-time" title="{{ $h->created_at }}">{{ $h->created_at?->diffForHumans() }}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        @endif
+                    </div>
+                </x-filament::section>
+            @endif
+
             <x-filament::section :heading="__('filament/leads.section_activity_timeline')">
                 <div>
                     <ul class="lh-lead-timeline">
@@ -767,6 +822,8 @@
                                                 'tag_applied', 'tag_removed' => 'tag',
                                                 'assigned'       => 'assigned',
                                                 'score_changed'  => 'score',
+                                                'meeting_scheduled', 'meeting_rescheduled' => 'stage',
+                                                'meeting_cancelled' => 'status',
                                                 default          => 'default',
                                             };
                                             $iconSvgMap = [
@@ -779,6 +836,11 @@
                                                 'assigned'       => '<path d="M11 5a3 3 0 11-6 0 3 3 0 016 0zM2.046 15.253c-.058.209-.087.429-.087.657 0 .552.448 1 1 1h6.032a4.5 4.5 0 01.012-6 6.453 6.453 0 00-6.957 4.343zM15 6a.75.75 0 01.75.75V8.5h1.75a.75.75 0 010 1.5h-1.75v1.75a.75.75 0 01-1.5 0V10h-1.75a.75.75 0 010-1.5h1.75V6.75A.75.75 0 0115 6z"/>',
                                                 'score_changed'  => '<path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd"/>',
                                             ];
+                                            // Meeting rows (spec §10) share one calendar glyph.
+                                            $meetingSvg = '<path fill-rule="evenodd" d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z" clip-rule="evenodd"/>';
+                                            foreach (['meeting_scheduled', 'meeting_rescheduled', 'meeting_cancelled'] as $meetingType) {
+                                                $iconSvgMap[$meetingType] = $meetingSvg;
+                                            }
                                             $iconSvg = $iconSvgMap[$activity->type] ?? '<path d="M11.983 1.907a.75.75 0 00-1.292-.657l-8.5 9.5A.75.75 0 002.75 12h6.572l-1.305 6.093a.75.75 0 001.292.657l8.5-9.5A.75.75 0 0017.25 8h-6.572l1.305-6.093z"/>';
                                         @endphp
                                         <span class="lh-lead-tl-dot {{ $dotClass }}">

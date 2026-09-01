@@ -176,6 +176,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Lead Visibility
+    |--------------------------------------------------------------------------
+    | managers_see_unassigned_pool: when a team manager's row-level scope is
+    | applied, also show leads that no team owns yet (assigned_team_id IS NULL).
+    | Keeps freshly-imported / freshly-captured leads visible to the people who
+    | distribute them. Set false for a strict "only my team's leads" policy.
+    */
+    'leads' => [
+        'managers_see_unassigned_pool' => env('LEADHUB_MANAGERS_SEE_UNASSIGNED_POOL', true),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Self-service Registration
     |--------------------------------------------------------------------------
     | When enabled, the /register route is live and visitors can create a

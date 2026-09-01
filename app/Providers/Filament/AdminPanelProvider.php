@@ -117,7 +117,7 @@ class AdminPanelProvider extends PanelProvider
                 // collapsible by user preference via the caret icon.
                 NavigationGroup::make('Brand & Domain')->label(__('navigation.groups.brand_and_domain')),
                 NavigationGroup::make('Communications')->label(__('navigation.groups.communications')),
-                NavigationGroup::make('Team & Access')->label(__('navigation.groups.team_and_access')),
+                NavigationGroup::make('Users & Access')->label(__('navigation.groups.team_and_access')),
                 NavigationGroup::make('Advanced')->label(__('navigation.groups.advanced')),
                 NavigationGroup::make('Account')->label(__('navigation.groups.account')),
                 // Generic catch-all groups used by misc Pages/Resources
@@ -140,6 +140,9 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 \App\Filament\Widgets\GettingStartedChecklist::class,
                 \App\Filament\Widgets\LeadsStatsOverview::class,
+                // Phase 1 funnel tiles: unassigned, today's / overdue
+                // follow-ups, leads by rep.
+                \App\Filament\Widgets\FunnelFollowUpOverview::class,
                 \App\Filament\Widgets\RevenueForecastWidget::class,
                 \App\Filament\Widgets\LeadsOverTimeChart::class,
                 \App\Filament\Widgets\LeadsBySourceChart::class,
@@ -271,6 +274,14 @@ class AdminPanelProvider extends PanelProvider
                 }
             )
             ->middleware([
+                // Filament panels do NOT run Laravel's `web` group, so the
+                // TrustProxies entry prepended in bootstrap/app.php never
+                // reached /admin/*.  Behind any TLS-terminating proxy
+                // (Cloudflare, nginx, a dev tunnel) the panel therefore read
+                // the request as plain http on the proxy's internal host and
+                // emitted http:// asset + redirect URLs.  Keep it first so
+                // everything below sees the corrected scheme/host/IP.
+                \App\Http\Middleware\TrustProxies::class,
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
                 StartSession::class,

@@ -16,7 +16,7 @@ return [
         'reports'            => 'التقارير',
         'brand_and_domain'   => 'العلامة التجارية والنطاق',
         'communications'     => 'الاتصالات',
-        'team_and_access'    => 'الفريق والوصول',
+        'team_and_access'    => 'المستخدمون والوصول',
         'advanced'           => 'متقدم',
         'account'            => 'الحساب',
         'settings'           => 'الإعدادات',

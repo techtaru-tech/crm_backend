@@ -33,7 +33,7 @@ return [
         'reports'            => 'Reports',
         'brand_and_domain'   => 'Brand & Domain',
         'communications'     => 'Communications',
-        'team_and_access'    => 'Team & Access',
+        'team_and_access'    => 'Users & Access',
         'advanced'           => 'Advanced',
         'account'            => 'Account',
         'settings'           => 'Settings',

@@ -313,6 +313,8 @@ return [
 
     // ─── CSV import notification body lines ───
     'import_body_imported_count'    => ':count leads imported from :vendor.',
+    'import_body_duplicate_count'    => ':count rows already existed (skipped as duplicates).',
+
     'import_body_skipped_count'     => ':count rows skipped (no email or phone).',
     'import_body_batch_errors'      => ':count batch error(s) — see logs.',
 
@@ -565,4 +567,17 @@ return [
     // anonymization.
     'gdpr_anonymous'                => 'Anonymous',
     'gdpr_task_label'               => 'Task #:id',
+
+    // Phase 1 lead-funnel fields
+    'city' => 'City',
+    'assigned_team' => 'Assigned Team',
+    'assigned_team_help' => 'The team that owns this lead. Independent of which rep currently holds it.',
+    'next_follow_up' => 'Next Follow-up',
+    'meeting_generic_label' => 'Meeting',
+    'section_history' => 'Stage & Ownership History',
+    'history_stage' => 'Stage changes',
+    'history_assignment' => 'Ownership changes',
+    'history_none' => 'None',
+    'history_unassigned' => 'Unassigned',
+    'history_system' => 'System',
 ];

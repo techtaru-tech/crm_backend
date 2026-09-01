@@ -41,10 +41,11 @@ class LeadTask extends Model
     protected $fillable = [
         'lead_id', 'tenant_id', 'assigned_user_id',
         'title', 'description', 'due_at', 'completed', 'completed_at',
-        'reminder_at', 'reminder_sent_at', 'priority',
+        'reminder_at', 'reminder_sent_at', 'priority', 'status',
     ];
 
     protected $casts = [
+        'status'           => \App\Enums\FollowUpStatus::class,
         'completed'        => 'boolean',
         'due_at'           => 'datetime',
         'completed_at'     => 'datetime',
@@ -59,6 +60,14 @@ class LeadTask extends Model
                 $task->priority = self::PRIORITY_NORMAL;
             }
 
+            if (empty($task->status)) {
+                $task->status = \App\Enums\FollowUpStatus::Pending;
+            }
+
+            if ($task->completed === null) {
+                $task->completed = false;
+            }
+
             if (empty($task->reminder_at) && ! empty($task->due_at)) {
                 $dueAt = $task->due_at instanceof \DateTimeInterface
                     ? \Carbon\Carbon::instance($task->due_at)
@@ -66,6 +75,58 @@ class LeadTask extends Model
                 $task->reminder_at = $dueAt->copy()->subHour();
             }
         });
+
+        // `completed` (boolean) and `status` (enum) describe the same thing at
+        // different resolutions.  Plenty of existing code still reads the
+        // boolean, so rather than migrate every call site at once, whichever
+        // one a caller sets drags the other along.
+        static::saving(function (LeadTask $task) {
+            if ($task->isDirty('status')) {
+                $isDone = $task->status === \App\Enums\FollowUpStatus::Completed;
+                $task->completed = $isDone;
+                if ($isDone && empty($task->completed_at)) {
+                    $task->completed_at = now();
+                }
+            } elseif ($task->isDirty('completed')) {
+                $task->status = $task->completed
+                    ? \App\Enums\FollowUpStatus::Completed
+                    : \App\Enums\FollowUpStatus::Pending;
+            }
+        });
+
+        // The lead carries a denormalised next_follow_up_at so the lead list
+        // can sort on it; any write that could change the earliest open
+        // follow-up re-derives it.
+        // Resolve the lead without global scopes: this fires from queue
+        // workers and console commands too, where there is no authenticated
+        // user and BelongsToTenant deliberately fails closed — $task->lead
+        // would come back null and the column would silently drift.
+        $refreshLead = function (LeadTask $task): void {
+            Lead::withoutGlobalScopes()
+                ->find($task->lead_id)
+                ?->refreshNextFollowUp();
+        };
+
+        static::saved($refreshLead);
+        static::deleted($refreshLead);
+    }
+
+    /** Follow-ups still awaiting action. */
+    public function scopeOpen(Builder $query): Builder
+    {
+        return $query->whereIn('status', \App\Enums\FollowUpStatus::openValues());
+    }
+
+    /** Open follow-ups whose due date has passed. */
+    public function scopeOverdue(Builder $query): Builder
+    {
+        return $query->open()->whereNotNull('due_at')->where('due_at', '<', now());
+    }
+
+    /** Open follow-ups due today. */
+    public function scopeDueToday(Builder $query): Builder
+    {
+        return $query->open()->whereBetween('due_at', [now()->startOfDay(), now()->endOfDay()]);
     }
 
     public function lead(): BelongsTo

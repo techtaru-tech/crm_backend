@@ -41,10 +41,25 @@ class CreateLeadImport extends Page
         $this->fieldOptions = [
             'first_name'  => __('filament/lead_imports.field_first_name'),
             'last_name'   => __('filament/lead_imports.field_last_name'),
+            // Sheets kept by hand usually have ONE name column.  Without this
+            // option such a file had no legal target for it and imported every
+            // lead nameless — ProcessLeadImport splits it on the first space.
+            'full_name'   => __('filament/lead_imports.field_full_name'),
             'email'       => __('filament/lead_imports.field_email'),
             'phone'       => __('filament/lead_imports.field_phone'),
+            'city'        => __('filament/lead_imports.field_city'),
+            'company'     => __('filament/lead_imports.field_company'),
+            'deal_value'  => __('filament/lead_imports.field_deal_value'),
+            'source_id'   => __('filament/lead_imports.field_source_id'),
+            'contacted_at'   => __('filament/lead_imports.field_contacted_at'),
+            // Becomes a real follow-up task, not just a date — see ProcessLeadImport.
+            'next_follow_up' => __('filament/lead_imports.field_next_follow_up'),
             'source'      => __('filament/lead_imports.field_source'),
             'status'      => __('filament/lead_imports.field_status'),
+            'priority'    => __('filament/lead_imports.field_priority'),
+            // Resolved to a user id by ProcessLeadImport (email or exact
+            // name, tenant-scoped) rather than written straight to a column.
+            'assigned_user' => __('filament/lead_imports.field_assigned_user'),
             'notes'       => __('filament/lead_imports.field_notes'),
         ];
 
@@ -107,15 +122,27 @@ class CreateLeadImport extends Page
             // Read from the SAME disk the FileUpload wrote to ('local'), not
             // the default disk — a buyer who points FILESYSTEM_DISK elsewhere
             // would otherwise have the upload land locally but this read miss.
-            $rows = \Maatwebsite\Excel\Facades\Excel::toArray(new \Maatwebsite\Excel\HeadingRowImport, Storage::disk('local')->path($file))[0] ?? [];
-            $this->headers = array_keys($rows[0] ?? []);
+            $absolutePath = Storage::disk('local')->path($file);
+
+            // HeadingRowImport yields ONE row — the heading row itself, as a
+            // plain list of slugged column names.  array_keys() on it handed
+            // back [0,1,2,3] instead of the column names, so nothing ever
+            // auto-mapped and every preview cell rendered blank.
+            $headingSheets = \Maatwebsite\Excel\Facades\Excel::toArray(
+                new \Maatwebsite\Excel\HeadingRowImport,
+                $absolutePath,
+            );
+            $this->headers = array_values($headingSheets[0][0] ?? []);
+
             foreach ($this->headers as $h) {
-                // Auto-map when CSV column name matches a known field key (case-insensitive)
-                $normalized = strtolower(str_replace([' ', '-'], '_', (string) $h));
-                $this->columnMapping[$h] = array_key_exists($normalized, $this->fieldOptions) ? $normalized : null;
+                $this->columnMapping[$h] = $this->matchField((string) $h);
             }
 
             // Load first 10 rows for the preview step (data only, keyed by header)
+            $rows = \Maatwebsite\Excel\Facades\Excel::toArray(
+                new \App\Imports\HeadingRowDataImport,
+                $absolutePath,
+            )[0] ?? [];
             $this->totalRows   = count($rows);
             $this->previewRows = array_slice($rows, 0, 10);
 
@@ -123,6 +150,48 @@ class CreateLeadImport extends Page
         } catch (\Throwable $e) {
             Notification::make()->danger()->title(__('filament/lead_imports.notif_read_failed_prefix') . $e->getMessage())->send();
         }
+    }
+
+    /**
+     * Canonical field names (from CsvHeaderMatcher) translated to the option
+     * keys this wizard uses.  Anything not listed keeps its canonical name.
+     */
+    protected const CANONICAL_TO_OPTION = [
+        'assigned'  => 'assigned_user',
+        'follow_up' => 'next_follow_up',
+        'contacted' => 'contacted_at',
+    ];
+
+    /**
+     * Best field for a CSV header: an exact option key first, then the shared
+     * alias table, then a tenant custom field.  Returns null when nothing
+     * matches, which leaves the dropdown on "Skip".
+     *
+     * Header matching used to live here in a private alias table that had
+     * drifted from the auto-detect importer's own copy — this wizard knew
+     * nothing about a single "Name" column and did not recognise "Contact no",
+     * so a three-column sheet auto-mapped one field out of three.  Both paths
+     * now read {@see \App\Support\CsvHeaderMatcher}.
+     */
+    protected function matchField(string $header): ?string
+    {
+        $exact = strtolower(str_replace([' ', '-'], '_', $header));
+        if (array_key_exists($exact, $this->fieldOptions)) {
+            return $exact;
+        }
+
+        if ($canonical = \App\Support\CsvHeaderMatcher::match($header)) {
+            $option = self::CANONICAL_TO_OPTION[$canonical] ?? $canonical;
+
+            if (array_key_exists($option, $this->fieldOptions)) {
+                return $option;
+            }
+        }
+
+        // A tenant custom field whose key matches the header.
+        return array_key_exists('custom_fields.' . $exact, $this->fieldOptions)
+            ? 'custom_fields.' . $exact
+            : null;
     }
 
     /**

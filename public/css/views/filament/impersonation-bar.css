@@ -1,4 +1,10 @@
-    /* Fixed min-height so notification offset calculations are stable. */
+    /* Fixed min-height so notification offset calculations are stable.
+       One source of truth for the bar height — every "push the rest of
+       the chrome down" rule below reads it. */
+    :root {
+        --imp-bar-h: 52px;
+    }
+
     #impersonation-bar {
         position: sticky;
         top: 0;
@@ -58,12 +64,41 @@
        container down by the bar's height so toasts aren't hidden. */
     body:has(#impersonation-bar) .fi-no,
     body.has-impersonation-bar .fi-no {
-        margin-top: 52px !important;
+        margin-top: var(--imp-bar-h) !important;
     }
 
     /* The notification container can also render with inline
        position:fixed — bump its `top` too. */
     body:has(#impersonation-bar) .fi-no[style*="position"],
     body.has-impersonation-bar .fi-no[style*="position"] {
-        top: 52px !important;
+        top: var(--imp-bar-h) !important;
+    }
+
+    /* ── Keep the bar out of Filament's sticky/fixed chrome ──────────
+       Filament pins `.fi-topbar-ctn` with `position:sticky; top:0;
+       z-index:30` and `.fi-sidebar` with `position:fixed; inset-block:0;
+       z-index:30`.  The bar is a <body> child pinned to the SAME
+       `top: 0` with a higher z-index (40), so the moment the page is
+       scrolled past 0 both occupy the same strip and the bar paints
+       over the topbar — covering the notification bell and the panel it
+       opens.  Raising the dropdown's z-index cannot help: it lives
+       inside `.fi-topbar-ctn`, whose z-index:30 stacking context caps
+       every descendant below the bar.  Offset the chrome instead, so
+       the two never share space. */
+    body:has(#impersonation-bar) .fi-topbar-ctn,
+    body.has-impersonation-bar .fi-topbar-ctn {
+        top: var(--imp-bar-h);
+    }
+
+    body:has(#impersonation-bar) .fi-sidebar,
+    body.has-impersonation-bar .fi-sidebar {
+        top: var(--imp-bar-h);
+        height: calc(100dvh - var(--imp-bar-h));
+    }
+
+    /* Same treatment for any other viewport-pinned overlay Filament
+       anchors to the top (mobile sidebar backdrop / close button). */
+    body:has(#impersonation-bar) .fi-sidebar-close-overlay,
+    body.has-impersonation-bar .fi-sidebar-close-overlay {
+        top: var(--imp-bar-h);
     }

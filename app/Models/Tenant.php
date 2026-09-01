@@ -104,6 +104,12 @@ class Tenant extends Model
         // crashed on the first eligible tenant.
         'deletion_requested_at' => 'datetime',
         'deletion_scheduled_at' => 'datetime',
+        // activation_signals is a json column; without the array cast
+        // ActivationTracker::record() read back a raw JSON string, warned on
+        // foreach and then fataled on `$signals[] = ...` — swallowed by its
+        // own try/catch, so every signal after the first was silently lost.
+        'activated_at'          => 'datetime',
+        'activation_signals'    => 'array',
     ];
 
     public function owner()

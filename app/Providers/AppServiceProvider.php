@@ -109,6 +109,8 @@ class AppServiceProvider extends ServiceProvider
         Lead::observe(LeadObserver::class);
         Lead::observe(\App\Observers\LeadAuditObserver::class);
         Lead::observe(\App\Observers\LeadWebhookObserver::class);
+        // Spec §13 — follow-up create/update/delete are auditable events.
+        \App\Models\LeadTask::observe(\App\Observers\LeadTaskAuditObserver::class);
         MeetingBooking::observe(MeetingBookingObserver::class);
 
         // Tagged-cache invalidation. NO-OP on file/database cache

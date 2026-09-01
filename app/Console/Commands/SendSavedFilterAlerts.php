@@ -99,7 +99,11 @@ class SendSavedFilterAlerts extends Command
             $rows = $leads->map(fn ($l) => __('saved_filter_alerts.body_lead', [
                 'full_name' => $l->full_name,
                 'email'     => $l->email,
-                'status'    => $l->status,
+                // H7: status is a LeadStatus enum cast — the translator
+                // str_replace()s the value into the line, which fatals on
+                // an object.  label() is already locale-correct here: the
+                // caller switched app locale to the recipient's above.
+                'status'    => $l->status?->label() ?? '',
             ]))->implode("\n");
 
             $view = __('saved_filter_alerts.body_view', [

@@ -10,8 +10,9 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use App\Imports\HeadingRowDataImport;
+use App\Support\LeadFieldNormalizer;
 use Maatwebsite\Excel\Facades\Excel;
-use Maatwebsite\Excel\HeadingRowImport;
 
 class ProcessLeadImport implements ShouldQueue
 {
@@ -69,7 +70,12 @@ class ProcessLeadImport implements ShouldQueue
             }
 
             $mapping = $import->column_mapping ?? [];
-            $sheets  = Excel::toArray(new HeadingRowImport, $path);
+            // HeadingRowImport is WithStartRow(1) + WithLimit(1) — it returns
+            // the heading row and nothing else, so this loop used to walk a
+            // single list-keyed row, match no mapped column and import zero
+            // leads.  HeadingRowDataImport returns the data rows keyed by the
+            // same slugged headings the column_mapping was captured against.
+            $sheets  = Excel::toArray(new HeadingRowDataImport, $path);
             $rows    = $sheets[0] ?? [];
 
             $total    = count($rows);
@@ -89,6 +95,7 @@ class ProcessLeadImport implements ShouldQueue
                     try {
                         $data = [];
                         $customFields = [];
+                        $followUpAt = null;
                         foreach ($mapping as $csvCol => $leadField) {
                             if (! $leadField || ! isset($row[$csvCol]) || $row[$csvCol] === '') {
                                 continue;
@@ -97,6 +104,56 @@ class ProcessLeadImport implements ShouldQueue
                             // column; everything else is a real Lead attribute.
                             if (str_starts_with($leadField, 'custom_fields.')) {
                                 $customFields[substr($leadField, 14)] = $row[$csvCol];
+                            } elseif ($leadField === 'assigned_user') {
+                                // Spreadsheets carry a person's name or email,
+                                // not a user id.  Unresolvable names leave the
+                                // lead unassigned rather than failing the row —
+                                // an import of 500 leads must not die because
+                                // one rep left the company.
+                                if ($userId = $this->resolveUserId($import->tenant_id, (string) $row[$csvCol])) {
+                                    $data['assigned_user_id'] = $userId;
+                                }
+                            } elseif ($leadField === 'next_follow_up') {
+                                // Held back: it becomes a LeadTask once the lead
+                                // exists.  Lead::next_follow_up_at is derived from
+                                // open tasks, so writing the column directly would
+                                // be overwritten by the first task that saves.
+                                $followUpAt = LeadFieldNormalizer::date((string) $row[$csvCol]);
+                            } elseif ($leadField === 'contacted_at') {
+                                if ($when = LeadFieldNormalizer::date((string) $row[$csvCol])) {
+                                    $data['contacted_at'] = $when;
+                                }
+                            } elseif ($leadField === 'deal_value') {
+                                if (($amount = LeadFieldNormalizer::money((string) $row[$csvCol])) !== null) {
+                                    $data['deal_value'] = $amount;
+                                }
+                            } elseif ($leadField === 'full_name') {
+                                // One name column becomes two fields; an
+                                // explicit First/Last mapping in the same file
+                                // still wins (see the array_merge below).
+                                $parts = preg_split('/\\s+/', trim((string) $row[$csvCol]), 2) ?: [];
+                                if (($parts[0] ?? '') !== '') {
+                                    $data['first_name'] = $data['first_name'] ?? $parts[0];
+                                }
+                                if (($parts[1] ?? '') !== '') {
+                                    $data['last_name'] = $data['last_name'] ?? $parts[1];
+                                }
+                            } elseif ($leadField === 'phone') {
+                                // "p:+9198...", "98765 43210", two numbers in
+                                // one cell — all normal in real exports, and
+                                // all break phone_normalized (and so duplicate
+                                // detection) if stored verbatim.
+                                if ($clean = LeadFieldNormalizer::phone((string) $row[$csvCol])) {
+                                    $data['phone'] = $clean;
+                                }
+                            } elseif ($leadField === 'priority') {
+                                $data['priority'] = LeadFieldNormalizer::priority((string) $row[$csvCol]);
+                            } elseif ($leadField === 'status') {
+                                // Spreadsheets write "New", "Negotiation",
+                                // "Closed - Won".  Passed through raw these hit
+                                // the LeadStatus enum cast and killed the row
+                                // with a ValueError — every row, every file.
+                                $data['status'] = LeadFieldNormalizer::status((string) $row[$csvCol]);
                             } else {
                                 $data[$leadField] = $row[$csvCol];
                             }
@@ -120,12 +177,27 @@ class ProcessLeadImport implements ShouldQueue
 
                         $lead = Lead::create(array_merge($data, [
                             'tenant_id'    => $import->tenant_id,
-                            'source'       => 'csv_import',
+                            // Only fall back to 'csv_import' when the file
+                            // carried no Lead Source column — array_merge put
+                            // this last, so a mapped source was being thrown
+                            // away and every imported lead looked like it came
+                            // from nowhere.
+                            'source'       => $data['source'] ?? 'csv_import',
                             'is_duplicate' => false,
                         ]));
 
                         $imported++;
                         $activity->logImported($lead, $import->original_filename);
+
+                        if ($followUpAt) {
+                            \App\Models\LeadTask::create([
+                                'tenant_id'        => $lead->tenant_id,
+                                'lead_id'          => $lead->id,
+                                'assigned_user_id' => $lead->assigned_user_id,
+                                'title'            => __('crm_csv_import.followup_title'),
+                                'due_at'           => $followUpAt,
+                            ]);
+                        }
 
                     } catch (\Throwable $e) {
                         Log::warning('Lead import row error', [
@@ -165,6 +237,33 @@ class ProcessLeadImport implements ShouldQueue
      * Returns 0 on fopen failure so the import still attempts to run
      * (Excel::toArray will then enforce PHP's memory_limit).
      */
+    /** @var array<string, int|null> memo so a 5k-row import does one lookup per distinct name */
+    private array $userLookupCache = [];
+
+    /**
+     * Resolve a CSV "Assigned User" cell to a user id within this tenant.
+     * Email first (unambiguous), then an exact name match.
+     */
+    private function resolveUserId(int $tenantId, string $value): ?int
+    {
+        $value = trim($value);
+        if ($value === '') {
+            return null;
+        }
+
+        if (array_key_exists($value, $this->userLookupCache)) {
+            return $this->userLookupCache[$value];
+        }
+
+        $query = \App\Models\User::withoutGlobalScopes()->where('tenant_id', $tenantId);
+
+        $id = str_contains($value, '@')
+            ? (clone $query)->where('email', $value)->value('id')
+            : (clone $query)->where('name', $value)->value('id');
+
+        return $this->userLookupCache[$value] = $id ? (int) $id : null;
+    }
+
     private function countDataRows(string $absPath): int
     {
         $fp = @fopen($absPath, 'r');

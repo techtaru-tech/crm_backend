@@ -63,9 +63,7 @@ class LeadsExportReady extends Notification implements ShouldQueue
 
     public function toMail(object $notifiable): LeadNotificationMail
     {
-        $tenant = $this->resolveNotifiableTenant($notifiable);
-
-        return (new LeadNotificationMail(
+        return $this->brandedMailFor(new LeadNotificationMail(
             emailSubject: __('notifications.export_ready_mail_subject', ['filename' => $this->filename]),
             headline: __('notifications.export_ready_mail_headline'),
             lines: [
@@ -74,7 +72,7 @@ class LeadsExportReady extends Notification implements ShouldQueue
             ],
             actionUrl: $this->downloadUrl,
             actionLabel: __('notifications.export_ready_btn_download'),
-        ))->withTenant($tenant);
+        ), $notifiable);
     }
 
     public function toArray(object $notifiable): array

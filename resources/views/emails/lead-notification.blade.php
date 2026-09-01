@@ -11,10 +11,12 @@
 </p>
 @endforeach
 
+@if($actionUrl && $actionLabel)
 <div style="text-align: center; margin: 32px 0;">
     <a href="{{ $actionUrl }}"
        style="display:inline-block;background-color:{{ $primaryColor }};color:#ffffff !important;padding:14px 28px;border-radius:6px;text-decoration:none;font-size:15px;font-weight:600;">
         <span style="color:#ffffff;">{{ $actionLabel }}</span>
     </a>
 </div>
+@endif
 @endsection

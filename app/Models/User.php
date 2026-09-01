@@ -16,6 +16,12 @@ class User extends Authenticatable implements HasAppAuthentication, HasAppAuthen
 {
     use HasFactory, Notifiable, HasRoles;
 
+    /** @var array<int,int>|null request-scoped memo for managedTeamIds() */
+    protected ?array $managedTeamIdsCache = null;
+
+    /** @var array<int,int>|null request-scoped memo for teamIds() */
+    protected ?array $teamIdsCache = null;
+
     protected $fillable = [
         'name',
         'email',
@@ -250,6 +256,59 @@ class User extends Authenticatable implements HasAppAuthentication, HasAppAuthen
         return $this->belongsToMany(Tenant::class, 'tenant_users')
             ->withPivot('role')
             ->withTimestamps();
+    }
+
+    /**
+     * Sales teams this user belongs to (spec §4).
+     *
+     * Distinct from tenants(): a tenant is the whole workspace, a team is a
+     * sub-group of reps inside it.  Membership is many-to-many and the
+     * `is_manager` flag is PER TEAM, so the same person can be a rep on one
+     * team and the manager of another.
+     */
+    public function teams(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Team::class, 'team_user')
+            ->withPivot(['is_manager', 'tenant_id'])
+            ->withTimestamps();
+    }
+
+    /** Only the teams this user manages. */
+    public function managedTeams(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->teams()->wherePivot('is_manager', true);
+    }
+
+    /**
+     * Ids of every team this user manages.  Cached per request — the lead
+     * visibility scope asks for this on every query.
+     *
+     * @return array<int, int>
+     */
+    public function managedTeamIds(): array
+    {
+        return $this->managedTeamIdsCache ??= $this->managedTeams()
+            ->pluck('teams.id')
+            ->map(fn ($id) => (int) $id)
+            ->all();
+    }
+
+    /**
+     * Ids of every team this user belongs to, managed or not.
+     *
+     * @return array<int, int>
+     */
+    public function teamIds(): array
+    {
+        return $this->teamIdsCache ??= $this->teams()
+            ->pluck('teams.id')
+            ->map(fn ($id) => (int) $id)
+            ->all();
+    }
+
+    public function isTeamManager(): bool
+    {
+        return $this->managedTeamIds() !== [];
     }
 
     public function getAvatarUrlAttribute(): string

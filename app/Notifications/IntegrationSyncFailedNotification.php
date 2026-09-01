@@ -74,14 +74,13 @@ class IntegrationSyncFailedNotification extends Notification implements ShouldQu
 
     public function toMail(object $notifiable): LeadNotificationMail
     {
-        $tenant = $this->resolveNotifiableTenant($notifiable);
         $name   = trim("{$this->lead->first_name} {$this->lead->last_name}");
 
         // XSS fix: a prior fix escaped $this->integration->getLabel()
         // and $this->error but missed the lead-name substitution.  All
         // three values flow into {!! $line !!} rendering so all three
         // need e() before __() substitution.
-        return (new LeadNotificationMail(
+        return $this->brandedMailFor(new LeadNotificationMail(
             emailSubject: __('notifications.integration_sync_failed_mail_subject', ['integration' => $this->integration->getLabel()]),
             headline: __('notifications.integration_sync_failed_mail_headline'),
             lines: [
@@ -92,7 +91,7 @@ class IntegrationSyncFailedNotification extends Notification implements ShouldQu
             ],
             actionUrl: \App\Support\AdminUrl::for('leads/' . $this->lead->id),
             actionLabel: __('notifications.btn_view_lead'),
-        ))->withTenant($tenant);
+        ), $notifiable);
     }
 
     public function toDatabase(object $notifiable): array

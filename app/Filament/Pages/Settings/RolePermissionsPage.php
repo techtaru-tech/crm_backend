@@ -36,7 +36,7 @@ class RolePermissionsPage extends Page implements HasForms
 {
     use InteractsWithForms;
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Team & Access';
+    protected static string|\UnitEnum|null $navigationGroup = 'Users & Access';
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-shield-check';
     protected static ?int $navigationSort = 29;
     protected string $view = 'filament.pages.settings.role-permissions-page';

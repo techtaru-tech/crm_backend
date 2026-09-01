@@ -18,8 +18,11 @@
      BELOW the bar so they're not obscured by it. JS fallback tags
      <body> with `has-impersonation-bar` for browsers that don't
      support :has() yet. --}}
-<link rel="stylesheet" href="{{ asset('css/views/filament/impersonation-bar.css') }}">
-<script src="{{ asset('js/views/filament/impersonation-bar.js') }}" defer></script>
+{{-- ?v=filemtime, same convention as admin-panel-overrides.css: without it
+     a browser keeps serving the cached bar stylesheet/script and layout
+     fixes shipped in them never reach an already-visited install. --}}
+<link rel="stylesheet" href="{{ asset('css/views/filament/impersonation-bar.css') }}?v={{ @filemtime(public_path('css/views/filament/impersonation-bar.css')) ?: '1' }}">
+<script src="{{ asset('js/views/filament/impersonation-bar.js') }}?v={{ @filemtime(public_path('js/views/filament/impersonation-bar.js')) ?: '1' }}" defer></script>
 <div id="impersonation-bar">
     {{-- Warning icon --}}
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" class="imp-icon">

@@ -13,4 +13,5 @@ return [
 
     'source_brand_import'   => ':brand आयात',
     'source_csv_import'     => 'CSV आयात',
+    'followup_title' => 'फ़ॉलो-अप (आयातित)',
 ];

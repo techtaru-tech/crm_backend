@@ -15,8 +15,9 @@ class LeadNotificationMail extends BrandedMailable
         public string $emailSubject,
         public string $headline,
         public array $lines,
-        public string $actionUrl,
-        public string $actionLabel,
+        /** Null for informational mails that have nothing to link to (e.g. a failed export). */
+        public ?string $actionUrl = null,
+        public ?string $actionLabel = null,
     ) {}
 
     public function envelope(): Envelope

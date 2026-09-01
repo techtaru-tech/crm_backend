@@ -17,4 +17,9 @@ return [
     'imported'         => 'फ़ाइल से आयात किया गया: :filename',
     'booking_made'     => ':guest ने ":meeting" को :when पर बुक किया',
     'call_transcribed' => 'कॉल का AI द्वारा प्रतिलेखन और सारांश किया गया।',
+
+    // Meeting activity types (spec §10)
+    'meeting_scheduled' => 'मीटिंग तय हुई: :meeting :when',
+    'meeting_rescheduled' => 'मीटिंग पुनर्निर्धारित: :meeting :when',
+    'meeting_cancelled' => 'मीटिंग रद्द: :meeting',
 ];

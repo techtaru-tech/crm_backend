@@ -313,6 +313,8 @@ return [
 
     // ─── CSV आयात सूचना मुख्य भाग पंक्तियाँ ───
     'import_body_imported_count'    => ':vendor से :count लीड आयात की गईं।',
+    'import_body_duplicate_count'    => ':count पंक्तियाँ पहले से मौजूद थीं (डुप्लिकेट के रूप में छोड़ी गईं)।',
+
     'import_body_skipped_count'     => ':count पंक्तियाँ छोड़ी गईं (कोई ईमेल या फ़ोन नहीं)।',
     'import_body_batch_errors'      => ':count बैच त्रुटि(याँ) — लॉग देखें।',
 
@@ -564,4 +566,17 @@ return [
     // मेल खाएँ।
     'gdpr_anonymous'                => 'अनाम',
     'gdpr_task_label'               => 'कार्य #:id',
+
+    // Phase 1 lead-funnel fields
+    'city' => 'शहर',
+    'assigned_team' => 'सौंपी गई टीम',
+    'assigned_team_help' => 'इस लीड की मालिक टीम। कौन सा रेप संभाल रहा है, उससे अलग।',
+    'next_follow_up' => 'अगला फ़ॉलो-अप',
+    'meeting_generic_label' => 'मीटिंग',
+    'section_history' => 'स्टेज और स्वामित्व इतिहास',
+    'history_stage' => 'स्टेज बदलाव',
+    'history_assignment' => 'स्वामित्व बदलाव',
+    'history_none' => 'कोई नहीं',
+    'history_unassigned' => 'बिना सौंपा',
+    'history_system' => 'सिस्टम',
 ];

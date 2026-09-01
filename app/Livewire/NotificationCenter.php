@@ -43,14 +43,7 @@ class NotificationCenter extends Component
         $total   = $query->count();
         $items   = $query->forPage($this->page, $perPage)->get();
 
-        $this->notifications = $items->map(fn($n) => [
-            'id'        => $n->id,
-            'type'      => $n->data['type'] ?? 'unknown',
-            'message'   => $this->buildMessage($n->data),
-            'lead_id'   => $n->data['lead_id'] ?? null,
-            'read'      => (bool) $n->read_at,
-            'timestamp' => $n->created_at->diffForHumans(),
-        ])->toArray();
+        $this->notifications = $items->map(fn($n) => $this->mapNotification($n))->toArray();
 
         $this->hasMore = ($this->page * $perPage) < $total;
     }
@@ -62,14 +55,7 @@ class NotificationCenter extends Component
         $query   = Auth::user()?->notifications()->orderByDesc('created_at');
         $items   = $query->forPage($this->page, $perPage)->get();
 
-        $newItems = $items->map(fn($n) => [
-            'id'        => $n->id,
-            'type'      => $n->data['type'] ?? 'unknown',
-            'message'   => $this->buildMessage($n->data),
-            'lead_id'   => $n->data['lead_id'] ?? null,
-            'read'      => (bool) $n->read_at,
-            'timestamp' => $n->created_at->diffForHumans(),
-        ])->toArray();
+        $newItems = $items->map(fn($n) => $this->mapNotification($n))->toArray();
 
         $this->notifications = array_merge($this->notifications, $newItems);
         $total = Auth::user()?->notifications()->count();
@@ -96,6 +82,26 @@ class NotificationCenter extends Component
         Auth::user()?->notifications()->find($id)?->delete();
         $this->refreshCount();
         $this->loadNotifications();
+    }
+
+    /**
+     * Shape a stored notification for the bell.
+     *
+     * `download_url` is carried through so export_ready rows are actionable —
+     * they have no lead_id, so without it the blade has nothing to link to and
+     * the user has no way to reach the finished file from the UI.
+     */
+    private function mapNotification(DatabaseNotification $n): array
+    {
+        return [
+            'id'           => $n->id,
+            'type'         => $n->data['type'] ?? 'unknown',
+            'message'      => $this->buildMessage($n->data),
+            'lead_id'      => $n->data['lead_id'] ?? null,
+            'download_url' => $n->data['download_url'] ?? null,
+            'read'         => (bool) $n->read_at,
+            'timestamp'    => $n->created_at->diffForHumans(),
+        ];
     }
 
     private function buildMessage(array $data): string

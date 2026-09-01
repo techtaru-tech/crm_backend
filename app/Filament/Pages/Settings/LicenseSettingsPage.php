@@ -17,7 +17,7 @@ class LicenseSettingsPage extends Page implements HasForms
 {
     use InteractsWithForms;
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Team & Access';
+    protected static string|\UnitEnum|null $navigationGroup = 'Users & Access';
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-key';
     protected static ?int $navigationSort = 28;
     protected string $view = 'filament.pages.settings.license-settings-page';

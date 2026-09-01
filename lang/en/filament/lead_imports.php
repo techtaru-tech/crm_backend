@@ -37,6 +37,7 @@ return [
     // ─── Field options (auto-mapping targets) ─────────────────────────
     'field_first_name'                  => 'First Name',
     'field_last_name'                   => 'Last Name',
+    'field_full_name'                   => 'Full Name (split automatically)',
     'field_email'                       => 'Email',
     'field_phone'                       => 'Phone',
     'field_source'                      => 'Source',
@@ -63,4 +64,12 @@ return [
     'accept_start_import'               => 'Accept & Start Import',
     'step_3_heading'                    => 'Import Started!',
     'step_3_body_html'                  => 'Your import job has been queued. Leads will be added in the background. You can check the <a href=":url" class="text-primary-600 underline">Import History</a> page for progress.',
+    'field_city' => 'City',
+    'field_priority' => 'Priority',
+    'field_assigned_user' => 'Assigned User',
+    'field_company' => 'Company',
+    'field_deal_value' => 'Budget / Deal Value',
+    'field_source_id' => 'Lead ID / Reference',
+    'field_contacted_at' => 'Last Contacted',
+    'field_next_follow_up' => 'Next Follow-up',
 ];

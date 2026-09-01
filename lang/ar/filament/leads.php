@@ -313,6 +313,8 @@ return [
 
     // ─── أسطر نص إشعار استيراد CSV ───
     'import_body_imported_count'    => 'تم استيراد :count عميل محتمل من :vendor.',
+    'import_body_duplicate_count'    => 'كان :count صفًا موجودًا بالفعل (تم تخطيه كمكرر).',
+
     'import_body_skipped_count'     => 'تم تخطي :count صفًا (بدون بريد إلكتروني أو هاتف).',
     'import_body_batch_errors'      => ':count خطأ (أخطاء) في الدفعة — راجع السجلات.',
 
@@ -566,4 +568,17 @@ return [
     // إخفاء الهوية.
     'gdpr_anonymous'                => 'مجهول',
     'gdpr_task_label'               => 'مهمة رقم :id',
+
+    // Phase 1 lead-funnel fields
+    'city' => 'المدينة',
+    'assigned_team' => 'الفريق المسؤول',
+    'assigned_team_help' => 'الفريق المالك لهذا العميل المحتمل، بغض النظر عن المندوب الحالي.',
+    'next_follow_up' => 'المتابعة التالية',
+    'meeting_generic_label' => 'اجتماع',
+    'section_history' => 'سجل المرحلة والملكية',
+    'history_stage' => 'تغييرات المرحلة',
+    'history_assignment' => 'تغييرات الملكية',
+    'history_none' => 'لا شيء',
+    'history_unassigned' => 'غير مُسند',
+    'history_system' => 'النظام',
 ];

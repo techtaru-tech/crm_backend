@@ -13,4 +13,5 @@ return [
 
     'source_brand_import'   => 'Importación de :brand',
     'source_csv_import'     => 'Importación de CSV',
+    'followup_title' => 'Seguimiento (importado)',
 ];

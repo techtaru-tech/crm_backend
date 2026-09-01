@@ -313,6 +313,8 @@ return [
 
     // ─── Líneas del cuerpo de la notificación de importación CSV ───
     'import_body_imported_count'    => ':count clientes potenciales importados desde :vendor.',
+    'import_body_duplicate_count'    => ':count filas ya existían (omitidas como duplicadas).',
+
     'import_body_skipped_count'     => ':count filas omitidas (sin correo ni teléfono).',
     'import_body_batch_errors'      => ':count error(es) de lote: consulta los registros.',
 
@@ -566,4 +568,17 @@ return [
     // operador en el momento de la anonimización.
     'gdpr_anonymous'                => 'Anónimo',
     'gdpr_task_label'               => 'Tarea n.º :id',
+
+    // Phase 1 lead-funnel fields
+    'city' => 'Ciudad',
+    'assigned_team' => 'Equipo asignado',
+    'assigned_team_help' => 'El equipo propietario de este lead, independiente del comercial que lo lleve.',
+    'next_follow_up' => 'Próximo seguimiento',
+    'meeting_generic_label' => 'Reunión',
+    'section_history' => 'Historial de etapa y propiedad',
+    'history_stage' => 'Cambios de etapa',
+    'history_assignment' => 'Cambios de propiedad',
+    'history_none' => 'Ninguno',
+    'history_unassigned' => 'Sin asignar',
+    'history_system' => 'Sistema',
 ];

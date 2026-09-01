@@ -37,6 +37,7 @@ return [
     // ─── Field options (auto-mapping targets) ─────────────────────────
     'field_first_name'                  => 'الاسم الأول',
     'field_last_name'                   => 'الاسم الأخير',
+    'field_full_name'                   => 'الاسم الكامل (يُقسَّم تلقائيًا)',
     'field_email'                       => 'البريد الإلكتروني',
     'field_phone'                       => 'الهاتف',
     'field_source'                      => 'المصدر',
@@ -63,4 +64,12 @@ return [
     'accept_start_import'               => 'قبول وبدء الاستيراد',
     'step_3_heading'                    => 'بدأ الاستيراد!',
     'step_3_body_html'                  => 'تمت إضافة مهمة الاستيراد إلى الطابور. سيتم إضافة العملاء المحتملين في الخلفية. يمكنك مراجعة صفحة <a href=":url" class="text-primary-600 underline">سجل الاستيراد</a> للتقدم.',
+    'field_city' => 'المدينة',
+    'field_priority' => 'الأولوية',
+    'field_assigned_user' => 'المستخدم المُسند',
+    'field_company' => 'الشركة',
+    'field_deal_value' => 'الميزانية / قيمة الصفقة',
+    'field_source_id' => 'معرّف العميل',
+    'field_contacted_at' => 'آخر اتصال',
+    'field_next_follow_up' => 'المتابعة التالية',
 ];

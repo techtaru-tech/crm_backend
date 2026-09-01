@@ -45,6 +45,9 @@ class Lead extends Model
         'custom_fields',
         'assigned_to',
         'assigned_user_id',
+        'assigned_team_id',
+        'priority',
+        'next_follow_up_at',
         'notes',
         'contacted_at',
         'consented_at',
@@ -54,6 +57,7 @@ class Lead extends Model
         'job_title',
         'linkedin_url',
         'country',
+        'city',
         'industry',
         'company_size',
         'enriched_at',
@@ -78,6 +82,9 @@ class Lead extends Model
         // future legacy value, which is the desired fail-loud
         // behaviour.
         'status'              => \App\Enums\LeadStatus::class,
+        // Phase 1 funnel fields — see 2026_08_26_000003 migration.
+        'priority'            => \App\Enums\LeadPriority::class,
+        'next_follow_up_at'   => 'datetime',
         'raw_data'            => 'array',
         'custom_fields'       => 'array',
         'is_duplicate'        => 'boolean',
@@ -100,6 +107,10 @@ class Lead extends Model
     protected static function boot(): void
     {
         parent::boot();
+
+        // Row-level visibility (spec §3).  Registered here rather than at
+        // each call site — see LeadVisibilityScope for why.
+        static::addGlobalScope(new \App\Models\Scopes\LeadVisibilityScope());
 
         static::saving(function (self $lead) {
             if (isset($lead->phone) && $lead->phone !== null) {
@@ -125,6 +136,28 @@ class Lead extends Model
         });
     }
 
+    /**
+     * Recompute `next_follow_up_at` from the earliest still-open follow-up.
+     *
+     * Denormalised on purpose: the lead list sorts and filters on this, and a
+     * correlated subquery per row was the alternative.  LeadTask calls this on
+     * every save/delete, so the column is derived state, never authored.
+     * Written with updateQuietly() so it cannot recurse through the observers.
+     */
+    public function refreshNextFollowUp(): void
+    {
+        $next = $this->tasks()->withoutGlobalScopes()
+            ->whereIn('status', \App\Enums\FollowUpStatus::openValues())
+            ->whereNotNull('due_at')
+            ->min('due_at');
+
+        if ((string) $this->next_follow_up_at === (string) $next) {
+            return;
+        }
+
+        $this->updateQuietly(['next_follow_up_at' => $next]);
+    }
+
     public static function normalizePhone(?string $phone): ?string
     {
         if ($phone === null) {
@@ -136,6 +169,28 @@ class Lead extends Model
     public function tenant(): BelongsTo
     {
         return $this->belongsTo(Tenant::class);
+    }
+
+    /**
+     * The sales team that owns this lead.
+     *
+     * Independent of assigned_user_id: handing a lead from one rep to
+     * another inside the same team must not change which team owns it,
+     * and a lead can sit in a team's pool with no rep yet.
+     */
+    public function assignedTeam(): BelongsTo
+    {
+        return $this->belongsTo(Team::class, 'assigned_team_id');
+    }
+
+    public function stageHistories(): HasMany
+    {
+        return $this->hasMany(LeadStageHistory::class)->latest('created_at');
+    }
+
+    public function assignmentHistories(): HasMany
+    {
+        return $this->hasMany(LeadAssignmentHistory::class)->latest('created_at');
     }
 
     /**

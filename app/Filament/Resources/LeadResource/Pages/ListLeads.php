@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\LeadResource\Pages;
 
 use App\Filament\Resources\LeadResource;
-use App\Jobs\ExportLeads;
 use App\Models\SavedFilter;
 use App\Models\Tenant;
 use App\Services\Migration\CrmCsvImporter;
@@ -165,6 +164,8 @@ class ListLeads extends ListRecords
             \Filament\Actions\Action::make('export')
                 ->label(__('filament/leads.export_current_filters'))
                 ->icon('heroicon-o-arrow-down-tray')
+                // Spec §7 — same gate as the bulk export on the resource.
+                ->visible(fn () => LeadResource::canExport())
                 ->action(function () {
                     $tenantId = \App\Support\TenantContext::currentId();
 
@@ -205,11 +206,15 @@ class ListLeads extends ListRecords
                         $activeFilters['is_duplicate'] = true;
                     }
 
-                    ExportLeads::dispatch($tenantId, auth()->id(), $activeFilters);
-                    Notification::make()
-                        ->success()
-                        ->title(__('filament/leads.export_queued_with_link'))
-                        ->send();
+                    // headingsOnly: column template only — set to false for a full data export.
+                    LeadResource::recordExportAudit($activeFilters, $this->getFilteredTableQuery()->count());
+
+                    return \App\Exports\LeadsExport::downloadResponse(
+                        $tenantId,
+                        $activeFilters,
+                        headingsOnly: true,
+                        forUserId: auth()->id(),
+                    );
                 }),
 
             \Filament\Actions\Action::make('import_csv')
@@ -265,6 +270,14 @@ class ListLeads extends ListRecords
                         'count'  => $result['imported'],
                         'vendor' => $vendorLabel,
                     ]);
+                    // Duplicates before skips: re-importing a file the tenant
+                    // already loaded is by far the most common reason for a
+                    // zero count, and used to be reported as nothing at all.
+                    if (($result['duplicates'] ?? 0) > 0) {
+                        $body .= ' ' . __('filament/leads.import_body_duplicate_count', [
+                            'count' => $result['duplicates'],
+                        ]);
+                    }
                     if ($result['skipped'] > 0) {
                         $body .= ' ' . __('filament/leads.import_body_skipped_count', [
                             'count' => $result['skipped'],
@@ -276,8 +289,10 @@ class ListLeads extends ListRecords
                         ]);
                     }
 
+                    // A run that imported nothing is not a success — it
+                    // rendered green with "0 leads imported" and looked fine.
                     Notification::make()
-                        ->success()
+                        ->status($result['imported'] > 0 ? 'success' : 'warning')
                         ->title(__('filament/leads.csv_import_complete'))
                         ->body($body)
                         ->persistent()

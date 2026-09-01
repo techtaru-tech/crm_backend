@@ -34,4 +34,9 @@ return [
     'imported'         => 'Imported from file: :filename',
     'booking_made'     => ':guest booked ":meeting" on :when',
     'call_transcribed' => 'Call transcribed and summarized by AI.',
+
+    // Meeting activity types (spec §10)
+    'meeting_scheduled' => 'Meeting scheduled: :meeting :when',
+    'meeting_rescheduled' => 'Meeting rescheduled: :meeting :when',
+    'meeting_cancelled' => 'Meeting cancelled: :meeting',
 ];

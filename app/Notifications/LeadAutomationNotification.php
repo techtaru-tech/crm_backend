@@ -66,13 +66,12 @@ class LeadAutomationNotification extends Notification implements ShouldQueue
 
     public function toMail(object $notifiable): LeadNotificationMail
     {
-        $tenant = $this->resolveNotifiableTenant($notifiable);
         $name   = trim("{$this->lead->first_name} {$this->lead->last_name}");
 
         // XSS fix: a prior fix escaped $this->message but missed the
         // lead-name substitution.  Both flow into {!! $line !!} rendering
         // so both need e() before __() substitution.
-        return (new LeadNotificationMail(
+        return $this->brandedMailFor(new LeadNotificationMail(
             emailSubject: __('notifications.automation_mail_subject', ['message' => $this->message]),
             headline: __('notifications.automation_mail_headline'),
             lines: [
@@ -82,7 +81,7 @@ class LeadAutomationNotification extends Notification implements ShouldQueue
             ],
             actionUrl: \App\Support\AdminUrl::for('leads/' . $this->lead->id),
             actionLabel: __('notifications.btn_view_lead'),
-        ))->withTenant($tenant);
+        ), $notifiable);
     }
 
     public function toArray(object $notifiable): array

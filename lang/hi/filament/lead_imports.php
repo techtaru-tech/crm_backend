@@ -22,6 +22,7 @@ return [
 
     'field_first_name'                  => 'पहला नाम',
     'field_last_name'                   => 'अंतिम नाम',
+    'field_full_name'                   => 'पूरा नाम (स्वतः विभाजित)',
     'field_email'                       => 'ईमेल',
     'field_phone'                       => 'फ़ोन',
     'field_source'                      => 'स्रोत',
@@ -45,4 +46,12 @@ return [
     'accept_start_import'               => 'स्वीकार करें और आयात प्रारंभ करें',
     'step_3_heading'                    => 'आयात प्रारंभ!',
     'step_3_body_html'                  => 'आपका आयात कार्य कतारबद्ध हो गया है। लीड्स पृष्ठभूमि में जोड़ी जाएँगी। आप प्रगति के लिए <a href=":url" class="text-primary-600 underline">आयात इतिहास</a> पृष्ठ देख सकते हैं।',
+    'field_city' => 'शहर',
+    'field_priority' => 'प्राथमिकता',
+    'field_assigned_user' => 'सौंपा गया उपयोगकर्ता',
+    'field_company' => 'कंपनी',
+    'field_deal_value' => 'बजट / डील वैल्यू',
+    'field_source_id' => 'लीड आईडी / संदर्भ',
+    'field_contacted_at' => 'अंतिम संपर्क',
+    'field_next_follow_up' => 'अगला फ़ॉलो-अप',
 ];

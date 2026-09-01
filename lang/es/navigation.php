@@ -16,7 +16,7 @@ return [
         'reports'            => 'Informes',
         'brand_and_domain'   => 'Marca y dominio',
         'communications'     => 'Comunicaciones',
-        'team_and_access'    => 'Equipo y acceso',
+        'team_and_access'    => 'Usuarios y acceso',
         'advanced'           => 'Avanzado',
         'account'            => 'Cuenta',
         'settings'           => 'Ajustes',

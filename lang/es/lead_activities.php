@@ -17,4 +17,9 @@ return [
     'imported'         => 'Importado desde archivo: :filename',
     'booking_made'     => ':guest reservó «:meeting» el :when',
     'call_transcribed' => 'Llamada transcrita y resumida por IA.',
+
+    // Meeting activity types (spec §10)
+    'meeting_scheduled' => 'Reunión agendada: :meeting :when',
+    'meeting_rescheduled' => 'Reunión reprogramada: :meeting :when',
+    'meeting_cancelled' => 'Reunión cancelada: :meeting',
 ];

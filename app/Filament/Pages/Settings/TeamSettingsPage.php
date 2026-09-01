@@ -19,7 +19,7 @@ use Filament\Pages\Page;
  */
 class TeamSettingsPage extends Page
 {
-    protected static string|\UnitEnum|null $navigationGroup = 'Team & Access';
+    protected static string|\UnitEnum|null $navigationGroup = 'Users & Access';
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-users';
     protected static ?int $navigationSort = 27;
     protected string $view = 'filament.pages.settings.team-settings-page';

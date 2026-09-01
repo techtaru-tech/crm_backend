@@ -16,7 +16,7 @@ return [
         'reports'            => 'रिपोर्ट',
         'brand_and_domain'   => 'ब्रांड और डोमेन',
         'communications'     => 'संचार',
-        'team_and_access'    => 'टीम और एक्सेस',
+        'team_and_access'    => 'उपयोगकर्ता और एक्सेस',
         'advanced'           => 'उन्नत',
         'account'            => 'खाता',
         'settings'           => 'सेटिंग्स',

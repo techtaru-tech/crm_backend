@@ -7,7 +7,6 @@ use App\Enums\LeadSource;
 use App\Filament\Resources\Concerns\HasCustomFields;
 use App\Filament\Resources\LeadResource\Pages;
 use App\Filament\Resources\LeadResource\RelationManagers;
-use App\Jobs\ExportLeads;
 use App\Jobs\RunAutomation;
 use App\Models\Automation;
 use App\Models\Company;
@@ -99,6 +98,38 @@ class LeadResource extends Resource
         return 'warning';
     }
 
+    /**
+     * Spec §7: "CSV export for authorized users."
+     *
+     * Public because ListLeads' header export needs the same gate — export
+     * is the one action that walks out of the building with the data, so
+     * both entry points have to ask the same question.
+     */
+    public static function canExport(): bool
+    {
+        return static::userHasAny([static::permPrefix() . '.export']);
+    }
+
+    /**
+     * Spec §13: an export is an auditable event.  Records what was taken and
+     * by whom; the row count is deliberately included so an unusually large
+     * export stands out in the log.
+     */
+    public static function recordExportAudit(array $filters, int $rowCount): void
+    {
+        try {
+            \App\Models\AuditLog::record(
+                'lead.exported',
+                null,
+                [],
+                ['filters' => $filters, 'rows' => $rowCount],
+                'export',
+            );
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::warning('Lead export audit failed', ['error' => $e->getMessage()]);
+        }
+    }
+
     public static function getGloballySearchableAttributes(): array
     {
         return ['first_name', 'last_name', 'email', 'phone'];
@@ -144,6 +175,7 @@ class LeadResource extends Resource
                         }
                     ),
                 TextInput::make('phone')->label(__('filament/leads.phone'))->maxLength(30)->tel(),
+                TextInput::make('city')->label(__('filament/leads.city'))->maxLength(120),
                 Select::make('company_id')
                     ->label(__('filament/leads.company'))
                     ->options(fn() => Company::where('tenant_id', $tenantId())->orderBy('name')->pluck('name', 'id'))
@@ -185,11 +217,22 @@ class LeadResource extends Resource
                     ->default(\App\Enums\LeadStatus::New->value)
                     ->reactive()
                     ->required(),
+                Select::make('priority')
+                    ->label(__('filament/leads.priority'))
+                    ->options(\App\Enums\LeadPriority::options())
+                    ->default(\App\Enums\LeadPriority::Normal->value)
+                    ->required(),
                 Select::make('assigned_user_id')
                     ->label(__('filament/leads.assigned_to'))
                     ->options(fn() => User::where('tenant_id', $tenantId())->pluck('name', 'id'))
                     ->searchable()
                     ->nullable(),
+                Select::make('assigned_team_id')
+                    ->label(__('filament/leads.assigned_team'))
+                    ->options(fn() => \App\Models\Team::optionsForTenant($tenantId()))
+                    ->searchable()
+                    ->nullable()
+                    ->helperText(__('filament/leads.assigned_team_help')),
                 Select::make('pipeline_id')
                     ->label(__('filament/leads.pipeline'))
                     ->options(fn() => Pipeline::where('tenant_id', $tenantId())->pluck('name', 'id'))
@@ -353,6 +396,16 @@ class LeadResource extends Resource
                         'lost'      => 'danger',
                         default     => 'gray',
                     }),
+                TextColumn::make('priority')
+                    ->label(__('filament/leads.priority'))
+                    ->badge()
+                    ->formatStateUsing(fn ($state) => $state instanceof \App\Enums\LeadPriority
+                        ? $state->label()
+                        : (\App\Enums\LeadPriority::tryFrom((string) $state)?->label() ?? (string) $state))
+                    ->color(fn ($state) => $state instanceof \App\Enums\LeadPriority
+                        ? $state->color()
+                        : (\App\Enums\LeadPriority::tryFrom((string) $state)?->color() ?? 'gray'))
+                    ->sortable(),
                 TextColumn::make('pipelineStage.name')
                     ->label(__('filament/leads.stage'))
                     ->badge()
@@ -387,6 +440,28 @@ class LeadResource extends Resource
                     ->label(__('filament/leads.assigned'))
                     ->placeholder('—')
                     ->sortable()
+                    ->toggleable(),
+                TextColumn::make('assignedTeam.name')
+                    ->label(__('filament/leads.assigned_team'))
+                    ->badge()
+                    ->color('gray')
+                    ->placeholder('—')
+                    ->sortable()
+                    ->toggleable(),
+                TextColumn::make('city')
+                    ->label(__('filament/leads.city'))
+                    ->searchable()
+                    ->placeholder('—')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('next_follow_up_at')
+                    ->label(__('filament/leads.next_follow_up'))
+                    ->dateTime()
+                    ->sortable()
+                    ->placeholder('—')
+                    // Overdue follow-ups are the whole point of surfacing this
+                    // column — colour them so a rep scanning the list cannot
+                    // miss one.
+                    ->color(fn ($state) => $state && $state->isPast() ? 'danger' : null)
                     ->toggleable(),
                 IconColumn::make('is_starred')
                     ->label('')
@@ -446,9 +521,15 @@ class LeadResource extends Resource
                 SelectFilter::make('pipeline_stage_id')
                     ->label(__('filament/leads.stage'))
                     ->relationship('pipelineStage', 'name'),
+                SelectFilter::make('priority')
+                    ->label(__('filament/leads.priority'))
+                    ->options(\App\Enums\LeadPriority::options()),
                 SelectFilter::make('assigned_user_id')
                     ->label(__('filament/leads.assigned_to'))
                     ->relationship('assignedUser', 'name'),
+                SelectFilter::make('assigned_team_id')
+                    ->label(__('filament/leads.assigned_team'))
+                    ->relationship('assignedTeam', 'name'),
                 SelectFilter::make('tags')
                     ->relationship('tags', 'name')
                     ->label(__('filament/leads.tag')),
@@ -620,9 +701,16 @@ class LeadResource extends Resource
                     BulkAction::make('export')
                         ->label(__('filament/leads.bulk_export_csv'))
                         ->icon('heroicon-o-arrow-down-tray')
+                        ->visible(fn () => static::canExport())
                         ->action(function (Collection $records) use ($tenantId) {
-                            ExportLeads::dispatch($tenantId(), auth()->id(), ['ids' => $records->pluck('id')->toArray()]);
-                            Notification::make()->success()->title(__('filament/leads.bulk_export_queued'))->send();
+                            static::recordExportAudit(['ids' => $records->pluck('id')->toArray()], $records->count());
+                            // headingsOnly: column template only — set to false for a full data export.
+                            return \App\Exports\LeadsExport::downloadResponse(
+                                $tenantId(),
+                                ['ids' => $records->pluck('id')->toArray()],
+                                headingsOnly: true,
+                                forUserId: auth()->id(),
+                            );
                         }),
 
                     BulkAction::make('run_automation')
@@ -734,7 +822,7 @@ class LeadResource extends Resource
             // similar tooltip fields, which would otherwise N+1 once
             // per row.  Adding it to the with() list pre-loads the
             // pipeline relation alongside its parent stage.
-            ->with(['tags', 'assignedUser', 'pipelineStage.pipeline', 'companyEntity'])
+            ->with(['tags', 'assignedUser', 'assignedTeam', 'pipelineStage.pipeline', 'companyEntity'])
             // Materialize the two timestamps that drive the
             // `waiting_on` badge column in a single subquery JOIN
             // instead of the per-row activities lookup the accessor

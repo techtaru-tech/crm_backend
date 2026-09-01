@@ -16,6 +16,7 @@ use App\Services\ActivationTracker;
 use App\Services\Automations\AutomationDispatcher;
 use App\Services\IntegrationDispatcher;
 use App\Services\LeadActivityService;
+use App\Services\LeadHistoryService;
 use App\Services\LeadScoringService;
 
 class LeadObserver
@@ -29,6 +30,7 @@ class LeadObserver
         private LeadActivityService $activity,
         private AutomationDispatcher $automations,
         private IntegrationDispatcher $integrations,
+        private LeadHistoryService $history,
     ) {}
 
     public function created(Lead $lead): void
@@ -161,6 +163,10 @@ class LeadObserver
                 $oldStage?->name ?? __('filament/leads.stage_none_placeholder'),
                 $newStage?->name ?? __('filament/leads.stage_none_placeholder'),
             );
+
+            // Queryable counterpart to the timeline entry above — see
+            // LeadHistoryService for why both exist.
+            $this->history->recordStageChange($lead, $oldStageId, $newStageId, $movedBy);
             $lead->stage_entered_at = now();
             $this->automations->dispatch('lead_stage_changed', $lead, [
                 'old_stage_id' => $oldStageId,
@@ -187,6 +193,19 @@ class LeadObserver
                     $assignee->notify(new LeadStageChangedNotification($lead, $oldStage, $newStage));
                 }
             }
+        }
+
+        if ($lead->isDirty('assigned_user_id') || $lead->isDirty('assigned_team_id')) {
+            // Recorded before the user-only branch below so a team-only move
+            // (lead handed to another team, rep unchanged) is captured too.
+            $this->history->recordAssignmentChange(
+                $lead,
+                $lead->getOriginal('assigned_user_id'),
+                $lead->assigned_user_id,
+                $lead->getOriginal('assigned_team_id'),
+                $lead->assigned_team_id,
+                auth()->user() instanceof User ? auth()->user() : null,
+            );
         }
 
         if ($lead->isDirty('assigned_user_id')) {

@@ -79,7 +79,6 @@ class LeadAssignedNotification extends Notification implements ShouldQueue
 
     public function toMail(object $notifiable): LeadNotificationMail
     {
-        $tenant = $this->resolveNotifiableTenant($notifiable);
         $name   = trim("{$this->lead->first_name} {$this->lead->last_name}");
 
         // XSS fix: lead-notification.blade.php renders lines via
@@ -88,7 +87,7 @@ class LeadAssignedNotification extends Notification implements ShouldQueue
         // substitution.  The system fallback comes from a lang key so
         // it's developer-controlled — still e()'d for belt-and-suspenders
         // (cheap and protects against future lang-file edits that add HTML).
-        return (new LeadNotificationMail(
+        return $this->brandedMailFor(new LeadNotificationMail(
             emailSubject: __('notifications.lead_assigned_mail_subject'),
             headline: __('notifications.lead_assigned_mail_headline'),
             lines: [
@@ -100,6 +99,6 @@ class LeadAssignedNotification extends Notification implements ShouldQueue
             ],
             actionUrl: \App\Support\AdminUrl::for('leads/' . $this->lead->id),
             actionLabel: __('notifications.btn_view_lead'),
-        ))->withTenant($tenant);
+        ), $notifiable);
     }
 }

@@ -27,4 +27,5 @@ return [
     // ─── Lead.source seed values (DB-written) ───
     'source_brand_import'   => 'استيراد من :brand',
     'source_csv_import'     => 'استيراد من CSV',
+    'followup_title' => 'متابعة (مستوردة)',
 ];

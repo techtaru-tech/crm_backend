@@ -37,6 +37,7 @@ return [
     // ─── Field options (auto-mapping targets) ─────────────────────────
     'field_first_name'                  => 'Nombre',
     'field_last_name'                   => 'Apellido',
+    'field_full_name'                   => 'Nombre completo (se divide automáticamente)',
     'field_email'                       => 'Correo electrónico',
     'field_phone'                       => 'Teléfono',
     'field_source'                      => 'Origen',
@@ -63,4 +64,12 @@ return [
     'accept_start_import'               => 'Aceptar e iniciar importación',
     'step_3_heading'                    => '¡Importación iniciada!',
     'step_3_body_html'                  => 'Su trabajo de importación se ha puesto en cola. Los clientes potenciales se añadirán en segundo plano. Puede consultar el progreso en la página de <a href=":url" class="text-primary-600 underline">Historial de importaciones</a>.',
+    'field_city' => 'Ciudad',
+    'field_priority' => 'Prioridad',
+    'field_assigned_user' => 'Usuario asignado',
+    'field_company' => 'Empresa',
+    'field_deal_value' => 'Presupuesto / Valor',
+    'field_source_id' => 'ID / Referencia',
+    'field_contacted_at' => 'Último contacto',
+    'field_next_follow_up' => 'Próximo seguimiento',
 ];

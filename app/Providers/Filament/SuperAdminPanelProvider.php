@@ -158,6 +158,11 @@ class SuperAdminPanelProvider extends PanelProvider
             ->discoverPages(in: app_path('Filament/SuperAdmin/Pages'), for: 'App\Filament\SuperAdmin\Pages')
             ->discoverWidgets(in: app_path('Filament/SuperAdmin/Widgets'), for: 'App\Filament\SuperAdmin\Widgets')
             ->middleware([
+                // See AdminPanelProvider: panel stacks bypass the `web`
+                // group, so TrustProxies has to be listed per panel or the
+                // SA panel mis-detects scheme/host/client IP behind a proxy
+                // (the SA IP allowlist reads $request->ip()).
+                \App\Http\Middleware\TrustProxies::class,
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
                 StartSession::class,

@@ -17,4 +17,9 @@ return [
     'imported'         => 'تم الاستيراد من ملف: :filename',
     'booking_made'     => 'حجز :guest اجتماع «:meeting» في :when',
     'call_transcribed' => 'تم نسخ المكالمة وتلخيصها بالذكاء الاصطناعي.',
+
+    // Meeting activity types (spec §10)
+    'meeting_scheduled' => 'تم تحديد اجتماع: :meeting :when',
+    'meeting_rescheduled' => 'أُعيدت جدولة الاجتماع: :meeting :when',
+    'meeting_cancelled' => 'أُلغي الاجتماع: :meeting',
 ];

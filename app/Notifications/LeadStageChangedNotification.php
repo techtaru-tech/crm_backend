@@ -84,14 +84,13 @@ class LeadStageChangedNotification extends Notification implements ShouldQueue
 
     public function toMail(object $notifiable): LeadNotificationMail
     {
-        $tenant = $this->resolveNotifiableTenant($notifiable);
         $name   = trim("{$this->lead->first_name} {$this->lead->last_name}");
 
         // XSS fix: lead-notification.blade.php renders lines via
         // {!! $line !!} (trusted <strong> shell from lang strings).
         // User-controlled values (lead name, pipeline stage names that
         // tenant admins type) MUST be e()'d before __() substitution.
-        return (new LeadNotificationMail(
+        return $this->brandedMailFor(new LeadNotificationMail(
             emailSubject: __('notifications.lead_stage_changed_mail_subject'),
             headline: __('notifications.lead_stage_changed_mail_headline'),
             lines: [
@@ -102,6 +101,6 @@ class LeadStageChangedNotification extends Notification implements ShouldQueue
             ],
             actionUrl: \App\Support\AdminUrl::for('leads/' . $this->lead->id),
             actionLabel: __('notifications.btn_view_lead'),
-        ))->withTenant($tenant);
+        ), $notifiable);
     }
 }

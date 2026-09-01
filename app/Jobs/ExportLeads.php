@@ -43,7 +43,7 @@ class ExportLeads implements ShouldQueue
         $filename = 'exports/leads_' . $this->tenantId . '_' . now()->format('Ymd_His') . '.csv';
 
         Excel::store(
-            new LeadsExport($this->tenantId, $this->filters),
+            new LeadsExport($this->tenantId, $this->filters, false, $this->userId),
             $filename,
             'local'
         );

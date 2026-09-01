@@ -40,6 +40,16 @@ return Application::configure(basePath: dirname(__DIR__))
             // login route can still opt in explicitly.
         ]);
 
+        // Laravel's default guest redirect targets a route named `login`,
+        // which this app never defines — auth happens on the Filament panels
+        // (/admin/login, /super-admin/login). Without this, any guest hitting
+        // an `auth` route gets a RouteNotFoundException 500 instead of a login
+        // page — most visibly on the emailed export download link, which is
+        // opened precisely when the session has often expired.
+        $middleware->redirectGuestsTo(fn (\Illuminate\Http\Request $request) => $request->is('super-admin', 'super-admin/*')
+            ? '/super-admin/login'
+            : '/admin/login');
+
         $middleware->alias([
             'tenant.scope'       => \App\Http\Middleware\EnforceTenantScope::class,
             'resolve.tenant'     => \App\Http\Middleware\ResolveTenant::class,

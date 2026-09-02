@@ -17,7 +17,17 @@ class InboundWebhookController extends Controller
 
     public function handle(Request $request, string $tenant, string $source, string $token): Response|JsonResponse
     {
-        $connection = LeadSourceConnection::where('tenant_id', $tenant)
+        // withoutGlobalScopes(): LeadSourceConnection is BelongsToTenant, and
+        // that scope fails closed (whereRaw('0 = 1')) when no tenant is bound.
+        // An inbound webhook is unauthenticated by definition — Meta and Google
+        // have no session — so the lookup matched nothing on EVERY request and
+        // the handler returned a blanket 'OK' before it could echo Meta's
+        // hub.challenge. That failed Meta's verification, and silently dropped
+        // every real lead POST too. The tenant comes from the URL and the
+        // 48-char token is the secret that authorises the row, so the scope has
+        // nothing left to protect here.
+        $connection = LeadSourceConnection::withoutGlobalScopes()
+            ->where('tenant_id', $tenant)
             ->where('source', $source)
             ->where('webhook_token', $token)
             ->where('active', true)
@@ -41,6 +51,13 @@ class InboundWebhookController extends Controller
             ]);
             return response('OK', 200);
         }
+
+        // Bind the tenant the URL identified, the way every other public
+        // entry point does (PublicFormController, InboundLeadController,
+        // MessagingWebhookController). Anything downstream that reads a
+        // BelongsToTenant model then resolves against the right tenant
+        // instead of failing closed.
+        app()->instance('current_tenant', $connection->tenant);
 
         if (! $this->registry->has($source)) {
             Log::warning('Webhook: unregistered source', compact('source'));

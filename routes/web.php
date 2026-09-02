@@ -247,8 +247,14 @@ Route::middleware('throttle:email-track')->group(function () {
         ->name('email.track.click');
 });
 
+// PreventRequestForgery excluded: Meta, Google and every other lead
+// source POSTs server-to-server with no session and no CSRF token, so
+// this route answered 419 to every real webhook.  Authentication here is
+// the 48-char token in the path plus the connector's own signature check
+// (Meta verifies X-Hub-Signature-256 against the app secret).
 Route::post('/webhook/{tenant}/{source}/{token}', [\App\Http\Controllers\InboundWebhookController::class, 'handle'])
     ->middleware('throttle:120,1')
+    ->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\PreventRequestForgery::class])
     ->name('webhook.inbound');
 
 // GET twin of the POST webhook receiver — some integrations issue a
@@ -394,6 +400,10 @@ Route::middleware(['web', 'auth'])->prefix('billing')->name('billing.')->group(f
 // (handleWebhook) are session/auth-free — verified end-to-end.
 Route::post('/billing/webhook/{gateway}', [\App\Http\Controllers\BillingController::class, 'webhook'])
     ->middleware('throttle:240,1')
+    // Same reason as the lead-source webhook above: a payment gateway
+    // POSTs with no session, so CSRF made every callback a 419.  The
+    // gateway driver verifies its own signature.
+    ->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\PreventRequestForgery::class])
     ->name('billing.webhook');
 
 /*

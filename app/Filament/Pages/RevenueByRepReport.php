@@ -2,6 +2,8 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Concerns\PageRequiresPermission;
+
 use App\Concerns\HasReportDateRange;
 use App\Models\User;
 use App\Services\ReportService;
@@ -10,6 +12,10 @@ use Illuminate\Support\Facades\DB;
 
 class RevenueByRepReport extends Page
 {
+    use PageRequiresPermission;
+
+    protected static string $requiredPermission = 'reports.view';
+
     use HasReportDateRange;
 
     protected static string|\BackedEnum|null $navigationIcon  = 'heroicon-o-currency-dollar';

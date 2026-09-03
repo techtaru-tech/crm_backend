@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages\Settings;
 
+
 use Filament\Actions\Action;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -42,7 +43,7 @@ class RolePermissionsPage extends Page implements HasForms
     protected string $view = 'filament.pages.settings.role-permissions-page';
 
     /** Roles whose permissions an admin may customise (admin = always full). */
-    protected const EDITABLE_ROLES = ['manager', 'member'];
+    protected const EDITABLE_ROLES = ['manager', 'member', 'viewer'];
 
     public ?array $data = [];
 
@@ -94,6 +95,32 @@ class RolePermissionsPage extends Page implements HasForms
         $this->form->fill($state);
     }
 
+    /**
+     * Options offered for one role.
+     *
+     * A read-only role is short-circuited by HasRolePermissions before any
+     * permission lookup happens, so offering it "Leads · Edit" would render a
+     * checkbox that saves, reloads ticked, and changes nothing — the same
+     * dead-control problem this screen already had elsewhere.  Read-only
+     * roles are therefore offered only the view permissions, which is the
+     * one thing that genuinely varies for them: WHICH modules they can see.
+     *
+     * @param  array<string, string>  $all
+     * @return array<string, string>
+     */
+    protected function optionsForRole(string $roleName, array $all): array
+    {
+        if (! in_array($roleName, (array) config('leadhub.read_only_roles', ['viewer']), true)) {
+            return $all;
+        }
+
+        return array_filter(
+            $all,
+            fn (string $name) => str_ends_with($name, '.view'),
+            ARRAY_FILTER_USE_KEY,
+        );
+    }
+
     public function form(Schema $form): Schema
     {
         $options = $this->permissionOptions();
@@ -106,7 +133,7 @@ class RolePermissionsPage extends Page implements HasForms
                 ->schema([
                     CheckboxList::make($roleName)
                         ->hiddenLabel()
-                        ->options($options)
+                        ->options($this->optionsForRole($roleName, $options))
                         ->columns(2)
                         ->gridDirection('row')
                         ->bulkToggleable(),

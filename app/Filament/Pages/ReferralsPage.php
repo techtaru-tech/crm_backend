@@ -2,11 +2,17 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Concerns\PageRequiresPermission;
+
 use App\Models\Tenant;
 use Filament\Pages\Page;
 
 class ReferralsPage extends Page
 {
+    use PageRequiresPermission;
+
+    protected static string $requiredPermission = 'settings.manage';
+
     protected static string|\BackedEnum|null $navigationIcon  = 'heroicon-o-share';
     protected static string|\UnitEnum|null $navigationGroup = 'Settings';
     protected static ?int    $navigationSort  = 28;

@@ -2,6 +2,8 @@
 
 namespace App\Filament\Pages\Reports;
 
+use App\Filament\Concerns\PageRequiresPermission;
+
 use App\Concerns\HasReportDateRange;
 use App\Models\User;
 use App\Services\ReportService;
@@ -11,6 +13,10 @@ use Livewire\Attributes\Url;
 
 class ResponseTimeReport extends Page
 {
+    use PageRequiresPermission;
+
+    protected static string $requiredPermission = 'reports.view';
+
     use HasReportDateRange;
 
     protected static string|\BackedEnum|null $navigationIcon  = 'heroicon-o-clock';

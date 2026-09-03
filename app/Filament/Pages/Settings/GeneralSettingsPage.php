@@ -2,6 +2,8 @@
 
 namespace App\Filament\Pages\Settings;
 
+use App\Filament\Concerns\PageRequiresPermission;
+
 use App\Services\SettingsService;
 use App\Support\Currency;
 use Filament\Actions\Action;
@@ -16,6 +18,10 @@ use Filament\Pages\Page;
 
 class GeneralSettingsPage extends Page implements HasForms
 {
+    use PageRequiresPermission;
+
+    protected static string $requiredPermission = 'settings.manage';
+
     use InteractsWithForms;
 
     protected static string|\UnitEnum|null $navigationGroup = 'Advanced';

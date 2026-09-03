@@ -2,6 +2,8 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Concerns\PageRequiresPermission;
+
 use App\Models\Lead;
 use App\Models\PipelineStage;
 use Filament\Pages\Page;
@@ -9,6 +11,10 @@ use Illuminate\Support\Facades\DB;
 
 class PipelineBottleneckReport extends Page
 {
+    use PageRequiresPermission;
+
+    protected static string $requiredPermission = 'reports.view';
+
     protected static string|\BackedEnum|null $navigationIcon  = 'heroicon-o-funnel';
     protected static string|\UnitEnum|null $navigationGroup = 'Reports';
     protected static ?int    $navigationSort  = 10;

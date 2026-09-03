@@ -2,6 +2,8 @@
 
 namespace App\Filament\Pages\Settings;
 
+use App\Filament\Concerns\PageRequiresPermission;
+
 use App\Services\SettingsService;
 use Filament\Actions\Action;
 use Filament\Schemas\Components\Section;
@@ -16,6 +18,10 @@ use Illuminate\Support\Facades\Storage;
 
 class StorageSettingsPage extends Page implements HasForms
 {
+    use PageRequiresPermission;
+
+    protected static string $requiredPermission = 'settings.manage';
+
     use InteractsWithForms;
 
     protected static string|\UnitEnum|null $navigationGroup = 'Advanced';

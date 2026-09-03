@@ -2,6 +2,8 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Concerns\PageRequiresPermission;
+
 use App\Services\IndustryPackService;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
@@ -9,6 +11,10 @@ use Illuminate\Contracts\Support\Htmlable;
 
 class IndustryPackInstaller extends Page
 {
+    use PageRequiresPermission;
+
+    protected static string $requiredPermission = 'settings.manage';
+
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-building-storefront';
 
     protected static string|\UnitEnum|null $navigationGroup = 'Settings';

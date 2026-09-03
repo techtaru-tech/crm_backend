@@ -2,6 +2,8 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Concerns\PageRequiresPermission;
+
 use App\Filament\Resources\LeadSourceConnectionResource;
 use App\Models\LeadSourceConnection;
 use Filament\Pages\Page;
@@ -9,6 +11,10 @@ use Illuminate\Support\Facades\DB;
 
 class LeadSourceHealthReport extends Page
 {
+    use PageRequiresPermission;
+
+    protected static string $requiredPermission = 'reports.view';
+
     protected static string|\BackedEnum|null $navigationIcon  = 'heroicon-o-signal';
     protected static string|\UnitEnum|null $navigationGroup = 'Integrations';
     protected static ?int    $navigationSort  = 20;

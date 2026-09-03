@@ -194,6 +194,33 @@ return [
     | When enabled, the /register route is live and visitors can create a
     | workspace themselves. Disable it for self-hosted single-tenant installs.
     */
+    /*
+    |--------------------------------------------------------------------------
+    | Read-only Roles
+    |--------------------------------------------------------------------------
+    | Roles that may never write, whatever the Role Permissions screen says.
+    | HasRolePermissions short-circuits create/edit/delete for these before
+    | any permission lookup, and the Role Permissions screen offers them only
+    | the view permissions so no checkbox is shown that cannot take effect.
+    */
+    'read_only_roles' => ['viewer'],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Assignable Roles
+    |--------------------------------------------------------------------------
+    | Roles that carry a lead list.  Round-robin picks from these when a step
+    | names no users of its own, so owners and auditors are not handed leads
+    | they were never meant to work.  A workspace whose every user is an admin
+    | still gets a rotation — see AssignLeadAction::roundRobinCandidates().
+    |
+    | Default is 'member' alone: the spec has the Sales Executive working
+    | leads and the Team Manager supervising, so a manager who also carries
+    | a list is an opt-in, not the assumption.  Add 'manager' here for a
+    | small team where the manager sells too.
+    */
+    'assignable_roles' => ['member'],
+
     'registration' => [
         'enabled' => env('LEADHUB_REGISTRATION_ENABLED', true),
     ],

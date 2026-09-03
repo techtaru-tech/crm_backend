@@ -146,4 +146,6 @@ return [
     'option_lead_status_qualified'      => 'Qualified',
     'option_lead_status_lost'           => 'Lost',
     'option_lead_status_won'            => 'Won',
+    'queue_stalled_title' => 'Automations are queued but not running',
+    'queue_stalled_body'  => ':pending job(s) have been waiting :oldest_minutes minutes. Automations run on the queue, so nothing will happen until a queue worker is running (php artisan queue:work).',
 ];

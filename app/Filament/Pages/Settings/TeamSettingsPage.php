@@ -2,6 +2,8 @@
 
 namespace App\Filament\Pages\Settings;
 
+use App\Filament\Concerns\PageRequiresPermission;
+
 use App\Models\Tenant;
 use App\Models\User;
 use App\Services\InvitationService;
@@ -19,6 +21,10 @@ use Filament\Pages\Page;
  */
 class TeamSettingsPage extends Page
 {
+    use PageRequiresPermission;
+
+    protected static string $requiredPermission = 'settings.manage';
+
     protected static string|\UnitEnum|null $navigationGroup = 'Users & Access';
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-users';
     protected static ?int $navigationSort = 27;

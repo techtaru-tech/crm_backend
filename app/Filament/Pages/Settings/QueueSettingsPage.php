@@ -2,11 +2,17 @@
 
 namespace App\Filament\Pages\Settings;
 
+use App\Filament\Concerns\PageRequiresPermission;
+
 use Filament\Pages\Page;
 use Illuminate\Support\Facades\Queue;
 
 class QueueSettingsPage extends Page
 {
+    use PageRequiresPermission;
+
+    protected static string $requiredPermission = 'settings.manage';
+
     protected static string|\UnitEnum|null $navigationGroup = 'Advanced';
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-queue-list';
     protected static ?int $navigationSort = 26;

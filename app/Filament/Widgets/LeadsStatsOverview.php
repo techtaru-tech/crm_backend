@@ -18,6 +18,7 @@ class LeadsStatsOverview extends StatsOverviewWidget
     protected function getStats(): array
     {
         $tenantId = auth()->user()?->tenant_id;
+        $userId = (int) auth()->id();
         if (! $tenantId) {
             return [];
         }
@@ -28,9 +29,16 @@ class LeadsStatsOverview extends StatsOverviewWidget
         // every page load.  60 s is short enough that conversion-rate
         // / new-today numbers stay roughly live and long enough to
         // absorb refresh bursts.
+        // The cache key carries the user, not just the tenant.  These figures
+        // run through LeadVisibilityScope, so a manager's total is smaller
+        // than an admin's — but keyed by tenant alone, whoever loaded the
+        // dashboard first had their numbers served to everyone else for the
+        // next 60 seconds.  A rep saw counts covering leads they cannot open,
+        // and an admin saw a rep's smaller total and thought leads had
+        // vanished.  The version bump drops the tenant-wide entries.
         $d = \App\Support\TenantCache::remember(
             $tenantId,
-            "widget:dashboard-stats:tenant:{$tenantId}:v1",
+            "widget:dashboard-stats:tenant:{$tenantId}:user:{$userId}:v2",
             60,
             fn () => app(ReportService::class)->dashboardStats($tenantId),
         );

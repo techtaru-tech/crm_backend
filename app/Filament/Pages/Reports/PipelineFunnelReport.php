@@ -2,6 +2,8 @@
 
 namespace App\Filament\Pages\Reports;
 
+use App\Filament\Concerns\PageRequiresPermission;
+
 use App\Models\Pipeline;
 use App\Services\ReportService;
 use Filament\Pages\Page;
@@ -9,6 +11,10 @@ use Filament\Actions\Action;
 
 class PipelineFunnelReport extends Page
 {
+    use PageRequiresPermission;
+
+    protected static string $requiredPermission = 'reports.view';
+
     protected static string|\BackedEnum|null $navigationIcon  = 'heroicon-o-funnel';
     protected static string|\UnitEnum|null $navigationGroup = 'Reports';
     protected static ?int    $navigationSort  = 3;

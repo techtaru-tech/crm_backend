@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages;
 
+use App\Filament\Concerns\PageRequiresPermission;
+
 use App\Models\SharedTemplate;
 use App\Models\Tenant;
 use App\Services\MarketplaceInstaller;
@@ -29,6 +31,10 @@ use UnitEnum;
  */
 class MarketplacePage extends Page
 {
+    use PageRequiresPermission;
+
+    protected static string $requiredPermission = 'settings.manage';
+
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-shopping-bag';
     protected static string|UnitEnum|null $navigationGroup = 'Templates';
     protected static ?int $navigationSort = 90;

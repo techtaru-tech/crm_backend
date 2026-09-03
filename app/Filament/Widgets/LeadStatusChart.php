@@ -34,6 +34,7 @@ class LeadStatusChart extends ChartWidget
     protected function getData(): array
     {
         $tenantId = auth()->user()?->tenant_id;
+        $userId = (int) auth()->id();
         if (! $tenantId) {
             return ['datasets' => [], 'labels' => []];
         }
@@ -46,9 +47,16 @@ class LeadStatusChart extends ChartWidget
         // Cache the GROUP BY for 60 s — per (tenant, range) so each
         // filter selection caches independently.  Status counts don't
         // need second-by-second freshness.
+        // The cache key carries the user, not just the tenant.  These figures
+        // run through LeadVisibilityScope, so a manager's total is smaller
+        // than an admin's — but keyed by tenant alone, whoever loaded the
+        // dashboard first had their numbers served to everyone else for the
+        // next 60 seconds.  A rep saw counts covering leads they cannot open,
+        // and an admin saw a rep's smaller total and thought leads had
+        // vanished.  The version bump drops the tenant-wide entries.
         $data = \App\Support\TenantCache::remember(
             $tenantId,
-            "widget:lead-status-chart:tenant:{$tenantId}:range:{$range}:v1",
+            "widget:lead-status-chart:tenant:{$tenantId}:user:{$userId}:range:{$range}:v2",
             60,
             fn () => Lead::where('tenant_id', $tenantId)
                 ->whereBetween('created_at', [$fromDate, $toDate])

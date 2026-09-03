@@ -2,6 +2,8 @@
 
 namespace App\Filament\Pages\Settings;
 
+use App\Filament\Concerns\PageRequiresPermission;
+
 use App\Models\AuditLog;
 use App\Services\SettingsService;
 use Filament\Actions\Action;
@@ -18,6 +20,10 @@ use Filament\Pages\Page;
 
 class RealtimeSettingsPage extends Page implements HasForms
 {
+    use PageRequiresPermission;
+
+    protected static string $requiredPermission = 'settings.manage';
+
     use InteractsWithForms;
 
     protected static string|\UnitEnum|null $navigationGroup = 'Advanced';

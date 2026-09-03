@@ -35,6 +35,7 @@ class LeadsOverTimeChart extends ChartWidget
     protected function getData(): array
     {
         $tenantId = auth()->user()?->tenant_id;
+        $userId = (int) auth()->id();
         if (! $tenantId) {
             return ['datasets' => [], 'labels' => []];
         }
@@ -45,9 +46,16 @@ class LeadsOverTimeChart extends ChartWidget
         [$fromDate, $toDate] = $svc->dateRange($range, null, null);
 
         // 60 s cache per (tenant, range) — same rationale as LeadStatusChart.
+        // The cache key carries the user, not just the tenant.  These figures
+        // run through LeadVisibilityScope, so a manager's total is smaller
+        // than an admin's — but keyed by tenant alone, whoever loaded the
+        // dashboard first had their numbers served to everyone else for the
+        // next 60 seconds.  A rep saw counts covering leads they cannot open,
+        // and an admin saw a rep's smaller total and thought leads had
+        // vanished.  The version bump drops the tenant-wide entries.
         $result = \App\Support\TenantCache::remember(
             $tenantId,
-            "widget:leads-over-time:tenant:{$tenantId}:range:{$range}:v1",
+            "widget:leads-over-time:tenant:{$tenantId}:user:{$userId}:range:{$range}:v2",
             60,
             fn () => $svc->leadsOverTime($tenantId, $fromDate, $toDate, 'day'),
         );

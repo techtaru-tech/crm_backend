@@ -2,6 +2,8 @@
 
 namespace App\Filament\Pages\Settings;
 
+use App\Filament\Concerns\PageRequiresPermission;
+
 use App\Models\AuditLog;
 use App\Services\TenantSecurityService;
 use Filament\Actions\Action;
@@ -22,6 +24,10 @@ use Filament\Schemas\Schema;
  */
 class SecuritySettingsPage extends Page implements HasForms
 {
+    use PageRequiresPermission;
+
+    protected static string $requiredPermission = 'settings.manage';
+
     use InteractsWithForms;
 
     protected static string|\UnitEnum|null $navigationGroup = 'Users & Access';

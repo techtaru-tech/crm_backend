@@ -20,6 +20,7 @@ class RevenueForecastWidget extends StatsOverviewWidget
     protected function getStats(): array
     {
         $tenantId = auth()->user()?->tenant_id;
+        $userId = (int) auth()->id();
         if (! $tenantId) {
             return [];
         }
@@ -33,9 +34,16 @@ class RevenueForecastWidget extends StatsOverviewWidget
         // any version bump; 60 s is short enough that "won this month"
         // feels live and long enough to absorb dashboard refresh
         // bursts.
+        // The cache key carries the user, not just the tenant.  These figures
+        // run through LeadVisibilityScope, so a manager's total is smaller
+        // than an admin's — but keyed by tenant alone, whoever loaded the
+        // dashboard first had their numbers served to everyone else for the
+        // next 60 seconds.  A rep saw counts covering leads they cannot open,
+        // and an admin saw a rep's smaller total and thought leads had
+        // vanished.  The version bump drops the tenant-wide entries.
         $aggregates = \App\Support\TenantCache::remember(
             $tenantId,
-            "widget:revenue-forecast:tenant:{$tenantId}:v2",
+            "widget:revenue-forecast:tenant:{$tenantId}:user:{$userId}:v3",
             60,
             function () use ($tenantId): array {
                 // H7 fix: post-migration 'converted' was coerced to 'won',

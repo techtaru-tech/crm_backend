@@ -2,6 +2,8 @@
 
 namespace App\Filament\Pages\Reports;
 
+use App\Filament\Concerns\PageRequiresPermission;
+
 use App\Models\AuditLog;
 use App\Models\User;
 use Filament\Forms\Components\DatePicker;
@@ -17,6 +19,10 @@ use Illuminate\Database\Eloquent\Builder;
 
 class AuditLogPage extends Page implements HasTable
 {
+    use PageRequiresPermission;
+
+    protected static string $requiredPermission = 'settings.view';
+
     use InteractsWithTable;
 
     protected static string|\BackedEnum|null $navigationIcon  = 'heroicon-o-clipboard-document-list';

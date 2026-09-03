@@ -30,9 +30,36 @@ use Illuminate\Auth\Events\Failed;
  */
 class AuthAttemptListener
 {
+    /**
+     * Fallbacks only.  The live values come from SecuritySettings, which
+     * the operator edits at Settings > Security — that page has always
+     * saved max_login_attempts and lockout_duration, but nothing read
+     * them back, so raising the limit there changed nothing and the
+     * hardcoded 5-in-15-minutes stayed in force.
+     */
     public const LOCKOUT_THRESHOLD     = 5;
     public const LOCKOUT_WINDOW_MIN    = 15;
     public const LOCKOUT_DURATION_MIN  = 15;
+
+    /**
+     * Operator-configured lockout policy, falling back to the constants
+     * above when the settings table has not been migrated yet.
+     *
+     * @return array{0:int, 1:int} [threshold, lockout minutes]
+     */
+    protected function policy(): array
+    {
+        try {
+            $s = app(\App\Settings\SecuritySettings::class);
+
+            return [
+                max(1, (int) $s->max_login_attempts) ?: self::LOCKOUT_THRESHOLD,
+                max(1, (int) $s->lockout_duration)   ?: self::LOCKOUT_DURATION_MIN,
+            ];
+        } catch (\Throwable) {
+            return [self::LOCKOUT_THRESHOLD, self::LOCKOUT_DURATION_MIN];
+        }
+    }
 
     public function handle(Failed $event): void
     {
@@ -52,12 +79,14 @@ class AuthAttemptListener
         // previous DB-COUNT path which could let multiple workers
         // observe a stale sub-threshold count and slip past lockout.
         // The DB row below is then written for audit purposes only.
+        [$threshold, $lockoutMinutes] = $this->policy();
+
         $lockedUntil = LoginAttempt::recordFailureAndMaybeLock(
             $email !== '' ? $email : null,
             $ip,
-            self::LOCKOUT_THRESHOLD,
+            $threshold,
             self::LOCKOUT_WINDOW_MIN * 60,
-            self::LOCKOUT_DURATION_MIN * 60,
+            $lockoutMinutes * 60,
         );
 
         try {

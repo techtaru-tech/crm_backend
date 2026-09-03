@@ -38,7 +38,24 @@ namespace App\Filament\Concerns;
 trait HasRolePermissions
 {
     /** Roles that may never create, edit or delete anything. */
+    /** Fallback; the live list is config('leadhub.read_only_roles'). */
     public const READ_ONLY_ROLES = ['viewer'];
+
+    /**
+     * Roles that may never write.
+     *
+     * Read from config so the Role Permissions screen can consult the same
+     * list without reaching into a trait constant — PHP does not allow that
+     * — and without keeping a second copy that would drift out of step.
+     *
+     * @return array<int, string>
+     */
+    public static function readOnlyRoles(): array
+    {
+        $roles = config('leadhub.read_only_roles', self::READ_ONLY_ROLES);
+
+        return is_array($roles) && $roles !== [] ? $roles : self::READ_ONLY_ROLES;
+    }
 
     /** Roles that carry write access; presence of any one cancels read-only. */
     protected const WRITING_ROLES = ['super_admin', 'admin', 'manager', 'member'];
@@ -70,9 +87,15 @@ trait HasRolePermissions
             return false;
         }
 
+        // '.manage', not '.view'.  Several permission families are a
+        // {prefix}.view / {prefix}.manage pair with no '.edit' at all —
+        // integrations, pipeline, settings, api_keys, team, webhooks.  With
+        // '.view' in this list, unticking "Integrations · Manage" changed
+        // nothing, because being allowed to look at a connection still
+        // granted the right to edit it, test it and reconnect its OAuth.
         return static::userHasAny([
             static::permPrefix() . '.edit',
-            static::permPrefix() . '.view',
+            static::permPrefix() . '.manage',
         ]);
     }
 
@@ -109,7 +132,7 @@ trait HasRolePermissions
             return false;
         }
 
-        return $user->hasAnyRole(self::READ_ONLY_ROLES)
+        return $user->hasAnyRole(static::readOnlyRoles())
             && ! $user->hasAnyRole(self::WRITING_ROLES);
     }
 
@@ -163,10 +186,17 @@ trait HasRolePermissions
                 if ($pivotRole === 'admin') {
                     return true;
                 }
-                if ($pivotRole === 'manager') {
-                    // Manager gets view / create / edit on any resource.
-                    // Delete/manage is admin-only unless the Spatie
-                    // perm explicitly grants it (handled above).
+                // The manager floor used to grant view/create/edit/assign/
+                // export/import on every resource from the pivot alone, which
+                // silently outranked the Role Permissions screen: an admin
+                // could untick a box, see it save, and the manager would keep
+                // the access with no indication why.  It only ever existed for
+                // legacy tenants whose owner was never synced to a Spatie
+                // role, so it now applies only to a user who holds NO Spatie
+                // role at all.  Once a role is assigned, that role decides.
+                if ($pivotRole === 'manager'
+                    && method_exists($user, 'getRoleNames')
+                    && $user->getRoleNames()->isEmpty()) {
                     foreach ($permissions as $perm) {
                         if (str_ends_with($perm, '.view')
                             || str_ends_with($perm, '.create')

@@ -2,6 +2,8 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Concerns\PageRequiresPermission;
+
 use App\Models\Lead;
 use App\Models\Pipeline;
 use App\Models\PipelineStage;
@@ -11,6 +13,10 @@ use UnitEnum;
 
 class KanbanBoard extends Page
 {
+    use PageRequiresPermission;
+
+    protected static string $requiredPermission = 'pipeline.view';
+
     public function getView(): string
     {
         return 'filament.pages.kanban-board';

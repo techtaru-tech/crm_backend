@@ -107,7 +107,14 @@ class RunAutomation implements ShouldQueue
                     }
                     return;
                 } elseif ($step->type === 'action') {
-                    $actionType = $step->config['action_type'] ?? '';
+                    // Accept both keys.  The Flow Builder writes 'action_type',
+                    // but every automation that arrives from the seeder — the
+                    // five each new tenant starts with, Round-Robin Assignment
+                    // among them — stores 'action'.  Reading only 'action_type'
+                    // meant those steps resolved to an empty action name and
+                    // failed, one by one, with the run still reported as
+                    // 'partial' rather than as an error anyone would chase.
+                    $actionType = (string) ($step->config['action_type'] ?? $step->config['action'] ?? '');
                     $success    = $factory->execute($actionType, $lead, $step->config ?? [], $run);
 
                     $stepLog['action']  = $actionType;

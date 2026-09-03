@@ -168,7 +168,44 @@ class TeamResource extends Resource
 
         return parent::getEloquentQuery()
             ->with('managers')
-            ->when($tenantId, fn ($q) => $q->where('tenant_id', $tenantId));
+            ->when($tenantId, fn ($q) => $q->where('tenant_id', $tenantId))
+            // Restrict to the viewer's own teams.  Leads have
+            // LeadVisibilityScope; teams had nothing, so a manager of one
+            // team could read every other team in the workspace — its name,
+            // description and members — which the spec scopes to "own team"
+            // throughout.  Nothing writable leaked (teams.edit is admin-only),
+            // but the org's whole team structure was on show to every rep.
+            ->when(! static::userSeesAllTeams(), function ($q) {
+                $user = auth()->user();
+                $ids  = $user && method_exists($user, 'teamIds') ? $user->teamIds() : [];
+
+                // No team membership means no rows, not every row.
+                return $q->whereIn('id', $ids ?: [0]);
+            });
+    }
+
+    /**
+     * Whoever administers the workspace sees every team; so does a read-only
+     * auditor, whose whole purpose is workspace-wide visibility.  Everyone
+     * else sees the teams they belong to.
+     */
+    protected static function userSeesAllTeams(): bool
+    {
+        $user = auth()->user();
+
+        if (! $user) {
+            return false;
+        }
+
+        if ($user->is_super_admin ?? false) {
+            return true;
+        }
+
+        return method_exists($user, 'hasAnyRole')
+            && $user->hasAnyRole(array_merge(
+                ['admin'],
+                (array) config('leadhub.read_only_roles', ['viewer']),
+            ));
     }
 
     public static function getPages(): array

@@ -2,6 +2,8 @@
 
 namespace App\Filament\Pages\Settings;
 
+use App\Filament\Concerns\PageRequiresPermission;
+
 use Filament\Actions\Action;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
@@ -17,6 +19,10 @@ use Filament\Schemas\Schema;
 
 class BusinessHoursSettingsPage extends Page implements HasForms
 {
+    use PageRequiresPermission;
+
+    protected static string $requiredPermission = 'settings.manage';
+
     use InteractsWithForms;
 
     protected static string|\UnitEnum|null $navigationGroup = 'Advanced';

@@ -2,6 +2,8 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Concerns\PageRequiresPermission;
+
 use App\Models\UserSession;
 use Filament\Actions\Action;
 use Filament\Notifications\Notification;
@@ -12,6 +14,10 @@ use UnitEnum;
 
 class SessionsPage extends Page
 {
+    use PageRequiresPermission;
+
+    protected static string $requiredPermission = 'settings.view';
+
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-computer-desktop';
     protected static string|UnitEnum|null $navigationGroup = 'Settings';
     protected static ?int $navigationSort = 45;

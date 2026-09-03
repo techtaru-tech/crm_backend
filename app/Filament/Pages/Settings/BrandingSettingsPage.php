@@ -2,6 +2,8 @@
 
 namespace App\Filament\Pages\Settings;
 
+use App\Filament\Concerns\PageRequiresPermission;
+
 use App\Models\AuditLog;
 use App\Settings\BrandingSettings;
 use App\Services\SettingsService;
@@ -20,6 +22,10 @@ use Illuminate\Support\Facades\Storage;
 
 class BrandingSettingsPage extends Page implements HasForms
 {
+    use PageRequiresPermission;
+
+    protected static string $requiredPermission = 'settings.manage';
+
     use InteractsWithForms;
 
     protected static string|\UnitEnum|null $navigationGroup = 'Brand & Domain';

@@ -2,6 +2,8 @@
 
 namespace App\Filament\Pages\Settings;
 
+use App\Filament\Concerns\PageRequiresPermission;
+
 use App\Services\SettingsService;
 use App\Services\TenantSmtpManager;
 use Filament\Actions\Action;
@@ -17,6 +19,10 @@ use Illuminate\Support\Facades\Mail;
 
 class EmailSettingsPage extends Page implements HasForms
 {
+    use PageRequiresPermission;
+
+    protected static string $requiredPermission = 'settings.manage';
+
     use InteractsWithForms;
 
     protected static string|\UnitEnum|null $navigationGroup = 'Communications';

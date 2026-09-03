@@ -2,6 +2,8 @@
 
 namespace App\Filament\Pages\Reports;
 
+use App\Filament\Concerns\PageRequiresPermission;
+
 use App\Concerns\HasReportDateRange;
 use App\Services\ReportService;
 use Filament\Pages\Page;
@@ -10,6 +12,10 @@ use Livewire\Attributes\Url;
 
 class LeadVolumeReport extends Page
 {
+    use PageRequiresPermission;
+
+    protected static string $requiredPermission = 'reports.view';
+
     use HasReportDateRange;
 
     protected static string|\BackedEnum|null $navigationIcon  = 'heroicon-o-chart-bar';

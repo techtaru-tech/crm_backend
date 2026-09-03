@@ -2,6 +2,8 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Concerns\PageRequiresPermission;
+
 use App\Filament\Resources\AutomationResource;
 use App\Models\Automation;
 use App\Services\AutomationTemplateService;
@@ -11,6 +13,10 @@ use Illuminate\Contracts\Support\Htmlable;
 
 class AutomationTemplateBrowser extends Page
 {
+    use PageRequiresPermission;
+
+    protected static string $requiredPermission = 'automations.view';
+
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-sparkles';
 
     // Hidden from the sidebar — accessed via button on the Automations list.

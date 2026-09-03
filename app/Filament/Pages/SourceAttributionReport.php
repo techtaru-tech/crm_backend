@@ -2,6 +2,8 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Concerns\PageRequiresPermission;
+
 use App\Concerns\HasReportDateRange;
 use App\Models\Lead;
 use Filament\Pages\Page;
@@ -9,6 +11,10 @@ use Illuminate\Support\Carbon;
 
 class SourceAttributionReport extends Page
 {
+    use PageRequiresPermission;
+
+    protected static string $requiredPermission = 'reports.view';
+
     use HasReportDateRange;
 
     protected static string|\BackedEnum|null $navigationIcon  = 'heroicon-o-chart-bar';

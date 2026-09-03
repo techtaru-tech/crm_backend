@@ -2,12 +2,18 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Concerns\PageRequiresPermission;
+
 use App\Models\EmailSequence;
 use Filament\Pages\Page;
 use Illuminate\Support\Facades\DB;
 
 class EmailSequencesReport extends Page
 {
+    use PageRequiresPermission;
+
+    protected static string $requiredPermission = 'reports.view';
+
     protected static string|\BackedEnum|null $navigationIcon  = 'heroicon-o-envelope';
     protected static string|\UnitEnum|null   $navigationGroup = 'Reports';
     protected static ?int    $navigationSort  = 8;
